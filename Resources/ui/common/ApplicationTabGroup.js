@@ -7,7 +7,7 @@ function ApplicationTabGroup(Window) {
 	var view = Ti.UI.createView({
 		width: 150,
 		height: 150,
-		top:180 
+		top:180
 	});
 	var view2 = Ti.UI.createView();
 	
@@ -15,7 +15,7 @@ function ApplicationTabGroup(Window) {
 	var label = Ti.UI.createLabel({
 		text: "Hello World" ,
 		height: 12,
-		width: 150, 
+		width: 150,
 		top: 120,
 		color: "red"
 	});
@@ -87,7 +87,7 @@ function ApplicationTabGroup(Window) {
 	});
 	var sbmbutton = Ti.UI.createButton({
 		title: "Submit!",
-		top:340,
+		top:100,
 		left: 10,
 		width:100,
 		height: 40
