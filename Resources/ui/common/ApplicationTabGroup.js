@@ -1,7 +1,7 @@
 function ApplicationTabGroup(Window) {
 	//create module instance
 	var self = Ti.UI.createTabGroup({
-		backgroundColor: "blue"
+		backgroundColor: "#2CD6B5"
 	});
 	
 	var view = Ti.UI.createView({
