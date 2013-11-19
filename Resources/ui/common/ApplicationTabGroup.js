@@ -6,6 +6,12 @@ function ApplicationTabGroup(Window) {
 		barColor: '#2CD6B5'
 	});
 	
+	var nextWindow = Titanium.UI.createWindow(
+	    {
+			url: 'next.js',
+			barColor: '#000'
+	    }
+	);
 	
 	var view1 = Ti.UI.createView({
 		width: 150,
