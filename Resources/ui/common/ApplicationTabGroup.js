@@ -1,6 +1,9 @@
 function ApplicationTabGroup(Window) {
 	//create module instance
 	var self = Ti.UI.createTabGroup({
+		tabsBackgroundColor : "#2CD6B5",
+		barColor: '#2CD6B5',
+		tabsTintColor: "#2B6C5B"
 	});
 	
 	var nextWindow = Titanium.UI.createWindow(
