@@ -30,22 +30,22 @@ function ApplicationTabGroup(Window) {
 	
 	var tab1 = Ti.UI.createTab({
 		title: L('ホーム'),
-		icon: '/images/KS_nav_ui.png',
+		icon: '/images/KS_nav_home.png',
 		window: win1
 	});
 	var tab2 = Ti.UI.createTab({
 		title: L('ヘルプ'),
-		icon: '/images/KS_nav_views.png',
+		icon: '/images/KS_nav_help.png',
 		window: win2
 	});
 	var tab3 = Ti.UI.createTab({
 		title: L('相合仲間'),
-		icon: '/images/KS_nav_views.png',
+		icon: '/images/KS_nav_friends.png',
 		window: win3
 	});
 	var tab4 = Ti.UI.createTab({
 		title: L('設定'),
-		icon: '/images/KS_nav_views.png',
+		icon: '/images/KS_nav_setting.png',
 		window: win4
 	});
 	
