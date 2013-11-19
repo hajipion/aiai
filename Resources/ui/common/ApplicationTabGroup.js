@@ -23,10 +23,10 @@ function ApplicationTabGroup(Window) {
 	var view4 = Ti.UI.createView();
 
 	//create app tabs
-	var win1 = new Window(L('home')),
-		win2 = new Window(L('help')),
-		win3 = new Window(L('friends')),
-		win4 = new Window(L('setting'));
+	var win1 = new Window(L('ホーム')),
+		win2 = new Window(L('ヘルプ')),
+		win3 = new Window(L('相合仲間')),
+		win4 = new Window(L('設定'));
 	
 	var tab1 = Ti.UI.createTab({
 		title: L('ホーム'),
