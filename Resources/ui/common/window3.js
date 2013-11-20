@@ -68,12 +68,12 @@ function Window3(title){
     	});
     	var nameLabel = Ti.UI.createLabel({
     		font: { fontSize:30 },
-    		color: '#fff',
+    		color: '#000',
     		top: 0
     	});
     	var perLabel = Ti.UI.createLabel({
     		font: { fontSize:25 },
-	    	color: '#fff',
+	    	color: '#000',
     		bottom: 0
     	});
     	nameLabel.text = user.text;
@@ -84,6 +84,7 @@ function Window3(title){
 	}	
 	
 	var user_list = Ti.UI.createTableView({
+		opacity: 0.5,
 		data: data
 	});
 
