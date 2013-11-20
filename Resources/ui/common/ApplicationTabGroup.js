@@ -18,33 +18,34 @@ function ApplicationTabGroup(Window) {
 		height: 150,
 		top:180
 	});
-	var view2 = Ti.UI.createView();
+	//var view2 = Ti.UI.createView();
 	var view4 = Ti.UI.createView();
 
 	var Win3 = require('ui/common/window3');
+	var Win2 = require('ui/common/window2');
 	//create app tabs
-	var win1 = new Window(L('ホーム')),
-		win2 = new Window(L('ヘルプ')),
+	var win1 = new Window('ホーム'),
+		win2 = new Win2('ヘルプ'),
 		win3 = new Win3('相合仲間'),
-		win4 = new Window(L('設定'));
+		win4 = new Window('設定');
 	
 	var tab1 = Ti.UI.createTab({
-		title: L('ホーム'),
+		title: 'ホーム',
 		icon: '/images/KS_nav_home.png',
 		window: win1
 	});
 	var tab2 = Ti.UI.createTab({
-		title: L('ヘルプ'),
+		title: 'ヘルプ',
 		icon: '/images/KS_nav_help.png',
 		window: win2
 	});
 	var tab3 = Ti.UI.createTab({
-		title: L('相合仲間'),
+		title: '相合仲間',
 		icon: '/images/KS_nav_friends.png',
 		window: win3
 	});
 	var tab4 = Ti.UI.createTab({
-		title: L('設定'),
+		title: '設定',
 		icon: '/images/KS_nav_setting.png',
 		window: win4
 	});
@@ -55,7 +56,7 @@ function ApplicationTabGroup(Window) {
 	win4.containingTab = tab4;
 	
 	win1.add(view1);
-	win2.add(view2);
+	// win2.add(view2);
 	win4.add(view4);
 	
 	// ラベルを作る
@@ -124,9 +125,9 @@ function ApplicationTabGroup(Window) {
 	view1.add(label);
 	view1.add(button);
 	
-	view2.add(tf);
-	view2.add(sbmbutton);
-	view2.add(map);
+	//view2.add(tf);
+	//view2.add(sbmbutton);
+	//view2.add(map);
 	
 	self.addTab(tab1);
 	self.addTab(tab2);
