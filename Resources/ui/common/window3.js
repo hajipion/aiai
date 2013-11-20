@@ -88,7 +88,7 @@ function Window3(title){
 	});
 
 	user_list.addEventListener('click', function(e){
-		var Prof = require('profile');
+		var Prof = require('ui/common/profile');
 		var prof = new Prof('user');
 		//Ti.UI.currentTab.open(prof,{animated:true});
 		prof.open();

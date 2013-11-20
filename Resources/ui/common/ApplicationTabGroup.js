@@ -21,7 +21,7 @@ function ApplicationTabGroup(Window) {
 	var view2 = Ti.UI.createView();
 	var view4 = Ti.UI.createView();
 
-	var Win3 = require('window3');
+	var Win3 = require('ui/common/window3');
 	//create app tabs
 	var win1 = new Window(L('ホーム')),
 		win2 = new Window(L('ヘルプ')),
