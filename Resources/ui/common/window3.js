@@ -87,6 +87,12 @@ function Window3(title){
 		data: data
 	});
 
+	user_list.addEventListener('click', function(e){
+		var Prof = require('profile');
+		var prof = new Prof('user');
+		//Ti.UI.currentTab.open(prof,{animated:true});
+		prof.open();
+	});
 	view_list.add(view_bottom_back);
 	view_list.add(user_list);
 
