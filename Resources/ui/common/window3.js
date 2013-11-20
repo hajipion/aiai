@@ -87,7 +87,7 @@ function Window3(title){
 		opacity: 0.5,
 		data: data
 	});
-
+	
 	user_list.addEventListener('click', function(e){
 		var Prof = require('ui/common/profile');
 		var prof = new Prof('user');
