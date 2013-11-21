@@ -73,8 +73,9 @@ function Window3(title){
     		top: 5
     	});
     	var perLabel = Ti.UI.createLabel({
-    		font: { fontSize:15 },
-	    	color: '#2CD6B5',
+    		font: { fontSize:16 },
+	    	color: '#38695A',
+	    	fontWeight: 'bold',
     		bottom: 3
     	});
     	nameLabel.text = user.text;
