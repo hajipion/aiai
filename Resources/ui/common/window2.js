@@ -30,14 +30,24 @@ function Window2(title){
 	var view_search = Ti.UI.createView({
 		layout: 'horizontal',
 		top: 0,
-		height: '20%',
+		height: '30%',
 		backgroundColor: '#000',
 		opacity: 0.5
 	});
 	// 現在地のテキストフィールド
 	var tfPresent = Ti.UI.createTextField({
 		color: "#333",
-		hintText: "name",
+		hintText: "現在地",
+		height: 'auto',
+		width: '60%',
+		top: 10,
+		left: 60,
+		borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED
+	});
+	// 目的地のテキストフィールド
+	var tfDestination = Ti.UI.createTextField({
+		color: "#333",
+		hintText: "目的地",
 		height: 'auto',
 		width: '60%',
 		top: 10,
@@ -56,7 +66,8 @@ function Window2(title){
 
 	view.add(map);
 	map.add(view_search);
-	view_search.add(tf);
+	view_search.add(tfPresent);
+	view_search.add(tfDestination);
 	view_search.add(sbmbutton);
 	
 	win.add(view);
