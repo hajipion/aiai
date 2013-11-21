@@ -72,14 +72,23 @@ function Window3(title){
     		color: '#000',
     		top: 5
     	});
+    	var heartLabel = Ti.UI.createLabel({
+			layout: 'horizontal',
+    		font: { fontSize:17 },
+	    	color: '#38695A',
+	    	fontWeight: 'bold',
+    		bottom: 3
+    	});
     	var perLabel = Ti.UI.createLabel({
-    		font: { fontSize:16 },
+			layout: 'horizontal',
+    		font: { fontSize:17 },
 	    	color: '#38695A',
 	    	fontWeight: 'bold',
     		bottom: 3
     	});
     	nameLabel.text = user.text;
-    	perLabel.text = user.per;
+    	heartLabel.text = '♥紳士度 ';
+    	perLabel.text = heartLabel.text + user.per;
     	row.add(nameLabel);
     	row.add(perLabel);
     	data.push(row);
