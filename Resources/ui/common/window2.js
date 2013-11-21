@@ -57,7 +57,7 @@ function Window2(title){
 	// ヘルプボタン
 	var sbmbutton = Ti.UI.createButton({
 		title: "HELP!",
-		width: '60%',
+		width: '100%',
 		height: 'auto'
 	});
 	// アラート
