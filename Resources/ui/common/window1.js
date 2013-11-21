@@ -35,7 +35,7 @@ function Window1(title){
 
 	// bottom view
 	var view_bottom = Ti.UI.createView({
-		height: '65%',
+		height: '80%',
 		width: 'auto',
 	  	fill: false,
 		bottom: 0
@@ -43,11 +43,13 @@ function Window1(title){
 	
 	var view_bottom_back = Ti.UI.createView({
 	 	backgroundColor: '#dcdcdc',
-	 	opacity: 0.5
+	 	opacity: 0.7,
+	 	top:60,
+	 	width: '80%',
+		height: '70%'
 	});
 
 	var view_prof = Ti.UI.createView({
-		height: '60%',
 		width: '80%',
 		fill: false,
 		top: 0
@@ -62,8 +64,10 @@ function Window1(title){
 	
 	var nameLabel = Ti.UI.createLabel({
 		text: '山田 太郎',
-		height: '25%',
-		top: 0
+		top: 20,
+    	font: { fontSize:23 },
+	    color: '#000',
+	    fontWeight: 'bold'
 	});
 	view_prof.add(nameLabel);
 	var view_profLabel = Ti.UI.createView({
@@ -74,17 +78,18 @@ function Window1(title){
 	
 	for(var i=0;i<prof_kind.length;i++){
 		var label = Ti.UI.createLabel({
-			top: 0,
-			height: '25%'
+			top: 10,
+			opacity: 1,
+		 	color: '#38695A'
 		});
 		label.text = prof_kind[i].text;
 		view_profLabel.add(label);
 	}
 	view_prof.add(view_profLabel);
-	view_prof.add(view_bottom_back);
 	view_top.add(view_top_back);
 	view_top.add(icon_image);
-	view_bottom.add(view_prof);
+	view_bottom_back.add(view_prof);
+	view_bottom.add(view_bottom_back);
 
 	view.add(view_top);
 	view.add(view_bottom);
