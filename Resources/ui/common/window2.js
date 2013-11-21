@@ -20,7 +20,7 @@ function Window2(title){
 		mapType: Ti.Map.STANDARD_TYPE,
 		region: {latitude: 35.645, longitutde: 139.71, latitudeDelta:0.01, longitudeDelta:0.01},
 		animate: true,
-		regionFit: true,
+		regionFit: false,
 		top: 0,
 		width: 'auto',
 		height: '90%'
