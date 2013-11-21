@@ -64,7 +64,7 @@ function FirstView() {
             } else {
                 alert('Faild to create user! ' + e.message);
             }
-        })
+        });
     });
     self.add(button);
     return self;
