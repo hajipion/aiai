@@ -7,6 +7,7 @@ function ProfileWindow(parent){
 	*/
 	// base view 
 	var view = Ti.UI.createView({
+		layout: 'vertical',
 		height: 'auto',
 		width: 'auto',
 		backgroundImage: '/images/bg_sample.png'
@@ -81,21 +82,26 @@ function ProfileWindow(parent){
 		label.text = prof_kind[i].text;
 		view_profLabel.add(label);
 	}
-	/*
-	view_profLabel.add(Ti.UI.createLabel({
-		text: '相合仲間'
-	}));
-	view_profLabel.add(Ti.UI.createLabel({
-		text: '相合仲間'
-	}));*/
+	
+	var back_btn = Ti.UI.createButton({
+		title: "back",
+		width: '80%',
+		bottom: 10,
+		height: 'auto'
+	});
+	back_btn.addEventListener('click', function(e){
+		view.visible = false;
+	});
 	view_prof.add(view_profLabel);
 	view_prof.add(view_bottom_back);
 	view_top.add(view_top_back);
 	view_top.add(icon_image);
 	view_bottom.add(view_prof);
+	view_bottom.add(back_btn);
 
 	view.add(view_top);
 	view.add(view_bottom);
+	
 
 	//win.add(view);
 
