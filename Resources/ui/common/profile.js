@@ -1,12 +1,14 @@
-function ProfileWindow(title){
-	
+function ProfileWindow(parent){
+	/*
 	var win = Ti.UI.createWindow({
 		backgroundColor: '#fff',
-		title: title
+		title: 'Profile'
 	});
-
+	*/
 	// base view 
 	var view = Ti.UI.createView({
+		height: 'auto',
+		width: 'auto',
 		backgroundImage: '/images/bg_sample.png'
 	});
 
@@ -95,9 +97,9 @@ function ProfileWindow(title){
 	view.add(view_top);
 	view.add(view_bottom);
 
-	win.add(view);
+	//win.add(view);
 
-	return win;
+	return view;
 }
 
 module.exports = ProfileWindow;
