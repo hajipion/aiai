@@ -8,49 +8,56 @@ function Window2(title){
 	var view = Ti.UI.createView({
 		layout: 'vertical'
 	});
-
-	//　マップためしてみた
+	/* 場所指定
 	var ebisu = Ti.Map.createAnnotation({
 		latitude: 35.645,
 		longitude: 139.71,
 		title: "Ebisu",
 		animate: true
 	});
+	*/
+	// マップエリア
 	var map = Ti.Map.createView({
 		mapType: Ti.Map.STANDARD_TYPE,
 		region: {latitude: 35.645, longitutde: 139.71, latitudeDelta:0.01, longitudeDelta:0.01},
 		animate: true,
 		regionFit: false,
-		top: '10%',
+		top: 0,
 		width: 'auto',
-		height: '90%'
+		height: '100%'
 	});
-	
+	// サーチエリア
 	var view_search = Ti.UI.createView({
 		layout: 'horizontal',
 		top: 0,
-		height: '10%'
+		height: '20%',
+		backgroundColor: '#000',
+		opacity: 0.5
 	});
-	var tf = Ti.UI.createTextField({
+	// 現在地のテキストフィールド
+	var tfPresent = Ti.UI.createTextField({
 		color: "#333",
 		hintText: "name",
 		height: 'auto',
-		width: '70%',
+		width: '60%',
+		top: 10,
+		left: 60,
 		borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED
 	});
+	// ヘルプボタン
 	var sbmbutton = Ti.UI.createButton({
 		title: "Submit!",
-		width: '30%',
+		width: '60%',
 		height: 'auto'
 	});
 	sbmbutton.addEventListener("click",function(e){
 		Ti.API.info(tf.getValue());
 	});
 
-	view.add(view_search);
+	view.add(map);
+	map.add(view_search);
 	view_search.add(tf);
 	view_search.add(sbmbutton);
-	view.add(map);
 	
 	win.add(view);
 
