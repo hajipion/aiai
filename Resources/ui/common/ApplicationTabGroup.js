@@ -13,18 +13,17 @@ function ApplicationTabGroup(Window) {
 	    }
 	);
 	
-	var view4 = Ti.UI.createView();
-
 	//var Win1 = require('ui/common/window1');
 	var Win1 = require('ui/common/window1');
 	var Win2 = require('ui/common/window2');
 	var Win3 = require('ui/common/window3');
+	var Win4 = require('ui/common/window4');
 
 	//create app tabs
 	var win1 = new Win1('ホーム'),
 		win2 = new Win2('ヘルプ'),
 		win3 = new Win3('相合仲間'),
-		win4 = new Window('設定');
+		win4 = new Win4('設定');
 	
 	var tab1 = Ti.UI.createTab({
 		title: 'ホーム',
@@ -51,8 +50,6 @@ function ApplicationTabGroup(Window) {
 	win2.containingTab = tab2;
 	win3.containingTab = tab3;
 	win4.containingTab = tab4;
-	
-	win4.add(view4);
 	
 	// ラベルを作る
 	var label = Ti.UI.createLabel({
