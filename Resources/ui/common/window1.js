@@ -1,9 +1,10 @@
-function Window3(title){
+function Window1(title){
 	
 	var win = Ti.UI.createWindow({
+		backgroundColor: '#fff',
 		title: title
 	});
-	
+
 	// base view 
 	var view = Ti.UI.createView({
 		backgroundImage: '/images/bg_sample.png'
@@ -22,12 +23,11 @@ function Window3(title){
 		opacity: 0,
 		height: '90%',
 		width: '80%',
-		fill: false
+		fill: false,
 	});
 	
 	var icon_image = Ti.UI.createImageView({
-		image: '/images/icon_umbrella.png',
-		width: 110
+		image: '/images/icon_umbrella.png'
 	});
 
 	// bottom view
@@ -43,73 +43,47 @@ function Window3(title){
 	 	opacity: 0.5
 	});
 
-	var view_list = Ti.UI.createView({
-		height: '90%',
+	var view_prof = Ti.UI.createView({
+		height: '60%',
 		width: '80%',
 		fill: false,
+		top: 0
 		// このなかに、リストビューを埋め込む
 		// それぞれのユーザ情報を取得して表示
 	});
 
-	var users = [
-					{text:'user1', per: '50%'},
-					{text:'user2', per: '20%'},
-					{text:'user3', per: '70%'},
-					{text:'user4', per: '50%'},
-					{text:'user5', per: '20%'},
-					{text:'user6', per: '60%'},
-					{text:'user7', per: '10%'}
-				];//仮のデータです	
-	var data = [];
-
-	for (var i=0;i<users.length;i++) {
-    	var user = users[i];
-    	var row = Ti.UI.createTableViewRow({
-    		height: 50
-    	});
-    	var nameLabel = Ti.UI.createLabel({
-    		font: { fontSize:20 },
-    		color: '#000',
-    		top: 5
-    	});
-    	var heartLabel = Ti.UI.createLabel({
-			layout: 'horizontal',
-    		font: { fontSize:14 },
-	    	color: '#38695A',
-	    	fontWeight: 'bold'
-    	});
-    	var perLabel = Ti.UI.createLabel({
-			layout: 'horizontal',
-    		font: { fontSize:17 },
-	    	color: '#38695A',
-	    	fontWeight: 'bold',
-    		bottom: 3
-    	});
-    	nameLabel.text = user.text;
-    	heartLabel.text = '♥紳士度 ';
-    	perLabel.text = heartLabel.text + user.per;
-    	row.add(nameLabel);
-    	row.add(perLabel);
-    	data.push(row);
-	}	
+	var prof_kind = [ 
+						{text:'相合仲間', num: '24人'},
+						{text:'助けた回数', num: '2回'},
+						{text:'助けてもらった回数', num: '2回'},
+						{text:'紳士度', num: '10%'}
+					];
 	
-	var user_list = Ti.UI.createTableView({
-		opacity: 0.5,
-		data: data
+	var nameLabel = Ti.UI.createLabel({
+		text: '山田 太郎',
+		height: '25%',
+		top: 0
+	});
+	view_prof.add(nameLabel);
+	var view_profLabel = Ti.UI.createView({
+		height: '75%',
+		bottom: 0,
+		layout: 'vertical'
 	});
 	
-	user_list.addEventListener('click', function(e){
-		var Prof = require('ui/common/profile');
-		var prof = new Prof('user');
-		//Ti.UI.currentTab.open(prof,{animated:true});
-		prof.open();
-	});
-	view_list.add(view_bottom_back);
-	view_list.add(user_list);
-
+	for(var i=0;i<prof_kind.length;i++){
+		var label = Ti.UI.createLabel({
+			top: 0,
+			height: '25%'
+		});
+		label.text = prof_kind[i].text;
+		view_profLabel.add(label);
+	}
+	view_prof.add(view_profLabel);
+	view_prof.add(view_bottom_back);
 	view_top.add(view_top_back);
 	view_top.add(icon_image);
-	view_bottom.add(view_list);
+	view_bottom.add(view_prof);
 
 	view.add(view_top);
 	view.add(view_bottom);
@@ -119,4 +93,4 @@ function Window3(title){
 	return win;
 }
 
-module.exports = Window3;
+module.exports = Window1;
