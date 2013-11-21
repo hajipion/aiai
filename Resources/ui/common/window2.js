@@ -28,7 +28,7 @@ function Window2(title){
 	});
 	// サーチエリア
 	var view_search = Ti.UI.createView({
-		layout: 'horizontal',
+		layout: 'vertical',
 		top: 0,
 		height: '30%',
 		width: '100%',
@@ -42,7 +42,6 @@ function Window2(title){
 		height: 'auto',
 		width: '60%',
 		top: 10,
-		left: 60,
 		borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED
 	});
 	// 目的地のテキストフィールド
@@ -51,8 +50,6 @@ function Window2(title){
 		hintText: "目的地",
 		height: 'auto',
 		width: '60%',
-		top: 10,
-		left: 60,
 		borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED
 	});
 	// ヘルプボタン
