@@ -27,7 +27,10 @@ function Window1(title){
 	});
 	
 	var icon_image = Ti.UI.createImageView({
-		image: '/images/icon_umbrella.png'
+		image: '/images/icon_umbrella.png',
+		width: 130,
+		top:10,
+		bottom:10
 	});
 
 	// bottom view

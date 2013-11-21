@@ -27,7 +27,8 @@ function Window3(title){
 	
 	var icon_image = Ti.UI.createImageView({
 		image: '/images/icon_umbrella.png',
-		width: 110
+		width: 130,
+		top:10
 	});
 
 	// bottom view
@@ -46,7 +47,7 @@ function Window3(title){
 	var view_list = Ti.UI.createView({
 		height: '90%',
 		width: '80%',
-		fill: false,
+		fill: false
 		// このなかに、リストビューを埋め込む
 		// それぞれのユーザ情報を取得して表示
 	});
