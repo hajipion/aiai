@@ -100,9 +100,13 @@ function Window3(title){
 	
 	user_list.addEventListener('click', function(e){
 		var Prof = require('ui/common/profile');
-		var prof = new Prof('user');
-		//Ti.UI.currentTab.open(prof,{animated:true});
-		prof.open();
+		var prof = new Prof(win);
+		// Ti.UI.currentTab.open(prof,{animated:true});
+		// prof.open();
+		//win.containingTab.open(
+			//prof,{anmated:true}
+		//);
+		win.add(prof);
 	});
 	view_list.add(view_bottom_back);
 	view_list.add(user_list);
