@@ -31,6 +31,7 @@ function Window2(title){
 		layout: 'horizontal',
 		top: 0,
 		height: '30%',
+		width: '100%',
 		backgroundColor: '#000',
 		opacity: 0.5
 	});
