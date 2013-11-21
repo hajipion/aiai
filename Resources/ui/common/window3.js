@@ -74,7 +74,7 @@ function Window3(title){
     	});
     	var heartLabel = Ti.UI.createLabel({
 			layout: 'horizontal',
-    		font: { fontSize:17 },
+    		font: { fontSize:14 },
 	    	color: '#38695A',
 	    	fontWeight: 'bold',
     		bottom: 3
