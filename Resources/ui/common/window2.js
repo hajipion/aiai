@@ -60,8 +60,15 @@ function Window2(title){
 		width: '60%',
 		height: 'auto'
 	});
+	// アラート
+	var alert = Ti.UI.createAlertDialog({
+		title: "HELP?",
+		message: "近くの人に助けを求めますか？",
+		buttonNames: ["OK","Cancel"],
+		cancel: 1
+	});
 	sbmbutton.addEventListener("click",function(e){
-		Ti.API.info(tf.getValue());
+		alert.show();
 	});
 
 	view.add(map);
