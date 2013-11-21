@@ -87,41 +87,6 @@ function ApplicationTabGroup(Window) {
 		alert.show();
 	});
 	
-	//　マップためしてみた
-	var ebisu = Ti.Map.createAnnotation({
-		latitude: 35.645,
-		longitude: 139.71,
-		title: "Ebisu",
-		animate: true
-	});
-	var map = Ti.Map.createView({
-		mapType: Ti.Map.STANDARD_TYPE,
-		region: {latitude: 35.645, longitutde: 139.71, latitudeDelta:0.01, longitudeDelta:0.01},
-		animate: true,
-		regionFit: true,
-		width: 300,
-		height:100
-	});
-	var tf = Ti.UI.createTextField({
-		color: "#333",
-		hintText: "name",
-		height: 35,
-		top: 310,
-		left: 10,
-		width: 250,
-		borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED
-	});
-	var sbmbutton = Ti.UI.createButton({
-		title: "Submit!",
-		top:100,
-		left: 10,
-		width:100,
-		height: 40
-	});
-	sbmbutton.addEventListener("click",function(e){
-		Ti.API.info(tf.getValue());
-	});
-	
 	view1.add(label);
 	view1.add(button);
 	
