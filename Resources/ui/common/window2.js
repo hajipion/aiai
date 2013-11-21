@@ -4,7 +4,7 @@ function Window2(title){
 		title: title
 	});
 	
-	// base view 
+	// base view
 	var view = Ti.UI.createView({
 		layout: 'vertical'
 	});

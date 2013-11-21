@@ -18,8 +18,8 @@ function Window3(title){
 	});
 
 	var view_top_back = Ti.UI.createView({
-		backgroundColor: '#dcdcdc',
-		opacity: 0.5,
+		//backgroundColor: '#dcdcdc',
+		opacity: 0,
 		height: '90%',
 		width: '80%',
 		fill: false,
