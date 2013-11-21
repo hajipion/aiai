@@ -21,7 +21,7 @@ function Window2(title){
 		region: {latitude: 35.645, longitutde: 139.71, latitudeDelta:0.01, longitudeDelta:0.01},
 		animate: true,
 		regionFit: false,
-		top: 0,
+		top: '10%',
 		width: 'auto',
 		height: '90%'
 	});
@@ -47,10 +47,10 @@ function Window2(title){
 		Ti.API.info(tf.getValue());
 	});
 
+	view.add(view_search);
 	view_search.add(tf);
 	view_search.add(sbmbutton);
 	view.add(map);
-	view.add(view_search);
 	
 	win.add(view);
 
