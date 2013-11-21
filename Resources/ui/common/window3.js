@@ -70,15 +70,13 @@ function Window3(title){
     	var nameLabel = Ti.UI.createLabel({
     		font: { fontSize:20 },
     		color: '#000',
-    		top: 5,
-    		bottom: 3
+    		top: 5
     	});
     	var heartLabel = Ti.UI.createLabel({
 			layout: 'horizontal',
     		font: { fontSize:14 },
 	    	color: '#38695A',
-	    	fontWeight: 'bold',
-    		bottom: 3
+	    	fontWeight: 'bold'
     	});
     	var perLabel = Ti.UI.createLabel({
 			layout: 'horizontal',
