@@ -23,7 +23,7 @@ function Window1(title){
 		opacity: 0,
 		height: '90%',
 		width: '80%',
-		fill: false,
+		fill: false
 	});
 	
 	var icon_image = Ti.UI.createImageView({
@@ -51,8 +51,6 @@ function Window1(title){
 		width: '80%',
 		fill: false,
 		top: 0
-		// このなかに、リストビューを埋め込む
-		// それぞれのユーザ情報を取得して表示
 	});
 
 	var prof_kind = [ 
