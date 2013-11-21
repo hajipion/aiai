@@ -22,7 +22,7 @@ function Window3(title){
 		opacity: 0,
 		height: '90%',
 		width: '80%',
-		fill: false,
+		fill: false
 	});
 	
 	var icon_image = Ti.UI.createImageView({
@@ -65,17 +65,17 @@ function Window3(title){
 	for (var i=0;i<users.length;i++) {
     	var user = users[i];
     	var row = Ti.UI.createTableViewRow({
-    		height: 80
+    		height: 50
     	});
     	var nameLabel = Ti.UI.createLabel({
-    		font: { fontSize:30 },
+    		font: { fontSize:20 },
     		color: '#000',
-    		top: 0
+    		top: 5
     	});
     	var perLabel = Ti.UI.createLabel({
-    		font: { fontSize:25 },
+    		font: { fontSize:15 },
 	    	color: '#000',
-    		bottom: 0
+    		bottom: 5
     	});
     	nameLabel.text = user.text;
     	perLabel.text = user.per;
