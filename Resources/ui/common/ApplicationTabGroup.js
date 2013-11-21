@@ -5,7 +5,7 @@ function ApplicationTabGroup(Window) {
 		barColor: '#2CD6B5',
 		tabsTintColor: "#2B6C5B"
 	});
-	
+	// ページ遷移のときのバグ修正
 	var nextWindow = Titanium.UI.createWindow(
 	    {
 			url: 'next.js',
@@ -13,18 +13,14 @@ function ApplicationTabGroup(Window) {
 	    }
 	);
 	
-	var view1 = Ti.UI.createView({
-		width: 150,
-		height: 150,
-		top:180
-	});
-	//var view2 = Ti.UI.createView();
 	var view4 = Ti.UI.createView();
 
-	var Win3 = require('ui/common/window3');
+	var Win1 = require('ui/common/window1');
 	var Win2 = require('ui/common/window2');
+	var Win3 = require('ui/common/window3');
+
 	//create app tabs
-	var win1 = new Window('ホーム'),
+	var win1 = new Win1('ホーム'),
 		win2 = new Win2('ヘルプ'),
 		win3 = new Win3('相合仲間'),
 		win4 = new Window('設定');
@@ -55,8 +51,6 @@ function ApplicationTabGroup(Window) {
 	win3.containingTab = tab3;
 	win4.containingTab = tab4;
 	
-	win1.add(view1);
-	// win2.add(view2);
 	win4.add(view4);
 	
 	// ラベルを作る
@@ -67,32 +61,6 @@ function ApplicationTabGroup(Window) {
 		top: 120,
 		color: "red"
 	});
-	// ボタンをつくる
-	var button = Ti.UI.createButton({
-		title: "push me!",
-		top: 100,
-		width: 100,
-		height: 32
-	});
-	var alert = Ti.UI.createAlertDialog({
-		title: "delete?",
-		message: "Are you sure?",
-		buttonNames: ["OK","Cancel","Help"],
-		cancel: 1
-	});
-	alert.addEventListener("click", function(e){
-		Ti.API.info(e.index);
-	});
-	button.addEventListener("click",function(e){
-		alert.show();
-	});
-	
-	view1.add(label);
-	view1.add(button);
-	
-	//view2.add(tf);
-	//view2.add(sbmbutton);
-	//view2.add(map);
 	
 	self.addTab(tab1);
 	self.addTab(tab2);
