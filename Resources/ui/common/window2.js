@@ -50,6 +50,7 @@ function Window2(title){
 		hintText: "目的地",
 		height: 'auto',
 		width: '60%',
+		top: 10,
 		borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED
 	});
 	// ヘルプボタン
