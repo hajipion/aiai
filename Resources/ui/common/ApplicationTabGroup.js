@@ -16,7 +16,7 @@ function ApplicationTabGroup(Window) {
 	var view4 = Ti.UI.createView();
 
 	//var Win1 = require('ui/common/window1');
-	var Win1 = require('ui/common/login');
+	var Win1 = require('ui/common/window1');
 	var Win2 = require('ui/common/window2');
 	var Win3 = require('ui/common/window3');
 
