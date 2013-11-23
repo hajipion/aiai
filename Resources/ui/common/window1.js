@@ -18,14 +18,6 @@ function Window1(title){
 		top: 0
 	});
 
-	var view_top_back = Ti.UI.createView({
-		//backgroundColor: '#dcdcdc',
-		opacity: 0,
-		height: '90%',
-		width: '80%',
-		fill: false
-	});
-
 	var icon_image = Ti.UI.createImageView({
 		image: '/images/icon_umbrella.png',
 		width: 130,
@@ -103,7 +95,6 @@ function Window1(title){
 		view_profLabel.add(view_profList);
 	}
 	view_prof.add(view_profLabel);
-	view_top.add(view_top_back);
 	view_top.add(icon_image);
 	view_bottom_back.add(view_prof);
 	view_bottom.add(view_bottom_back);
