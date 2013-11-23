@@ -6,32 +6,34 @@ function Window2(title){
 	
 	// base view
 	var view = Ti.UI.createView({
-		layout: 'vertical'
+		// layout: 'vertical'
 	});
-	/* 場所指定
+	// 場所指定
 	var ebisu = Ti.Map.createAnnotation({
 		latitude: 35.645,
 		longitude: 139.71,
 		title: "Ebisu",
+		pinImage: "/images/map-pin.png",
 		animate: true
 	});
-	*/
+	
 	// マップエリア
 	var map = Ti.Map.createView({
 		mapType: Ti.Map.STANDARD_TYPE,
 		region: {latitude: 35.645, longitutde: 139.71, latitudeDelta:0.01, longitudeDelta:0.01},
 		animate: true,
-		regionFit: false,
+		regionFit: true,
 		top: 0,
 		width: 'auto',
-		height: '100%'
+		annotations: [ebisu],
+		height: 'auto'
 	});
 	// サーチエリア
 	var view_search = Ti.UI.createView({
 		layout: 'vertical',
 		top: 0,
-		height: 155,
-		width: '100%',
+		height: '40%',
+		width: 'auto',
 		backgroundColor: '#000',
 		opacity: 0.5
 	});
@@ -39,7 +41,6 @@ function Window2(title){
 	var tfPresent = Ti.UI.createTextField({
 		color: "#333",
 		hintText: "現在地",
-		height: 'auto',
 		width: '60%',
 		top: 10,
 		borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED
@@ -48,7 +49,6 @@ function Window2(title){
 	var tfDestination = Ti.UI.createTextField({
 		color: "#333",
 		hintText: "目的地",
-		height: 'auto',
 		width: '60%',
 		top: 10,
 		borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED
@@ -71,9 +71,19 @@ function Window2(title){
 	sbmbutton.addEventListener("click",function(e){
 		alert.show();
 	});
+	
+	var view1 = Ti.UI.createView({
+		//layout: 'vertical',
+		top: 200,
+		height: '50%',
+		width: 'auto',
+		backgroundColor: '#000',
+		//opacity: 0.5
+	});
 
 	view.add(map);
-	map.add(view_search);
+	// map.add(view1);
+	view.add(view_search);
 	view_search.add(tfPresent);
 	view_search.add(tfDestination);
 	view_search.add(sbmbutton);
