@@ -81,12 +81,13 @@ function Window1(title){
 		var profLabel = Ti.UI.createLabel({
 			left: 20,
 			width: '65%',
-			color: '#38695A'
+			color: '#666'
 		});
 		var numLabel = Ti.UI.createLabel({
 			left: 15,
 			width: '20%',
-			color: '#D1374A'
+			color: '#38695A',
+			font: {fontSize: 20}
 		});
 		var view_profList = Ti.UI.createView({
 			width: '100%',
