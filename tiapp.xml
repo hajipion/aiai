@@ -6,7 +6,7 @@
     <property name="acs-oauth-secret-production" type="string">aRtUHbTDJGB9tvWQ4J93SWlaN3sCl9GQ</property>
     <property name="acs-oauth-key-production" type="string">PdcPFgAzNy05x0PzYa0CqzUiy1tSFSXw</property>
     <property name="acs-api-key-production" type="string">ocNKDnUWv33asdUnybmZhCkyEbl01hzK</property>
-    <id>com.apluplu.AIAI</id>
+    <id>com.apluplu.aiai</id>
     <name>AIAI</name>
     <version>1.0</version>
     <publisher>hajime</publisher>
