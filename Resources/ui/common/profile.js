@@ -102,12 +102,12 @@ function ProfileWindow(parent){
 	// 戻るボタン
 	var back_btn = Ti.UI.createButton({
 		title: "戻る",
-		backgroundImage: '/images/help.png',
+		backgroundImage: '/images/back.png',
 		width: 50,
 		height: 'auto',
 		layout: 'absolute',
-		top: '25%',
-		left: '15%'
+		top: '22%',
+		left: '12%'
 	});
 	back_btn.addEventListener('click', function(e){
 		view.visible = false;
