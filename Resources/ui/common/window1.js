@@ -82,7 +82,7 @@ function Window1(title){
 			opacity: 1,
 		 	color: '#38695A'
 		});
-		label.text = prof_kind[i].text;
+		label.text = prof_kind[i].text + " " + prof_kind[i].num;
 		view_profLabel.add(label);
 	}
 	view_prof.add(view_profLabel);
