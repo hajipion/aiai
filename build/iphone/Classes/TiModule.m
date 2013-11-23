@@ -228,7 +228,7 @@
 
 -(id)bindCommonJSModule:(NSString*)code
 {
-	NSString *js = [[NSString alloc] initWithFormat:aiai$ModuleRequireFormat,code];
+	NSString *js = [[NSString alloc] initWithFormat:AIAI$ModuleRequireFormat,code];
 	
 	id result = [[self pageContext] evalJSAndWait:js];
 	[js release];

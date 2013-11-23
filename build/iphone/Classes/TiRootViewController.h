@@ -50,7 +50,7 @@
     BOOL statusBarVisibilityChanged;
 }
 
-//aiai Support
+//AIAI Support
 -(CGRect)resizeView;
 -(void)repositionSubviews;
 -(UIView *)topWindowProxyView;

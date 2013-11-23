@@ -13,7 +13,7 @@
 @class TiHost;
 
 /**
- The base class for all aiai modules
+ The base class for all AIAI modules
  */
 @interface TiModule : TiProxy 
 {
@@ -51,30 +51,30 @@
 // lifecycle
 
 /**
- aiai Platform calls this method on startup.
+ AIAI Platform calls this method on startup.
  */
 -(void)startup;
 
 /**
- aiai Platform calls this method on shutdown.
+ AIAI Platform calls this method on shutdown.
  @param sender The sender of the event.
  */
 -(void)shutdown:(id)sender;
 
 /**
- aiai Platform calls this method on suspend.
+ AIAI Platform calls this method on suspend.
  @param sender The sender of the event.
  */
 -(void)suspend:(id)sender;
 
 /**
- aiai Platform calls this method on entering background.
+ AIAI Platform calls this method on entering background.
  @param sender The sender of the event.
  */
 -(void)paused:(id)sender;
 
 /**
- aiai Platform calls this method on resume.
+ AIAI Platform calls this method on resume.
  @param sender The sender of the event.
  */
 -(void)resume:(id)sender;

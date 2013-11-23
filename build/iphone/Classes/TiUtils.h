@@ -39,7 +39,7 @@ typedef enum {
 } EncodingError;
 
 /**
- aiai orientation flags.
+ AIAI orientation flags.
  */
 typedef enum
 {

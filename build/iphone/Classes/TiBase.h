@@ -60,7 +60,7 @@ extern "C" {
 	#define KMETHOD_DEBUG MEMORY_DEBUG
 #endif
 
-// in simulator we redefine to format for aiai Developer console
+// in simulator we redefine to format for AIAI Developer console
 
 
 #define TI_INLINE static __inline__
@@ -415,28 +415,28 @@ DebugLog(@"[WARN] Ti%@.%@ DEPRECATED in %@, in favor of %@.",@"tanium",api,in,ne
 
  //MUST BE NEGATIVE, as it inhabits the same space as UIBarButtonSystemItem
 enum {
-	UIaiaiNativeItemNone = -1, 
-	UIaiaiNativeItemSpinner = -2,
-	UIaiaiNativeItemProgressBar = -3,
+	UIAIAINativeItemNone = -1, 
+	UIAIAINativeItemSpinner = -2,
+	UIAIAINativeItemProgressBar = -3,
 	
-	UIaiaiNativeItemSlider = -4,
-	UIaiaiNativeItemSwitch = -5,
-	UIaiaiNativeItemMultiButton = -6,
-	UIaiaiNativeItemSegmented = -7,
+	UIAIAINativeItemSlider = -4,
+	UIAIAINativeItemSwitch = -5,
+	UIAIAINativeItemMultiButton = -6,
+	UIAIAINativeItemSegmented = -7,
 	
-	UIaiaiNativeItemTextView = -8,
-	UIaiaiNativeItemTextField = -9,
-	UIaiaiNativeItemSearchBar = -10,
+	UIAIAINativeItemTextView = -8,
+	UIAIAINativeItemTextField = -9,
+	UIAIAINativeItemSearchBar = -10,
 	
-	UIaiaiNativeItemPicker = -11,
-	UIaiaiNativeItemDatePicker = -12,
+	UIAIAINativeItemPicker = -11,
+	UIAIAINativeItemDatePicker = -12,
 	
-	UIaiaiNativeItemInfoLight = -13,
-	UIaiaiNativeItemInfoDark = -14,
+	UIAIAINativeItemInfoLight = -13,
+	UIAIAINativeItemInfoDark = -14,
 	
-	UIaiaiNativeItemDisclosure = -15,
+	UIAIAINativeItemDisclosure = -15,
 	
-	UIaiaiNativeItemContactAdd = -16
+	UIAIAINativeItemContactAdd = -16
 };
 
 
@@ -605,7 +605,7 @@ void incrementKrollCounter();
 void decrementKrollCounter();
     
 /**
- *	TiThreadPerformOnMainThread should replace all aiai instances of
+ *	TiThreadPerformOnMainThread should replace all AIAI instances of
  *	performSelectorOnMainThread, ESPECIALLY if wait is to be yes. That way,
  *	exceptional-case main thread activities can process them outside of the
  *	standard event loop.

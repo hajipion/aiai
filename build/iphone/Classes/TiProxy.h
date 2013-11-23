@@ -98,7 +98,7 @@ void DoProxyDelegateReadValuesWithKeysFromProxy(UIView<TiProxyDelegate> * target
 
 
 /**
- The base class for aiai proxies.
+ The base class for AIAI proxies.
  */
 @interface TiProxy : NSObject<KrollTargetable> {
 @public

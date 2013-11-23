@@ -19,9 +19,9 @@
 
 #ifdef KROLL_COVERAGE
 # import "KrollCoverage.h"
-@interface aiaiObject : KrollCoverageObject {
+@interface AIAIObject : KrollCoverageObject {
 #else
-@interface aiaiObject : KrollObject {
+@interface AIAIObject : KrollObject {
 #endif
 @private
 	NSMutableDictionary *modules;
@@ -35,7 +35,7 @@
 -(TiModule*)moduleNamed:(NSString*)name context:(id<TiEvaluator>)context;
 @end
 
-extern NSString * aiai$ModuleRequireFormat;
+extern NSString * AIAI$ModuleRequireFormat;
 
 @interface KrollBridge : Bridge<TiEvaluator,KrollDelegate> {
 @private
@@ -44,7 +44,7 @@ extern NSString * aiai$ModuleRequireFormat;
 	KrollContext *context;
 	NSDictionary *preload;
 	NSMutableDictionary *modules;
-	aiaiObject *_aiai;
+	AIAIObject *_aiai;
     KrollObject* console;
 	BOOL shutdown;
     BOOL evaluationError;

@@ -52,7 +52,7 @@
 @end
 
 /**
- Protocol for containment controller. Implemented by UIViewControllers that can host aiai Windows
+ Protocol for containment controller. Implemented by UIViewControllers that can host AIAI Windows
  */
 @protocol TiControllerContainment <NSObject>
 @required

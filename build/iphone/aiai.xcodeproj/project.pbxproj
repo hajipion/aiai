@@ -932,7 +932,7 @@
 		1D19459913FF3BE500E2B4D0 /* TIDOMDocumentTypeProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TIDOMDocumentTypeProxy.h; sourceTree = "<group>"; };
 		1D19459A13FF3BE500E2B4D0 /* TIDOMDocumentTypeProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TIDOMDocumentTypeProxy.m; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		1D6058910D05DD3D006BFB54 /* aiai.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "aiai.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D6058910D05DD3D006BFB54 /* AIAI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AIAI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DCC542D13FF0B0700DF3EE5 /* TIDOMCharacterDataProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TIDOMCharacterDataProxy.h; sourceTree = "<group>"; };
 		1DCC542E13FF0B0800DF3EE5 /* TIDOMCharacterDataProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TIDOMCharacterDataProxy.m; sourceTree = "<group>"; };
 		1DD9388A1609230900091777 /* TiBindingTiValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TiBindingTiValue.h; sourceTree = "<group>"; };
@@ -1300,7 +1300,7 @@
 		24D0700411D0253D00F615D8 /* TiUIiOSProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = TiUIiOSProxy.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		24D0700511D0253D00F615D8 /* TiUIiOSProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = TiUIiOSProxy.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		24D5C75811E6364F00F097E2 /* libtiverify.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtiverify.a; path = lib/libtiverify.a; sourceTree = SOURCE_ROOT; };
-		24D8E4B1119B9D8A00F8CAA6 /* aiai.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "aiai.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		24D8E4B1119B9D8A00F8CAA6 /* AIAI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AIAI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		24DD042A116A6C58006FD6E1 /* TiToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TiToolbar.h; sourceTree = "<group>"; };
 		24DD0455116A6F02006FD6E1 /* TiTabGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TiTabGroup.h; sourceTree = "<group>"; };
 		24DD0977116D8E07006FD6E1 /* TiToolbarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TiToolbarButton.h; sourceTree = "<group>"; };
@@ -1402,7 +1402,7 @@
 		2BCD59C41429561D00DEC2E8 /* TiUIiOSToolbarProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TiUIiOSToolbarProxy.m; sourceTree = "<group>"; };
 		2BDEA4F11448FFB7004EC750 /* TiUIiOSTabbedBarProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TiUIiOSTabbedBarProxy.h; sourceTree = "<group>"; };
 		2BDEA4F21448FFB7004EC750 /* TiUIiOSTabbedBarProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TiUIiOSTabbedBarProxy.m; sourceTree = "<group>"; };
-		32CA4F630368D1EE00C91783 /* aiai_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "aiai_Prefix.pch"; sourceTree = "<group>"; };
+		32CA4F630368D1EE00C91783 /* AIAI_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AIAI_Prefix.pch"; sourceTree = "<group>"; };
 		4688700515E39A9D008FA326 /* TiUIiPhoneAlertDialogStyleProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TiUIiPhoneAlertDialogStyleProxy.h; sourceTree = "<group>"; };
 		4688700615E39A9D008FA326 /* TiUIiPhoneAlertDialogStyleProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TiUIiPhoneAlertDialogStyleProxy.m; sourceTree = "<group>"; };
 		4D3033A1136239B30034640F /* TiFilesystemFileStreamProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = TiFilesystemFileStreamProxy.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -1519,7 +1519,7 @@
 		DAA72342156D642400757987 /* TiConsole.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TiConsole.m; sourceTree = "<group>"; };
 		DAA905CC11A359F10030B119 /* TiMediaItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TiMediaItem.h; sourceTree = "<group>"; };
 		DAA905CD11A359F10030B119 /* TiMediaItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TiMediaItem.m; sourceTree = "<group>"; };
-		DABB37BC12E8CB280026A6EA /* aiai.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "aiai.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DABB37BC12E8CB280026A6EA /* AIAI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AIAI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DABF3ECD134D210400836137 /* TiBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TiBuffer.h; sourceTree = "<group>"; };
 		DABF3ECE134D210400836137 /* TiBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TiBuffer.m; sourceTree = "<group>"; };
 		DABF3ED5134D2CA100836137 /* StreamModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamModule.h; sourceTree = "<group>"; };
@@ -1656,9 +1656,9 @@
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1D6058910D05DD3D006BFB54 /* aiai.app */,
-				24D8E4B1119B9D8A00F8CAA6 /* aiai.app */,
-				DABB37BC12E8CB280026A6EA /* aiai.app */,
+				1D6058910D05DD3D006BFB54 /* AIAI.app */,
+				24D8E4B1119B9D8A00F8CAA6 /* AIAI.app */,
+				DABB37BC12E8CB280026A6EA /* AIAI.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2751,7 +2751,7 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
-				32CA4F630368D1EE00C91783 /* aiai_Prefix.pch */,
+				32CA4F630368D1EE00C91783 /* AIAI_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 				241EAA21118AB3BB0081A5BE /* defines.h */,
 				241EAEC5118E2BA90081A5BE /* project.xcconfig */,
@@ -2984,9 +2984,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		1D6058900D05DD3D006BFB54 /* aiai */ = {
+		1D6058900D05DD3D006BFB54 /* AIAI */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "aiai" */;
+			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "AIAI" */;
 			buildPhases = (
 				241EAF36118E30260081A5BE /* Pre-Compile */,
 				1D60588D0D05DD3D006BFB54 /* Resources */,
@@ -2998,14 +2998,14 @@
 			);
 			dependencies = (
 			);
-			name = "aiai";
-			productName = aiai;
-			productReference = 1D6058910D05DD3D006BFB54 /* aiai.app */;
+			name = "AIAI";
+			productName = AIAI;
+			productReference = 1D6058910D05DD3D006BFB54 /* AIAI.app */;
 			productType = "com.apple.product-type.application";
 		};
-		24D8E3B5119B9D8A00F8CAA6 /* aiai-iPad */ = {
+		24D8E3B5119B9D8A00F8CAA6 /* AIAI-iPad */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 24D8E4AE119B9D8A00F8CAA6 /* Build configuration list for PBXNativeTarget "aiai-iPad" */;
+			buildConfigurationList = 24D8E4AE119B9D8A00F8CAA6 /* Build configuration list for PBXNativeTarget "AIAI-iPad" */;
 			buildPhases = (
 				24D8E3B9119B9D8A00F8CAA6 /* Pre-Compile */,
 				24D8E3B6119B9D8A00F8CAA6 /* Resources */,
@@ -3017,14 +3017,14 @@
 			);
 			dependencies = (
 			);
-			name = "aiai-iPad";
-			productName = aiai;
-			productReference = 24D8E4B1119B9D8A00F8CAA6 /* aiai.app */;
+			name = "AIAI-iPad";
+			productName = AIAI;
+			productReference = 24D8E4B1119B9D8A00F8CAA6 /* AIAI.app */;
 			productType = "com.apple.product-type.application";
 		};
-		DABB369A12E8CB280026A6EA /* aiai-universal */ = {
+		DABB369A12E8CB280026A6EA /* AIAI-universal */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DABB37B912E8CB280026A6EA /* Build configuration list for PBXNativeTarget "aiai-universal" */;
+			buildConfigurationList = DABB37B912E8CB280026A6EA /* Build configuration list for PBXNativeTarget "AIAI-universal" */;
 			buildPhases = (
 				DABB369F12E8CB280026A6EA /* Pre-Compile */,
 				DABB369B12E8CB280026A6EA /* Resources */,
@@ -3036,9 +3036,9 @@
 			);
 			dependencies = (
 			);
-			name = "aiai-universal";
-			productName = aiai;
-			productReference = DABB37BC12E8CB280026A6EA /* aiai.app */;
+			name = "AIAI-universal";
+			productName = AIAI;
+			productReference = DABB37BC12E8CB280026A6EA /* AIAI.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -3049,7 +3049,7 @@
 			attributes = {
 				LastUpgradeCheck = 0430;
 			};
-			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "aiai" */;
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "AIAI" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
@@ -3063,9 +3063,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				1D6058900D05DD3D006BFB54 /* aiai */,
-				24D8E3B5119B9D8A00F8CAA6 /* aiai-iPad */,
-				DABB369A12E8CB280026A6EA /* aiai-universal */,
+				1D6058900D05DD3D006BFB54 /* AIAI */,
+				24D8E3B5119B9D8A00F8CAA6 /* AIAI-iPad */,
+				DABB369A12E8CB280026A6EA /* AIAI-universal */,
 			);
 		};
 /* End PBXProject section */
@@ -4044,7 +4044,7 @@
 				GCC_ENABLE_CPP_RTTI = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "aiai_Prefix.pch";
+				GCC_PREFIX_HEADER = "AIAI_Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = Info.plist;
@@ -4070,7 +4070,7 @@
 					"-weak_framework",
 					iAd,
 				);
-				PRODUCT_NAME = "aiai";
+				PRODUCT_NAME = "AIAI";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -4083,7 +4083,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "aiai_Prefix.pch";
+				GCC_PREFIX_HEADER = "AIAI_Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = Info.plist;
@@ -4100,7 +4100,7 @@
 					"-weak_framework",
 					CoreVideo,
 				);
-				PRODUCT_NAME = "aiai";
+				PRODUCT_NAME = "AIAI";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -4115,7 +4115,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "aiai_Prefix.pch";
+				GCC_PREFIX_HEADER = "AIAI_Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = Info.plist;
 				LIBRARY_SEARCH_PATHS = (
@@ -4136,7 +4136,7 @@
 					"-weak_framework",
 					CoreVideo,
 				);
-				PRODUCT_NAME = "aiai";
+				PRODUCT_NAME = "AIAI";
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
@@ -4148,7 +4148,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "aiai_Prefix.pch";
+				GCC_PREFIX_HEADER = "AIAI_Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = Info.plist;
 				LIBRARY_SEARCH_PATHS = (
@@ -4168,7 +4168,7 @@
 					"-weak_framework",
 					CoreVideo,
 				);
-				PRODUCT_NAME = "aiai";
+				PRODUCT_NAME = "AIAI";
 				TARGETED_DEVICE_FAMILY = 2;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -4305,7 +4305,7 @@
 				GCC_ENABLE_CPP_RTTI = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "aiai_Prefix.pch";
+				GCC_PREFIX_HEADER = "AIAI_Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = Info.plist;
@@ -4331,7 +4331,7 @@
 					"-weak_framework",
 					iAd,
 				);
-				PRODUCT_NAME = "aiai";
+				PRODUCT_NAME = "AIAI";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -4346,7 +4346,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "aiai_Prefix.pch";
+				GCC_PREFIX_HEADER = "AIAI_Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = Info.plist;
 				LIBRARY_SEARCH_PATHS = (
@@ -4367,7 +4367,7 @@
 					"-weak_framework",
 					CoreVideo,
 				);
-				PRODUCT_NAME = "aiai";
+				PRODUCT_NAME = "AIAI";
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Developer;
@@ -4381,7 +4381,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "aiai_Prefix.pch";
+				GCC_PREFIX_HEADER = "AIAI_Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = Info.plist;
 				LIBRARY_SEARCH_PATHS = (
@@ -4407,7 +4407,7 @@
 					"-weak_framework",
 					CoreMedia,
 				);
-				PRODUCT_NAME = "aiai";
+				PRODUCT_NAME = "AIAI";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -4422,7 +4422,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "aiai_Prefix.pch";
+				GCC_PREFIX_HEADER = "AIAI_Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = Info.plist;
 				LIBRARY_SEARCH_PATHS = (
@@ -4448,7 +4448,7 @@
 					"-weak_framework",
 					CoreMedia,
 				);
-				PRODUCT_NAME = "aiai";
+				PRODUCT_NAME = "AIAI";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -4461,7 +4461,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "aiai_Prefix.pch";
+				GCC_PREFIX_HEADER = "AIAI_Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = Info.plist;
 				LIBRARY_SEARCH_PATHS = (
@@ -4481,7 +4481,7 @@
 					"-weak_framework",
 					CoreMedia,
 				);
-				PRODUCT_NAME = "aiai";
+				PRODUCT_NAME = "AIAI";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -4491,7 +4491,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "aiai" */ = {
+		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "AIAI" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1D6058940D05DD3E006BFB54 /* Debug */,
@@ -4501,7 +4501,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		24D8E4AE119B9D8A00F8CAA6 /* Build configuration list for PBXNativeTarget "aiai-iPad" */ = {
+		24D8E4AE119B9D8A00F8CAA6 /* Build configuration list for PBXNativeTarget "AIAI-iPad" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				24D8E4AF119B9D8A00F8CAA6 /* Debug */,
@@ -4511,7 +4511,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "aiai" */ = {
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "AIAI" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,
@@ -4521,7 +4521,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DABB37B912E8CB280026A6EA /* Build configuration list for PBXNativeTarget "aiai-universal" */ = {
+		DABB37B912E8CB280026A6EA /* Build configuration list for PBXNativeTarget "AIAI-universal" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DABB37BA12E8CB280026A6EA /* Debug */,

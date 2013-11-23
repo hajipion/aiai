@@ -42,7 +42,7 @@ void ModifyScrollViewForKeyboardHeightAndContentHeightWithResponderRect(UIScroll
 @class TiViewProxy;
 
 /**
- Base class for all aiai views.
+ Base class for all AIAI views.
  @see TiViewProxy
  */
 @interface TiUIView : UIView<TiProxyDelegate,LayoutAutosizing> 
@@ -257,7 +257,7 @@ void ModifyScrollViewForKeyboardHeightAndContentHeightWithResponderRect(UIScroll
 - (void)setAccessibilityHidden_:(id)accessibilityHidden;
 
 /**
- Whether or not a view not normally picked up by the aiai view hierarchy (such as wrapped iOS UIViews) was touched.
+ Whether or not a view not normally picked up by the AIAI view hierarchy (such as wrapped iOS UIViews) was touched.
  @return _YES_ if the view contains specialized content (such as a system view) which should register as a touch for this view, _NO_ otherwise.
  */
 -(BOOL)touchedContentViewWithEvent:(UIEvent*)event;

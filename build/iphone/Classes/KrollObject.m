@@ -302,10 +302,10 @@ bool KrollSetProperty(TiContextRef jsContext, TiObjectRef object, TiStringRef pr
 
 // forward declare these
 
-//@interface aiaiObject : NSObject
+//@interface AIAIObject : NSObject
 //@end
 
-@interface aiaiObject (Private)
+@interface AIAIObject (Private)
 -(NSDictionary*)modules;
 @end
 
@@ -323,9 +323,9 @@ void KrollPropertyNames(TiContextRef ctx, TiObjectRef object, TiPropertyNameAccu
 	{
 		id target = [o target];
 		
-		if ([o isKindOfClass:[aiaiObject class]])
+		if ([o isKindOfClass:[AIAIObject class]])
 		{
-			for (NSString *key in [[(aiaiObject*)o modules] allKeys])
+			for (NSString *key in [[(AIAIObject*)o modules] allKeys])
 			{
 				TiStringRef value = TiStringCreateWithUTF8CString([key UTF8String]);
 				TiPropertyNameAccumulatorAddName(propertyNames,value);

@@ -8,10 +8,10 @@
 #define STRING(x) _QUOTEME(x)
 
 NSString * const TI_APPLICATION_DEPLOYTYPE = @"development";
-NSString * const TI_APPLICATION_ID = @"com.apluplu.aiai";
+NSString * const TI_APPLICATION_ID = @"com.apluplu.AIAI";
 NSString * const TI_APPLICATION_PUBLISHER = @"hajime";
 NSString * const TI_APPLICATION_URL = @"http://";
-NSString * const TI_APPLICATION_NAME = @"aiai";
+NSString * const TI_APPLICATION_NAME = @"AIAI";
 NSString * const TI_APPLICATION_VERSION = @"1.0";
 NSString * const TI_APPLICATION_DESCRIPTION = @"相合傘プロジェクト";
 NSString * const TI_APPLICATION_COPYRIGHT = @"2013 by A++";

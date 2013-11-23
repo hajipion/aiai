@@ -28,7 +28,7 @@
 extern BOOL const TI_APPLICATION_ANALYTICS;
 extern NSString * const TI_APPLICATION_DEPLOYTYPE;
 
-NSString * aiai$ModuleRequireFormat = @"(function(exports){"
+NSString * AIAI$ModuleRequireFormat = @"(function(exports){"
 		"var __OXP=exports;var module={'exports':exports};%@;\n"
 		"if(module.exports !== __OXP){return module.exports;}"
 		"return exports;})({})";
@@ -38,7 +38,7 @@ NSString * aiai$ModuleRequireFormat = @"(function(exports){"
 void TiBindingRunLoopAnnounceStart(TiBindingRunLoop runLoop);
 
 
-@implementation aiaiObject
+@implementation AIAIObject
 
 -(NSDictionary*)modules
 {
@@ -546,12 +546,12 @@ CFMutableSetRef	krollBridgeRegistry = nil;
 
 -(void)didStartNewContext:(KrollContext*)kroll
 {
-	// create aiai global object
+	// create AIAI global object
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
     
-    // Load the "aiai" object into the global scope
+    // Load the "AIAI" object into the global scope
 	NSString *basePath = (url==nil) ? [TiHost resourcePath] : [[[url path] stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"."];
-	_aiai = [[aiaiObject alloc] initWithContext:kroll host:host context:self baseURL:[NSURL fileURLWithPath:basePath]];
+	_aiai = [[AIAIObject alloc] initWithContext:kroll host:host context:self baseURL:[NSURL fileURLWithPath:basePath]];
 	
 	TiContextRef jsContext = [kroll context];
 	TiValueRef tiRef = [KrollObject toValue:kroll value:_aiai];
@@ -723,7 +723,7 @@ CFMutableSetRef	krollBridgeRegistry = nil;
 
 -(id)loadCommonJSModule:(NSString*)code withSourceURL:(NSURL *)sourceURL
 {
-	NSString *js = [[NSString alloc] initWithFormat:aiai$ModuleRequireFormat,code];
+	NSString *js = [[NSString alloc] initWithFormat:AIAI$ModuleRequireFormat,code];
 
 	/* This most likely should be integrated with normal code flow, but to
 	 * minimize impact until a in-depth reconsideration of KrollContext can be
