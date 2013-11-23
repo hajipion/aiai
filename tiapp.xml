@@ -6,7 +6,11 @@
     <property name="acs-oauth-secret-production" type="string">aRtUHbTDJGB9tvWQ4J93SWlaN3sCl9GQ</property>
     <property name="acs-oauth-key-production" type="string">PdcPFgAzNy05x0PzYa0CqzUiy1tSFSXw</property>
     <property name="acs-api-key-production" type="string">ocNKDnUWv33asdUnybmZhCkyEbl01hzK</property>
+<<<<<<< HEAD
     <id>com.apluplu.aiai</id>
+=======
+    <id>com.apluplu.AIAI</id>
+>>>>>>> ecfa05f6126b8771a68f779538565bcbc3e3553f
     <name>AIAI</name>
     <version>1.0</version>
     <publisher>hajime</publisher>

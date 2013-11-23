@@ -18,26 +18,18 @@ function Window1(title){
 		top: 0
 	});
 
-	var view_top_back = Ti.UI.createView({
-		//backgroundColor: '#dcdcdc',
-		opacity: 0,
-		height: '90%',
-		width: '80%',
-		fill: false
-	});
-
 	var icon_image = Ti.UI.createImageView({
 		image: '/images/icon_umbrella.png',
 		width: 130,
-		top:10,
-		bottom:10
+		top:10
 	});
 
 	// bottom view
 	var view_bottom = Ti.UI.createView({
-		height: '80%',
+		height: '83%',
 		width: 'auto',
 	  	fill: false,
+	  	top: '22%',
 		bottom: 0
 	});
 	
@@ -81,12 +73,13 @@ function Window1(title){
 		var profLabel = Ti.UI.createLabel({
 			left: 20,
 			width: '65%',
-			color: '#38695A'
+			color: '#666'
 		});
 		var numLabel = Ti.UI.createLabel({
 			left: 15,
 			width: '20%',
-			color: '#D1374A'
+			color: '#38695A',
+			font: {fontSize: 20}
 		});
 		var view_profList = Ti.UI.createView({
 			width: '100%',
@@ -101,7 +94,6 @@ function Window1(title){
 		view_profLabel.add(view_profList);
 	}
 	view_prof.add(view_profLabel);
-	view_top.add(view_top_back);
 	view_top.add(icon_image);
 	view_bottom_back.add(view_prof);
 	view_bottom.add(view_bottom_back);
