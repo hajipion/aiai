@@ -7,7 +7,7 @@
     <property name="acs-oauth-key-production" type="string">PdcPFgAzNy05x0PzYa0CqzUiy1tSFSXw</property>
     <property name="acs-api-key-production" type="string">ocNKDnUWv33asdUnybmZhCkyEbl01hzK</property>
     <id>com.apluplu.aiai</id>
-    <name>aiai</name>
+    <name>AIAI</name>
     <version>1.0</version>
     <publisher>hajime</publisher>
     <url>http://</url>
