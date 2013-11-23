@@ -25,7 +25,7 @@ function Window1(title){
 		width: '80%',
 		fill: false
 	});
-	
+
 	var icon_image = Ti.UI.createImageView({
 		image: '/images/icon_umbrella.png',
 		width: 130,
@@ -50,18 +50,18 @@ function Window1(title){
 	});
 
 	var view_prof = Ti.UI.createView({
-		width: '80%',
+		width: '100%',
 		fill: false,
 		top: 0
 	});
 
 	var prof_kind = [ 
-						{text:'相合仲間', num: '24人'},
-						{text:'助けた回数', num: '2回'},
-						{text:'助けてもらった回数', num: '2回'},
-						{text:'紳士度', num: '10%'}
+						{text:'相合仲間 ', num: '24人'},
+						{text:'助けた回数 ', num: '2回'},
+						{text:'助けてもらった回数 ', num: '2回'},
+						{text:'紳士度 ', num: '10%'}
 					];
-	
+
 	var nameLabel = Ti.UI.createLabel({
 		text: '山田 太郎',
 		top: 20,
@@ -72,18 +72,33 @@ function Window1(title){
 	view_prof.add(nameLabel);
 	var view_profLabel = Ti.UI.createView({
 		height: '75%',
+		top: 65,
 		bottom: 0,
 		layout: 'vertical'
 	});
-	
+
 	for(var i=0;i<prof_kind.length;i++){
-		var label = Ti.UI.createLabel({
-			top: 10,
-			opacity: 1,
-		 	color: '#38695A'
+		var profLabel = Ti.UI.createLabel({
+			left: 20,
+			width: '65%',
+			color: '#38695A'
 		});
-		label.text = prof_kind[i].text + " " + prof_kind[i].num;
-		view_profLabel.add(label);
+		var numLabel = Ti.UI.createLabel({
+			left: 15,
+			width: '20%',
+			color: '#D1374A'
+		});
+		var view_profList = Ti.UI.createView({
+			width: '100%',
+			height: '21%',
+			bottom: 0,
+			layout: 'horizontal'
+		});
+		profLabel.text = prof_kind[i].text;
+		numLabel.text = prof_kind[i].num;
+		view_profList.add(profLabel);
+		view_profList.add(numLabel);
+		view_profLabel.add(view_profList);
 	}
 	view_prof.add(view_profLabel);
 	view_top.add(view_top_back);
