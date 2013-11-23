@@ -30,7 +30,7 @@ function Window2(title){
 	var view_search = Ti.UI.createView({
 		layout: 'vertical',
 		top: 0,
-		height: '30%',
+		height: 155,
 		width: '100%',
 		backgroundColor: '#000',
 		opacity: 0.5
@@ -55,9 +55,11 @@ function Window2(title){
 	});
 	// ヘルプボタン
 	var sbmbutton = Ti.UI.createButton({
-		title: "HELP!",
-		width: '100%',
-		height: 'auto'
+		top: 10,
+		width: 55,
+		height: 55,
+		backgroundImage: '/images/help.png',
+		opacity:1
 	});
 	// アラート
 	var alert = Ti.UI.createAlertDialog({
