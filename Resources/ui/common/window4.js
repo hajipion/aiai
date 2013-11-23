@@ -1,26 +1,61 @@
 function Window4(title){
 	
 	var win = Ti.UI.createWindow({
+		backgroundImage: '/images/bg_sample.png',
 		title: title
 	});
 	
-	var rows = [
-		{title:'基本プロフィール',  hasChild:true, url:'http://www.apple.co.jp'},
-		{title:'履歴', hasChild:true, url:'http://www.amazon.co.jp'},
-		{title:'友人にしかヘルプを求めない', hasChild:true, url:'http://www.google.co.jp'},
-		{title:'チュートリアルとヘルプ', hasChild:true, url:'http://www.google.co.jp'},
-		{title:'利用規約', hasChild:true, url:'http://www.google.co.jp'},
-		{title:'ログアウト', hasChild:true, url:'http://www.google.co.jp'}
+	var preferences = [
+		{title:'基本プロフィール', hasSwitch: false},
+		{title:'履歴', hasSwitch: false},
+		{title:'友人にしかヘルプを求めない', hasSwitch: true},
+		{title:'チュートリアルとヘルプ', hasSwitch: false},
+		{title:'利用規約', hasSwitch: false},
+		{title:'ログアウト', hasSwitch: false}
 	];
 
-	var tblView = Titanium.UI.createTableView({
-		data:rows
+	var data = [];
+
+	for (var i=0;i<preferences.length;i++) {
+    	var pref = preferences[i];
+    	var row = Ti.UI.createTableViewRow({
+    		layout: 'absolute',
+    		height: 70
+    	});
+    	
+    	var itemLabel = Ti.UI.createLabel({
+    		left: 0,
+    		width: '70%'
+    	}); 
+    	itemLabel.text = pref.title;
+    	row.add(itemLabel);
+    	
+    	if(pref.hasSwitch === true){
+    		var s1 = Titanium.UI.createSwitch({
+    			width: '30%',
+        		value: false,
+        		//titleOff: '',
+        		//titleOn: '',
+        		right: 0
+			});
+			row.add(s1);
+			// create a switch change listener
+			s1.addEventListener('change', function(e) {
+    			// e.valueにはスイッチの新しい値が true もしくは falseとして設定されます。
+			});
+    	}
+		
+    	data.push(row);
+	}	
+	
+	var table = Titanium.UI.createTableView({
+		data: data
 	});
 
-	win.add(tblView);
+	win.add(table);
 
 	// 行クリック時の処理
-	tblView.addEventListener('click', function(e){
+	table.addEventListener('click', function(e){
 
 	});
 
