@@ -8,7 +8,7 @@ function Window4(title){
 	var preferences = [
 		{title:'基本プロフィール', hasSwitch: false},
 		{title:'履歴', hasSwitch: false},
-		{title:'友人にしかヘルプを求めない', hasSwitch: true},
+		{title:'facebookの友人にしかヘルプを求めない', hasSwitch: true},
 		{title:'チュートリアルとヘルプ', hasSwitch: false},
 		{title:'利用規約', hasSwitch: false},
 		{title:'ログアウト', hasSwitch: false}
