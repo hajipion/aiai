@@ -33,7 +33,7 @@ function Window3(title){
 
 	// bottom view
 	var view_bottom = Ti.UI.createView({
-		height: '65%',
+		height: '70%',
 		width: 'auto',
 	  	fill: false,
 		bottom: 0
