@@ -26,12 +26,11 @@ function Window1(title){
 
 	// bottom view
 	var view_bottom = Ti.UI.createView({
-		height: '80%',
+		height: '83%',
 		width: 'auto',
 	  	fill: false,
-	  	top: 80,
-		bottom: 0,
-		layout: 'vertical'
+	  	top: '22%',
+		bottom: 0
 	});
 	
 	var view_bottom_back = Ti.UI.createView({
