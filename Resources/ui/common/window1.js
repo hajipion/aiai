@@ -37,7 +37,9 @@ function Window1(title){
 		height: '80%',
 		width: 'auto',
 	  	fill: false,
-		bottom: 0
+	  	top: 80,
+		bottom: 0,
+		layout: 'vertical'
 	});
 	
 	var view_bottom_back = Ti.UI.createView({
