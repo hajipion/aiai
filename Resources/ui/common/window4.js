@@ -19,24 +19,24 @@ function Window4(title){
 	for (var i=0;i<preferences.length;i++) {
     	var pref = preferences[i];
     	var row = Ti.UI.createTableViewRow({
-    		layout: 'absolute',
+    		width: 'auto',
     		height: 70
     	});
     	
     	var itemLabel = Ti.UI.createLabel({
-    		left: 0,
-    		width: '70%'
+    		width: '75%',
+    		left: '5%'
     	}); 
     	itemLabel.text = pref.title;
     	row.add(itemLabel);
     	
     	if(pref.hasSwitch === true){
     		var s1 = Titanium.UI.createSwitch({
-    			width: '30%',
+    			width: '40%',
         		value: false,
         		//titleOff: '',
         		//titleOn: '',
-        		right: 0
+        		right: 10
 			});
 			row.add(s1);
 			// create a switch change listener
