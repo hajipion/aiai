@@ -55,7 +55,7 @@ function Window1(title){
 					];
 
 	var nameLabel = Ti.UI.createLabel({
-		text: '山田 太郎',
+		text:  Ti.App._username,
 		top: 20,
     	font: { fontSize:23 },
 	    color: '#000',
