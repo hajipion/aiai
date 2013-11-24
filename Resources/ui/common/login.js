@@ -1,8 +1,9 @@
 //
-function FirstView() {
+function FirstView(Window) {
     //create object instance, a parasitic subclass of Observable
-    var self = Ti.UI.createView();
- 
+    var self = Titanium.UI.createWindow();
+    
+   
     // ユーザー名欄
     var userNameText = Ti.UI.createTextField({
         top : 10,
@@ -39,16 +40,37 @@ function FirstView() {
     var pass;
  
     // ユーザー作成API呼び出し
-    button.title = 'ユーザー作成';
+    button.title = 'ログイン';
     button.addEventListener('click', function(e) {
+    	 var ApplicationTabGroup =require('ui/common/ApplicationTabGroup');
+				
         username = userNameText.value;
+        //usernameを保存
+        Ti.App._username = username;
         pass = passText.value;
-        Cloud.Users.create({
+        
+        Cloud.Users.login({
+        login:    username,
+        password: pass
+   			 }, function (e) {
+        if (e.success) {
+            var user = e.users[0];
+            alert('Success:\\n' +
+                'id: ' + user.id + '\\n' +
+                'first name: ' + user.first_name + '\\n' +
+                'last name: ' + user.last_name);
+            
+				new ApplicationTabGroup(Window).open();
+        } else {
+            alert('だめ:\\n' +
+                ((e.error && e.message) || JSON.stringify(e)));
+             Cloud.Users.create({
             username : username,
             password : pass,
             password_confirmation : pass
         }, function(e) {
             if (e.success) {
+            	
                 // 作成後に表示するWindow
                 var resultWindow = Ti.UI.createWindow({
                     backgroundColor : '#ffffff'
@@ -59,12 +81,40 @@ function FirstView() {
                     height : 'auto',
                     text : 'ユーザーを作成しました。'
                 });
-                resultWindow.add(messageLabel);
-                resultWindow.open();
+                
+				new ApplicationTabGroup(Window).open();
+				
             } else {
                 alert('Faild to create user! ' + e.message);
             }
         });
+        }
+   	});
+        
+        
+        
+        
+       
+    });
+    
+     Cloud.Photos.query({
+        page: 1,
+        per_page: 20
+    }, function (e) {
+        if (e.success) {
+            for (var i = 0; i < e.photos.length; i++) {
+                var photo = e.photos[i];
+                // Create an ImageView.
+                var anImageView = Ti.UI.createImageView({
+                    image : photo.urls.thumb_100,
+                    width : 100,
+                    height : 100,
+                    top :  100  * Math.ceil(i / 4),
+                    left : 100 * (i % 4)
+                });
+                self.add(anImageView);
+            }
+        }
     });
     self.add(button);
     return self;
