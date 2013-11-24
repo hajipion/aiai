@@ -45,13 +45,14 @@ function Window3(title){
 	});
 
 	var users = [
-					{text:'user1', per: '50pt'},
-					{text:'user2', per: '20pt'},
-					{text:'user3', per: '70pt'},
-					{text:'user4', per: '50pt'},
-					{text:'user5', per: '20pt'},
-					{text:'user6', per: '60pt'},
-					{text:'user7', per: '10pt'}
+					{text:'田中大地', per: '50pt'},
+					{text:'やっこ', per: '20pt'},
+					{text:'栗野あきほ', per: '70pt'},
+					{text:'じょー', per: '50pt'},
+					{text:'広野萌', per: '20pt'},
+					{text:'市岡陽子', per: '60pt'},
+					{text:'たっくん', per: '10pt'},
+					{text:'Nakata Keiko', per: '10pt'}
 				];//仮のデータです	
 	var data = [];
 
