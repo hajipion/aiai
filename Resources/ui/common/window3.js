@@ -45,13 +45,13 @@ function Window3(title){
 	});
 
 	var users = [
-					{text:'user1', per: '50%'},
-					{text:'user2', per: '20%'},
-					{text:'user3', per: '70%'},
-					{text:'user4', per: '50%'},
-					{text:'user5', per: '20%'},
-					{text:'user6', per: '60%'},
-					{text:'user7', per: '10%'}
+					{text:'user1', per: '50pt'},
+					{text:'user2', per: '20pt'},
+					{text:'user3', per: '70pt'},
+					{text:'user4', per: '50pt'},
+					{text:'user5', per: '20pt'},
+					{text:'user6', per: '60pt'},
+					{text:'user7', per: '10pt'}
 				];//仮のデータです	
 	var data = [];
 
@@ -79,7 +79,7 @@ function Window3(title){
     		bottom: 3
     	});
     	nameLabel.text = user.text;
-    	heartLabel.text = '♥紳士度 ';
+    	heartLabel.text = '♥紳士ポイント ';
     	perLabel.text = heartLabel.text + user.per;
     	row.add(nameLabel);
     	row.add(perLabel);

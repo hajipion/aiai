@@ -51,7 +51,7 @@ function Window1(title){
 						{text:'相合仲間 ', num: '24人'},
 						{text:'助けた回数 ', num: '2回'},
 						{text:'助けてもらった回数 ', num: '2回'},
-						{text:'紳士度 ', num: '10%'}
+						{text:'紳士ポイント ', num: '10pt'}
 					];
 
 	var nameLabel = Ti.UI.createLabel({
