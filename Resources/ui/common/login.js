@@ -7,25 +7,47 @@ function FirstView(Window) {
     
 
     /////// ユーザー名欄
+    // ユーザー名アイコン
+	var userNameImage = Ti.UI.createImageView({
+		image: '/images/login-name.png',
+		width: 30,
+		top:120,
+		left: 60,
+		layout: 'horizontal'
+	});
     // ユーザー名テキストフィールド
     var userNameText = Ti.UI.createTextField({
         top : 120,
+        left: 100,
         height : 'auto',
         width : '50%',
         borderStyle : Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
-        hintText : 'Name'
+        hintText : 'Name',
+		layout: 'horizontal'
     });
+    self.add(userNameImage);
     self.add(userNameText);
- 
-    // パスワード欄
+    
+     /////// パスワード欄
+    // パスワードアイコン
+	var passImage = Ti.UI.createImageView({
+		image: '/images/login-pass.png',
+		width: 30,
+		top:160,
+		left: 60,
+		layout: 'horizontal'
+	});
+    // パスワードテキストフィールド
     var passText = Ti.UI.createTextField({
         top : 160,
+        left: 100,
         height : 'auto',
         width : '50%',
         borderStyle : Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
         passwordMask : true,
         hintText : 'Password'
     });
+    self.add(passImage);
     self.add(passText);
  
     // API呼び出し
@@ -33,7 +55,8 @@ function FirstView(Window) {
         top : 220,
         height : 'auto',
         width : 200,
-        title : 'ユーザー作成'
+        title : 'ユーザー作成',
+		backgroundImage: '/images/back-login-button.png'
     });
  
     var Cloud = require('ti.cloud');
