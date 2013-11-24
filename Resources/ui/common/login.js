@@ -1,14 +1,17 @@
 //
 function FirstView(Window) {
     //create object instance, a parasitic subclass of Observable
-    var self = Titanium.UI.createWindow();
+    var self = Titanium.UI.createWindow({
+		backgroundImage: '/images/login-back.png'
+    });
     
-   
-    // ユーザー名欄
+
+    /////// ユーザー名欄
+    // ユーザー名テキストフィールド
     var userNameText = Ti.UI.createTextField({
-        top : 10,
+        top : 120,
         height : 'auto',
-        width : '90%',
+        width : '50%',
         borderStyle : Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
         hintText : 'Name'
     });
@@ -16,9 +19,9 @@ function FirstView(Window) {
  
     // パスワード欄
     var passText = Ti.UI.createTextField({
-        top : 50,
+        top : 160,
         height : 'auto',
-        width : '90%',
+        width : '50%',
         borderStyle : Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
         passwordMask : true,
         hintText : 'Password'
@@ -27,7 +30,7 @@ function FirstView(Window) {
  
     // API呼び出し
     var button = Ti.UI.createButton({
-        top : 100,
+        top : 220,
         height : 'auto',
         width : 200,
         title : 'ユーザー作成'
@@ -99,6 +102,7 @@ function FirstView(Window) {
     
     
     self.add(button);
+    
     return self;
 }
  
