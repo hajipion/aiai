@@ -45,47 +45,56 @@ function Window3(title){
 	});
 
 	var users = [
-					{text:'田中大地', per: '50pt'},
-					{text:'やっこ', per: '20pt'},
-					{text:'栗野あきほ', per: '70pt'},
-					{text:'じょー', per: '50pt'},
-					{text:'広野萌', per: '20pt'},
-					{text:'市岡陽子', per: '60pt'},
-					{text:'たっくん', per: '10pt'},
-					{text:'Nakata Keiko', per: '10pt'}
+					{text:'田中大地', pt: '50'},
+					{text:'やっこ', pt: '20'},
+					{text:'栗野あきほ', pt: '70'},
+					{text:'じょー', pt: '50'},
+					{text:'広野萌', pt: '20'},
+					{text:'市岡陽子', pt: '60'},
+					{text:'たっくん', pt: '10'},
+					{text:'Nakata Keiko', pt: '10'}
 				];//仮のデータです	
 	var data = [];
 
 	for (var i=0;i<users.length;i++) {
     	var user = users[i];
     	var row = Ti.UI.createTableViewRow({
-    		height: 50
+    		height: 60
     	});
     	var nameLabel = Ti.UI.createLabel({
     		font: { fontSize:20 },
     		color: '#000',
     		top: 5
     	});
-    	var heartLabel = Ti.UI.createLabel({
+    	var ptLine = Ti.UI.createView({
+    		width: '100%',
 			layout: 'horizontal',
-    		font: { fontSize:14 },
-	    	color: '#38695A',
+			top: 30,
+			left: 60
+    	});
+    	var heartLabel = Ti.UI.createLabel({
+    		width: '40%',
+    		font: { fontSize:13 },
+	    	color: '#666',
 	    	fontWeight: 'bold'
     	});
-    	var perLabel = Ti.UI.createLabel({
-			layout: 'horizontal',
+    	var ptLabel = Ti.UI.createLabel({
+    		width: '30%',
     		font: { fontSize:17 },
 	    	color: '#38695A',
 	    	fontWeight: 'bold',
-    		bottom: 3
+    		bottom: 4
     	});
     	nameLabel.text = user.text;
     	heartLabel.text = '♥紳士ポイント ';
-    	perLabel.text = heartLabel.text + user.per;
+    	ptLabel.text = user.pt + 'pt';
+    	ptLine.add(heartLabel);
+    	ptLine.add(ptLabel);
+    	//perLabel.text = heartLabel.text + user.per;
     	row.add(nameLabel);
-    	row.add(perLabel);
+    	row.add(ptLine);
     	data.push(row);
-	}	
+	}
 	
 	var user_list = Ti.UI.createTableView({
 		opacity: 0.5,
