@@ -6,7 +6,7 @@ function Window4(title){
 	});
 	
 	var preferences = [
-		{title:'基本プロフィール', hasSwitch: false},
+		{title:'基本プロフィール', hasSwitch: false, test: 'ui/common/editProfile'},
 		{title:'履歴', hasSwitch: false},
 		{title:'facebookの友人にしかヘルプを求めない', hasSwitch: true},
 		{title:'チュートリアルとヘルプ', hasSwitch: false},
@@ -15,52 +15,28 @@ function Window4(title){
 	];
 
 	var data = [];
+	var isAndroid = Titanium.Platform.name == 'android';
 
 	for (var i=0;i<preferences.length;i++) {
     	var pref = preferences[i];
-    	/*
-    	var itemLabel = Ti.UI.createLabel({
-    		//left: 0,
-    		width: '70%'
-    	}); 
-    	itemLabel.text = pref.title;
-    	row.add(itemLabel);
-    	*/
+    	var row = Ti.UI.createTableViewRow({
+    		title: pref.title,
+    		height: 70
+    	});
     	if(pref.hasSwitch === true){
-    		if (Titanium.Platform.name == 'android') {
-    			var row = Ti.UI.createTableViewRow({
-    				title: pref.title,
-    				hasCheck: true,
-		    		height: 70
-    			});
+    		if (isAndroid) {
+    			row.hasCheck = true;
 			} else {
-				var row = Ti.UI.createTableViewRow({
-    				title: pref.title,
-    				//layout: 'horizontal',
-    				height: 70
-    			});
 	    		var s1 = Titanium.UI.createSwitch({
-    				//width: '30%',
         			value: false,
-        			//titleOff: '',
-        			//titleOn: '',
         			right: 5
 				});
 				row.add(s1);
-				// create a switch change listener
 				s1.addEventListener('change', function(e) {
     				// e.valueにはスイッチの新しい値が true もしくは falseとして設定されます。
-    				Titanium.App.Properties.setBool('Bool',e.balue);
-				});
+    				Titanium.App.Properties.setBool('Bool',e.value);
 			}
-    	} else {
-    		var row = Ti.UI.createTableViewRow({
-    			title: pref.title,
-    			//layout: 'horizontal',
-    			height: 70
-    		});
     	}
-    	
     	data.push(row);
 	}	
 	
@@ -70,18 +46,24 @@ function Window4(title){
 
 	win.add(table);
 
+	var pref = require('ui/common/Preferences');
 	// 行クリック時の処理
 	table.addEventListener('click', function(e){
 		var index = e.index;
 		switch(index){
 			case 2:
-				if(e.row.getHasCheck()){
-					e.row.setHasCheck(false);
+				if(isAndroid){
+					if(e.row.getHasCheck()){
+						e.row.setHasCheck(false);
+					} else {
+						e.row.setHasCheck(true);
+					}
 				} else {
-					e.row.setHasCheck(true);
+					
 				}
 				break;
 			default:
+				win.add(pref.showPrefView(index));
 				break;
 		}
 	});
