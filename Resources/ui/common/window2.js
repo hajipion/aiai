@@ -58,6 +58,7 @@ function Window2(title){
 		hintText: "目的地",
 		width: '60%',
 		top: 10,
+		editable: false,
 		borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED
 	});
 	// ヘルプボタン
@@ -103,6 +104,8 @@ function Window2(title){
   			// 現在地をセット
   			latitude = e.coords.latitude;
         	longitude = e.coords.longitude;
+        	
+        	tfPresent.setHintText('緯度：'+latitude+'　経度：'+longtitude);
   
 	  		// 現在地を動的に表示する
   			var currentPos = Titanium.Map.createAnnotation({
@@ -122,7 +125,6 @@ function Window2(title){
         	});
  		}
 	);
-
 	// view.add(map);
 	view.add(view_search);
 	view_search.add(tfPresent);
