@@ -33,7 +33,7 @@ function FirstView(Window) {
     });
     nameView.add(userNameImage);
     nameView.add(userNameText);
-    
+
      /////// パスワード欄
      var passView = Ti.UI.createView({
     	layout: 'absolute',
@@ -58,11 +58,11 @@ function FirstView(Window) {
     });
     passView.add(passImage);
     passView.add(passText);
-    
+
     view.add(nameView);
     view.add(passView);
     //self.add(view);
- 
+
     // API呼び出し
     var button = Ti.UI.createButton({
     	color: '#fff',
@@ -72,25 +72,26 @@ function FirstView(Window) {
         title : 'ユーザー作成',
 		backgroundImage: '/images/back-login-button.png'
     });
-    
+
     view.add(button);
- 
+
     var Cloud = require('ti.cloud');
     Cloud.debug = true;
- 
+
     var username;
     var pass;
- 
+    //友達変数
+ 	Ti.App._withFriends =[];
     // ユーザー作成API呼び出し（一回ログインしたら再度ログインしなくていいようにしないとね）
     button.title = 'ログイン';
     button.addEventListener('click', function(e) {
     	 var ApplicationTabGroup =require('ui/common/ApplicationTabGroup');
-				
+
         username = userNameText.value;
         //usernameを保存
         Ti.App._username = username;
         pass = passText.value;
-        
+
         Cloud.Users.login({
         login:    username,
         password: pass
@@ -103,10 +104,33 @@ function FirstView(Window) {
                 'id: ' + user.id + '\\n' +
                 'first name: ' + user.first_name + '\\n' +
                 'last name: ' + user.last_name);
-            
-				new ApplicationTabGroup(Window).open();
-        } else {
-            alert('だめ:\\n' +
+   		//ともだち取得(ちょっと保留)
+
+   		Cloud.debug = true;
+		Cloud.Friends.search({
+		user_id: Ti.App._userid
+		}, function (e) {
+    	if (e.success&&e.users.length>0) {
+
+      　		for (var i = 0; i < e.users.length; i++) {
+          		var user = e.users[i];
+
+		  		var currentWithFriends = Ti.App._withFriends;
+	     		 var ids = {
+   					text:user.username,
+   					pt:'50px',
+				};
+	　　　 	currentWithFriends.push(ids);
+	      	Ti.App._withFriends=currentWithFriends;
+		  //友達情報を読み込んでからページをopen！！
+		  	new ApplicationTabGroup(Window).open();
+        	 }
+     	}else{
+     		new ApplicationTabGroup(Window).open();
+    	}
+	});
+ } else {
+            alert('ログインできないでーすユーザくつくりまーす！:\\n' +
                 ((e.error && e.message) || JSON.stringify(e)));
              Cloud.Users.create({
             username : username,
@@ -114,7 +138,7 @@ function FirstView(Window) {
             password_confirmation : pass
         }, function(e) {
             if (e.success) {
-            	
+
                 // 作成後に表示するWindow
                 var resultWindow = Ti.UI.createWindow({
                     backgroundColor : '#ffffff'
@@ -125,26 +149,25 @@ function FirstView(Window) {
                     height : 'auto',
                     text : 'ユーザーを作成しました。'
                 });
-                
+
 				new ApplicationTabGroup(Window).open();
-				
+
             } else {
                 alert('Faild to create user! ' + e.message);
             }
         });
         }
    	});
-        
-        
-        
-        
-       
+
+
+
+
+
     });
-    
-    
+
     self.add(view);
-    
+
     return self;
 }
- 
+
 module.exports = FirstView;
