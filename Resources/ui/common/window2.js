@@ -56,7 +56,7 @@ function Window2(title){
 	// 目的地のテキストフィールド
 	var tfDestination = Ti.UI.createTextField({
 		color: "#333",
-		hintText: "目的地",
+		hintText: "目的地を入力してください",
 		width: '60%',
 		top: 10,
 		borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED
@@ -105,7 +105,12 @@ function Window2(title){
   			latitude = e.coords.latitude;
         	longitude = e.coords.longitude;
         	
-        	tfPresent.setHintText('緯度：'+latitude+'　経度：'+longitude);
+        	// 小数点第二位に省略
+        	var shortLatitude = Math.round(latitude * 100) / 100;
+        	var shortLongitude = Math.round(longitude * 100) / 100;
+        	
+        	// テキストフィールドに現在地を書く
+        	tfPresent.setHintText('現在地：'+shortLatitude+','+shortLongitude);
   
 	  		// 現在地を動的に表示する
   			var currentPos = Titanium.Map.createAnnotation({
