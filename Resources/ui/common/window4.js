@@ -28,32 +28,32 @@ function Window4(title){
                     height : 100,
                     top :  100  * Math.ceil(i / 4),
                     left : 100 * (i % 4)
-                });
-                //適当に表示
-                win.add(anImageView);
+          });
         }else{
-        		//写真投稿はこちらログインしてないとエラー（実機でためさないと・・・）
-			 Ti.Media.openPhotoGallery({
-             success : function(event) {
-                Cloud.Photos.create({
-                    photo: event.media
-                }, function (e) {
-                    if (e.success) {
-                        var photo = e.photos[0];
-                        alert('Success:\\n' +
-                            'id: ' + photo.id + '\\n' +
-                            'filename: ' + photo.filename + '\\n' +
-                            'size: ' + photo.size,
-                            'updated_at: ' + photo.updated_at);
-                    } else {
-                        alert('Error:\\n' +
-                            ((e.error && e.message) || JSON.stringify(e)));
-                    }
-                });
-            },
-            mediaTypes : [Ti.Media.MEDIA_TYPE_PHOTO]
-       	 });
-		//写真投稿ここまで
+        	//写真投稿はこちらログインしてないとエラー（実機でためさないと・・・）
+			Ti.Media.openPhotoGallery({
+            	success : function(event) {
+                	Cloud.Photos.create({
+                    	photo: event.media
+                	}, function (e) {
+                    	if (e.success) {
+                        	var photo = e.photos[0];
+                        	alert('Success:\\n' +
+                            	'id: ' + photo.id + '\\n' +
+                            	'filename: ' + photo.filename + '\\n' +
+                            	'size: ' + photo.size,
+                            	'updated_at: ' + photo.updated_at
+                            );
+                    	} else {
+                        	alert('Error:\\n' +
+                        	    ((e.error && e.message) || JSON.stringify(e))
+                        	);
+                    	}
+                	});
+            	},
+            	mediaTypes : [Ti.Media.MEDIA_TYPE_PHOTO]
+       	 	});
+			//写真投稿ここまで
         }
 
     } else {
