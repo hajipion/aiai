@@ -6,58 +6,75 @@ function FirstView(Window) {
     });
     
 
+	var view = Ti.UI.createView({
+		top: 120,
+		layout: 'vertical',
+		height: '30%',
+		width: '70%'
+	});
     /////// ユーザー名欄
+    var nameView = Ti.UI.createView({
+    	layout: 'absolute',
+    	width: '100%',
+    	height: '25%',
+    });
     // ユーザー名アイコン
 	var userNameImage = Ti.UI.createImageView({
 		image: '/images/login-name.png',
-		width: 30,
-		top:120,
-		left: 60,
-		layout: 'horizontal'
+		height: '100%',
+		left: 0
 	});
     // ユーザー名テキストフィールド
     var userNameText = Ti.UI.createTextField({
-        top : 120,
-        left: 100,
-        height : 'auto',
-        width : '50%',
+        right: 0,
+        height : '100%',
+        width : '75%',
         borderStyle : Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
-        hintText : 'Name',
-		layout: 'horizontal'
+        hintText : 'Name'
     });
-    self.add(userNameImage);
-    self.add(userNameText);
+    nameView.add(userNameImage);
+    nameView.add(userNameText);
     
      /////// パスワード欄
+     var passView = Ti.UI.createView({
+    	layout: 'absolute',
+    	width: '100%',
+    	height: '25%',
+    	top: 10
+	});
     // パスワードアイコン
 	var passImage = Ti.UI.createImageView({
 		image: '/images/login-pass.png',
-		width: 30,
-		top:160,
-		left: 60,
-		layout: 'horizontal'
+		height: '100%',
+		left: 0
 	});
     // パスワードテキストフィールド
     var passText = Ti.UI.createTextField({
-        top : 160,
-        left: 100,
-        height : 'auto',
-        width : '50%',
+        right: 0,
+        height : '100%',
+        width : '75%',
         borderStyle : Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
         passwordMask : true,
         hintText : 'Password'
     });
-    self.add(passImage);
-    self.add(passText);
+    passView.add(passImage);
+    passView.add(passText);
+    
+    view.add(nameView);
+    view.add(passView);
+    //self.add(view);
  
     // API呼び出し
     var button = Ti.UI.createButton({
-        top : 220,
-        height : 'auto',
-        width : 200,
+    	color: '#fff',
+        top : 10,
+        height : '25%',
+        width : '100%',
         title : 'ユーザー作成',
 		backgroundImage: '/images/back-login-button.png'
     });
+    
+    view.add(button);
  
     var Cloud = require('ti.cloud');
     Cloud.debug = true;
@@ -126,7 +143,7 @@ function FirstView(Window) {
     });
     
     
-    self.add(button);
+    self.add(view);
     
     return self;
 }
