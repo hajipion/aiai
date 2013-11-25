@@ -78,7 +78,7 @@ function Window2(title){
 	});
 	sbmbutton.addEventListener("click",function(e){
 		if(tfDestination.getValue()===''){
-			alert.setTitle('警告');
+			alert.setTitle('HELPする前に！');
 			alert.setMessage('目的地を入力してください。');
 			alert.show();
 		} else {
@@ -133,6 +133,7 @@ function Window2(title){
         	mapview.setLocation({   // 現在地まで地図をスクロールする
             	latitude:latitude,
             	longitude:longitude,
+            	animate:true,
             	latitudeDelta:0.01,
             	longitudeDelta:0.01
         	});
