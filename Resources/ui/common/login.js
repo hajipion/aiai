@@ -65,7 +65,7 @@ function FirstView(Window) {
     var username;
     var pass;
  
-    // ユーザー作成API呼び出し
+    // ユーザー作成API呼び出し（一回ログインしたら再度ログインしなくていいようにしないとね）
     button.title = 'ログイン';
     button.addEventListener('click', function(e) {
     	 var ApplicationTabGroup =require('ui/common/ApplicationTabGroup');
@@ -81,6 +81,8 @@ function FirstView(Window) {
    			 }, function (e) {
         if (e.success) {
             var user = e.users[0];
+            //user_idを保存
+            Ti.App._userid =user.id;
             alert('Success:\\n' +
                 'id: ' + user.id + '\\n' +
                 'first name: ' + user.first_name + '\\n' +
