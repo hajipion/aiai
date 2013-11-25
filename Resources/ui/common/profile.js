@@ -99,22 +99,6 @@ function ProfileWindow(parent){
 	view_bottom_back.add(view_prof);
 	view_bottom.add(view_bottom_back);
 
-	// 戻るボタン
-	var back_btn = Ti.UI.createButton({
-		title: "戻る",
-		backgroundImage: '/images/back.png',
-		width: 50,
-		height: 'auto',
-		layout: 'absolute',
-		top: '22%',
-		left: '12%'
-	});
-	back_btn.addEventListener('click', function(e){
-		view.visible = false;
-	});
-	
-	view_bottom.add(back_btn);
-
 	view.add(view_top);
 	view.add(view_bottom);
 	
