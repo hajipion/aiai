@@ -105,7 +105,7 @@ function Window2(title){
   			latitude = e.coords.latitude;
         	longitude = e.coords.longitude;
         	
-        	tfPresent.setHintText('緯度：'+latitude+'　経度：'+longtitude);
+        	tfPresent.setHintText('緯度：'+latitude+'　経度：'+longitude);
   
 	  		// 現在地を動的に表示する
   			var currentPos = Titanium.Map.createAnnotation({
