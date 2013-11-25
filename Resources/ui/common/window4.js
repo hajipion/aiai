@@ -15,26 +15,25 @@ function Window4(title){
 	];
 	
 	//画像取得用api
-	 var Cloud = require('ti.cloud');
+	var Cloud = require('ti.cloud');
     Cloud.debug = true;
 	
 	Cloud.Users.showMe(function (e) {
-    if (e.success) {
-        var user = e.users[0];
-          var anImageView = Ti.UI.createImageView({
-                    image : user.photo.urls.thumb_100,
-                    width : 100,
-                    height : 100,
-                    top :  100  * Math.ceil(i / 4),
-                    left : 100 * (i % 4)
-                });
-                //適当に表示
-                win.add(anImageView);
-    } else {
-        alert('Error:\n' +
-            ((e.error && e.message) || JSON.stringify(e)));
-    }
-});
+	    if (e.success) {
+	        var user = e.users[0];
+	        var anImageView = Ti.UI.createImageView({
+	        	//image : user.photo.urls.thumb_100,
+	            width : 100,
+	            height : 100,
+	            top :  100  * Math.ceil(i / 4),
+	            left : 100 * (i % 4)
+	        });
+	        //適当に表示
+	        win.add(anImageView);
+	    } else {
+	        alert('Error:\n' + ((e.error && e.message) || JSON.stringify(e)));
+	    }
+	});
 
 	var data = [];
 
