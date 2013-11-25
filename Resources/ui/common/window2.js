@@ -71,13 +71,21 @@ function Window2(title){
 	});
 	// アラート
 	var alert = Ti.UI.createAlertDialog({
-		title: "HELP?",
-		message: "近くの人に助けを求めますか？",
+		//title: "HELP?",
+		//message: "近くの人に助けを求めますか？",
 		buttonNames: ["OK","Cancel"],
 		cancel: 1
 	});
 	sbmbutton.addEventListener("click",function(e){
-		alert.show();
+		if(tfDestination.getValue()===''){
+			alert.setTitle('警告');
+			alert.setMessage('目的地を入力してください。');
+			alert.show();
+		} else {
+			alert.setTitle('HELP?');
+			alert.setMessage('近くの人に助けを求めますか？');
+			alert.show();
+		}
 	});
 	
 	// 最初に中心となる位置をセットしておく
