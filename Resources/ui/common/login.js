@@ -8,26 +8,26 @@ function FirstView(Window) {
 	var view = Ti.UI.createView({
 		top: 120,
 		layout: 'vertical',
-		height: '30%',
+		height: '27%',
 		width: '70%'
 	});
     /////// ユーザー名欄
     var nameView = Ti.UI.createView({
     	layout: 'absolute',
     	width: '100%',
-    	height: '25%',
+    	height: '25%'
     });
     // ユーザー名アイコン
 	var userNameImage = Ti.UI.createImageView({
 		image: '/images/login-name.png',
 		height: '100%',
-		left: 0
+		left: -25
 	});
     // ユーザー名テキストフィールド
     var userNameText = Ti.UI.createTextField({
         right: 0,
         height : '100%',
-        width : '75%',
+        width : '80%',
         borderStyle : Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
         hintText : 'Name'
     });
@@ -45,13 +45,13 @@ function FirstView(Window) {
 	var passImage = Ti.UI.createImageView({
 		image: '/images/login-pass.png',
 		height: '100%',
-		left: 0
+		left: -25
 	});
     // パスワードテキストフィールド
     var passText = Ti.UI.createTextField({
         right: 0,
         height : '100%',
-        width : '75%',
+        width : '80%',
         borderStyle : Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
         passwordMask : true,
         hintText : 'Password'
@@ -66,7 +66,7 @@ function FirstView(Window) {
     // API呼び出し
     var button = Ti.UI.createButton({
     	color: '#fff',
-        top : 10,
+        top : 20,
         height : '25%',
         width : '100%',
         title : 'ユーザー作成',
