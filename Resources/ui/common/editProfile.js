@@ -6,7 +6,13 @@ function editProfView(_args) {
 	// get tab group object
 	var tabGroup = _args.tabGroup;
 
+	var view = Ti.UI.createView({
+		backgroundColor: "#fff",
+	});
 
+    //プロフィール画像表示
+    win.add(anImageView);
+	win.add(view);
 	return win;
 };
 
