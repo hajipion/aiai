@@ -11,7 +11,7 @@ function editProfView(_args) {
 	});
 
     //プロフィール画像表示
-    win.add(anImageView);
+    view.add(anImageView);
 	win.add(view);
 	return win;
 };
