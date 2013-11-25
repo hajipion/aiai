@@ -2,32 +2,39 @@ function Window2(title){
 	
 	var win = Ti.UI.createWindow({
 		title: title
-	});
+	});	
 	
 	// base view
 	var view = Ti.UI.createView({
 		// layout: 'vertical'
 	});
-	// 場所指定
-	var ebisu = Ti.Map.createAnnotation({
-		latitude: 35.645,
-		longitude: 139.71,
-		title: "Ebisu",
+	
+	if(!Titanium.Geolocation.locationServicesEnabled){
+        Titanium.UI.createAlertDialog({
+            title:'位置情報取得',
+            message:'位置測定が出来ません。電波状況、設定を確認してください。'
+        }).show();
+        return;
+    }
+    /*
+	// 現在位置
+	var my_place = Ti.Map.createAnnotation({
+		title: "現在地",
 		pinImage: "/images/map-pin.png",
 		animate: true
 	});
-	
+
 	// マップエリア
 	var map = Ti.Map.createView({
 		mapType: Ti.Map.STANDARD_TYPE,
-		region: {latitude: 35.645, longitutde: 139.71, latitudeDelta:0.01, longitudeDelta:0.01},
 		animate: true,
 		regionFit: true,
 		top: 0,
 		width: 'auto',
-		annotations: [ebisu],
+		annotations: [my_place],
 		height: 'auto'
-	});
+	});*/
+	
 	// サーチエリア
 	var view_search = Ti.UI.createView({
 		layout: 'vertical',
@@ -72,17 +79,51 @@ function Window2(title){
 		alert.show();
 	});
 	
-	var view1 = Ti.UI.createView({
-		//layout: 'vertical',
-		top: 200,
-		height: '50%',
-		width: 'auto',
-		backgroundColor: '#000',
-		//opacity: 0.5
+	// 最初に中心となる位置をセットしておく
+	var mapview = Ti.Map.createView({
+ 		mapType: Ti.Map.STANDARD_TYPE,
+ 		region: {latitude:35.6911, longitude:139.7067, latitudeDelta:0.01, longitudeDelta:0.01},
+ 		animate: true,
+ 		regionFit: true,
+ 		width: 'auto',
+ 		height: 'auto'
 	});
 
-	view.add(map);
-	// map.add(view1);
+	view.add(mapview);
+	win.add(view);
+
+	Titanium.Geolocation.purpose = 'サンプル';
+
+	Titanium.Geolocation.getCurrentPosition(
+ 		function(e) {
+  			if(!e.success || e.error){
+   				//alert('位置情報が取得できませんでした');
+   				return;
+  			}
+  			// 現在地をセット
+  			latitude = e.coords.latitude;
+        	longitude = e.coords.longitude;
+  
+	  		// 現在地を動的に表示する
+  			var currentPos = Titanium.Map.createAnnotation({
+   				latitude: latitude, 
+   				longitude: longitude, 
+   				pincolor: Titanium.Map.ANNOTATION_RED,
+   				pinImage: "/images/map-pin.png",
+   				animate: true
+  			});
+     		mapview.addAnnotation(currentPos);
+        	mapview.show(); // 隠していた地図を表示する
+        	mapview.setLocation({   // 現在地まで地図をスクロールする
+            	latitude:latitude,
+            	longitude:longitude,
+            	latitudeDelta:0.01,
+            	longitudeDelta:0.01
+        	});
+ 		}
+	);
+
+	// view.add(map);
 	view.add(view_search);
 	view_search.add(tfPresent);
 	view_search.add(tfDestination);
