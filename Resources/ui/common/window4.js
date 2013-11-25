@@ -29,6 +29,8 @@ function Window4(title){
 	                    top :  100  * Math.ceil(i / 4),
 	                    left : 100 * (i % 4)
 	          });
+			  //プロフィール画像表示（できない〜〜〜〜）
+			  self.view.add(anImageView);
 	        }else{
 	        	//写真投稿はこちらログインしてないとエラー（実機でためさないと・・・）
 				Ti.Media.openPhotoGallery({
@@ -93,7 +95,7 @@ function Window4(title){
 		data: data
 	});
 
-	self.add(table);
+	//self.add(table);
 
 	// 行クリック時の処理
 	table.addEventListener('click', function(e){

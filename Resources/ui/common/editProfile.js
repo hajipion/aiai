@@ -10,8 +10,6 @@ function editProfView(_args) {
 		backgroundColor: "#fff",
 	});
 
-    //プロフィール画像表示（できない〜〜〜〜）
-    //view.add(anImageView);
 	win.add(view);
 	return win;
 };
