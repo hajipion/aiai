@@ -4,7 +4,6 @@ function FirstView(Window) {
     var self = Titanium.UI.createWindow({
 		backgroundImage: '/images/login-back.png'
     });
-    
 
     /////// ユーザー名欄
     // ユーザー名アイコン
