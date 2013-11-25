@@ -1,6 +1,6 @@
 function Window4(title){
 	
-	var win = Ti.UI.createWindow({
+	var self = Ti.UI.createWindow({
 		backgroundImage: '/images/bg_sample.png',
 		title: title
 	});
@@ -29,7 +29,7 @@ function Window4(title){
 	            left : 100 * (i % 4)
 	        });
 	        //適当に表示
-	        win.add(anImageView);
+	        self.add(anImageView);
 	    } else {
 	        alert('Error:\n' + ((e.error && e.message) || JSON.stringify(e)));
 	    }
@@ -56,8 +56,9 @@ function Window4(title){
 				s1.addEventListener('change', function(e) {
     				// e.valueにはスイッチの新しい値が true もしくは falseとして設定されます。
     				Titanium.App.Properties.setBool('Bool',e.value);
+				});
 			}
-    	}
+		}
     	data.push(row);
 	}	
 	
@@ -65,13 +66,17 @@ function Window4(title){
 		data: data
 	});
 
-	win.add(table);
+	self.add(table);
 
-	var pref = require('ui/common/Preferences');
 	// 行クリック時の処理
 	table.addEventListener('click', function(e){
 		var index = e.index;
 		switch(index){
+			case 0:
+				var pref = require('ui/common/editProfile'),
+					win = new pref({title:e.rowData.title,containingTab:self.containingTab,tabGroup:self.tabGroup});
+					self.containingTab.open(win,{animated:true});
+				break;
 			case 2:
 				if(isAndroid){
 					if(e.row.getHasCheck()){
@@ -84,12 +89,11 @@ function Window4(title){
 				}
 				break;
 			default:
-				win.add(pref.showPrefView(index));
 				break;
 		}
 	});
 
-	return win;
+	return self;
 }
 
 module.exports = Window4;
