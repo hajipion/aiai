@@ -38,7 +38,8 @@ function FirstView(Window) {
  
     var username;
     var pass;
- 
+    //友達変数
+ 	Ti.App._withFriends =[];
     // ユーザー作成API呼び出し（一回ログインしたら再度ログインしなくていいようにしないとね）
     button.title = 'ログイン';
     button.addEventListener('click', function(e) {
@@ -61,10 +62,33 @@ function FirstView(Window) {
                 'id: ' + user.id + '\\n' +
                 'first name: ' + user.first_name + '\\n' +
                 'last name: ' + user.last_name);
-            
-				new ApplicationTabGroup(Window).open();
-        } else {
-            alert('だめ:\\n' +
+   		//ともだち取得(ちょっと保留)
+	
+   		Cloud.debug = true;
+		Cloud.Friends.search({
+		user_id: Ti.App._userid 
+		}, function (e) {	
+    	if (e.success&&e.users.length>0) {
+    		
+      　		for (var i = 0; i < e.users.length; i++) {
+          		var user = e.users[i];    
+                    
+		  		var currentWithFriends = Ti.App._withFriends;
+	     		 var ids = {
+   					text:user.username,
+   					pt:'50px',
+				};
+	　　　 	currentWithFriends.push(ids);
+	      	Ti.App._withFriends=currentWithFriends;
+		  //友達情報を読み込んでからページをopen！！
+		  	new ApplicationTabGroup(Window).open();
+        	 }
+     	}else{
+     		new ApplicationTabGroup(Window).open();
+    	}
+	});
+ } else {
+            alert('ログインできないでーすユーザくつくりまーす！:\\n' +
                 ((e.error && e.message) || JSON.stringify(e)));
              Cloud.Users.create({
             username : username,
@@ -100,6 +124,7 @@ function FirstView(Window) {
     });
     
     
+
     self.add(button);
     return self;
 }

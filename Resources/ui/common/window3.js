@@ -43,9 +43,13 @@ function Window3(title){
 		// このなかに、リストビューを埋め込む
 		// それぞれのユーザ情報を取得して表示
 	});
-
-	var users = [
-					{text:'田中大地', pt: '50'},
+	
+	
+	
+	//フレンド情報を入れる
+    var users=Ti.App._withFriends;
+	/*var users = [
+					{text:Ti.App._withFriends.length , pt: '50'},
 					{text:'やっこ', pt: '20'},
 					{text:'栗野あきほ', pt: '70'},
 					{text:'じょー', pt: '50'},
@@ -53,11 +57,12 @@ function Window3(title){
 					{text:'市岡陽子', pt: '60'},
 					{text:'たっくん', pt: '10'},
 					{text:'Nakata Keiko', pt: '10'}
-				];//仮のデータです	
+				];//仮のデータです	*/
 	var data = [];
-
+	
 	for (var i=0;i<users.length;i++) {
     	var user = users[i];
+    	
     	var row = Ti.UI.createTableViewRow({
     		height: 60
     	});
