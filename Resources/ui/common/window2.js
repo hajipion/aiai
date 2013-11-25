@@ -50,6 +50,7 @@ function Window2(title){
 		hintText: "現在地",
 		width: '60%',
 		top: 10,
+		editable: false,
 		borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED
 	});
 	// 目的地のテキストフィールド
@@ -58,7 +59,6 @@ function Window2(title){
 		hintText: "目的地",
 		width: '60%',
 		top: 10,
-		editable: false,
 		borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED
 	});
 	// ヘルプボタン
