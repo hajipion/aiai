@@ -1,4 +1,4 @@
-function ProfileWindow(parent){
+function ProfileWindow(parent, user){
 	
 	var win = Ti.UI.createWindow({
 		backgroundColor: '#fff',
@@ -52,11 +52,11 @@ function ProfileWindow(parent){
 						{text:'相合仲間 ', num: '24人'},
 						{text:'助けた回数 ', num: '2回'},
 						{text:'助けてもらった回数 ', num: '2回'},
-						{text:'紳士ポイント ', num: '10pt'}
+						{text:'紳士ポイント ', num: user.pt + 'pt'}
 					];
 
 	var nameLabel = Ti.UI.createLabel({
-		text: '山田 太郎',
+		text: user.text,
 		top: 20,
     	font: { fontSize:23 },
 	    color: '#000',

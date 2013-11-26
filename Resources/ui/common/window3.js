@@ -108,7 +108,7 @@ function Window3(title){
 	
 	user_list.addEventListener('click', function(e){
 		var Prof = require('ui/common/profile');
-		var prof = new Prof(win);
+		var prof = new Prof(win, users[e.index]);
 		win.containingTab.open(prof,{animated:true});
 	});
 	view_list.add(view_bottom_back);
