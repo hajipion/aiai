@@ -10,12 +10,14 @@ function Window2(title){
 	});
 	
 	if(!Titanium.Geolocation.locationServicesEnabled){
-        Titanium.UI.createAlertDialog({
+        var alt = Titanium.UI.createAlertDialog({
             title:'位置情報取得',
             message:'位置測定が出来ません。電波状況、設定を確認してください。'
-        }).show();
+        });
+        alt.show();
         return;
     }
+    
     /*
 	// 現在位置
 	var my_place = Ti.Map.createAnnotation({
@@ -91,7 +93,7 @@ function Window2(title){
 	// 最初に中心となる位置をセットしておく
 	var mapview = Ti.Map.createView({
  		mapType: Ti.Map.STANDARD_TYPE,
- 		region: {latitude:35.6911, longitude:139.7067, latitudeDelta:0.01, longitudeDelta:0.01},
+ 		region: {latitude:35.681382, longitude:139.76608, latitudeDelta:0.01, longitudeDelta:0.01},
  		animate: true,
  		regionFit: true,
  		width: 'auto',
@@ -100,13 +102,50 @@ function Window2(title){
 
 	view.add(mapview);
 	win.add(view);
-
-	Titanium.Geolocation.purpose = 'サンプル';
-
+	
+	Ti.Geolocation.purpose = 'Get Current Location';
+    Ti.Geolocation.accuracy = Ti.Geolocation.ACCURACY_BEST;
+    //Ti.Geolocation.distanceFilter = 10;
+    Ti.Geolocation.preferredProvider = Ti.Geolocation.PROVIDER_GPS;
+	// location継続的に取得
+    Ti.Geolocation.addEventListener('location', function(e) {
+        if (e.error) {
+            alert('Error: ' + e.error);
+        } else {
+            // 現在地をセット
+  			latitude = e.coords.latitude;
+        	longitude = e.coords.longitude;
+        	
+        	// テキストフィールドに現在地を書く
+        	tfPresent.setValue(''+latitude);
+        	tfDestination.setValue(''+longitude);
+        }
+    });
+	
+	/* 
+	if(Titanium.Platform.name == 'android'){
+	// demonstrates manual mode:
+	var providerGps = Ti.Geolocation.Android.createLocationProvider({
+    	name: Ti.Geolocation.PROVIDER_GPS,
+    	minUpdateDistance: 0.0,
+    	minUpdateTime: 0
+	});
+	Ti.Geolocation.Android.addLocationProvider(providerGps);
+	Ti.Geolocation.Android.manualMode = true;
+	var locationCallback = function(e) {
+    	if (!e.success || e.error) {
+    		tfPresent.setValue('error:' + JSON.stringify(e.error));
+    	} else {
+    		tfPresent.setValue('coords: ' + JSON.stringify(e.coords));
+		}
+	};
+	Titanium.Geolocation.addEventListener('location', locationCallback);
+	} else {
 	Titanium.Geolocation.getCurrentPosition(
  		function(e) {
   			if(!e.success || e.error){
    				//alert('位置情報が取得できませんでした');
+   				alert.show();
    				return;
   			}
   			// 現在地をセット
@@ -139,7 +178,44 @@ function Window2(title){
         	});
  		}
 	);
+	}*/
 	// view.add(map);
+	
+	/*　住所から緯度経度
+	Ti.Geolocation.forwardGeocoder('440 Bernardo Ave Mountain View CA', function(e) {
+   			latitude = e.latitude;
+        	longitude = e.longitude;
+        	
+        	var shortLatitude = Math.round(latitude * 100) / 100;
+        	var shortLongitude = Math.round(longitude * 100) / 100;
+        	
+        	// テキストフィールドに現在地を書く
+        	tfPresent.setValue('現在地：'+shortLatitude+','+shortLongitude);
+        	
+	  		// 現在地を動的に表示する
+  			var currentPos = Titanium.Map.createAnnotation({
+   				latitude: latitude, 
+   				longitude: longitude, 
+   				pincolor: Titanium.Map.ANNOTATION_RED,
+   				pinImage: "/images/map-pin.png",
+   				animate: true
+  			});
+     		mapview.addAnnotation(currentPos);
+        	mapview.show(); // 隠していた地図を表示する
+        	mapview.setLocation({   // 現在地まで地図をスクロールする
+            	latitude:latitude,
+            	longitude:longitude,
+            	animate:true,
+            	latitudeDelta:0.01,
+            	longitudeDelta:0.01
+        	});
+	});*/
+	
+	/* 緯度経度から住所（undefinedになるから間違ってるのかも）
+	Ti.Geolocation.reverseGeocoder(mapview.region.latitude, mapview.region.longitude, function(e) {
+   		tfPresent.setValue('' + e.places.address);
+	});
+	*/
 	view.add(view_search);
 	view_search.add(tfPresent);
 	view_search.add(tfDestination);
