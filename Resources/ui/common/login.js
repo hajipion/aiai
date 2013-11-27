@@ -5,6 +5,7 @@ function FirstView(Window) {
 		backgroundImage: '/images/login-back.png'
     });
 
+	
 	var view = Ti.UI.createView({
 		top: 120,
 		layout: 'vertical',
@@ -77,9 +78,18 @@ function FirstView(Window) {
 
     view.add(nameView);
     view.add(passView);
-    //self.add(view);
+   
+    var nametext = Ti.App.Properties.getString('username');
+    var pass = Ti.App.Properties.getString('pass');
 
-    // API呼び出し
+    //self.add(view);
+	 if ( nametext ) {
+        	login_user(username, pass );
+            alert(nametext);
+        }else{
+        	//create_user( username,pass );
+        }
+   
     var button = Ti.UI.createButton({
     	color: '#fff',
         top : 20,
@@ -90,26 +100,41 @@ function FirstView(Window) {
     });
 
     view.add(button);
-
-    var Cloud = require('ti.cloud');
+    button.title = '新規登録';
+    button.addEventListener('click', function(e) {
+    
+    var new_username;
+    var new_pass;
+    new_username = userNameText.value;
+    new_pass = passText.value;
+    //var nametext = Ti.App.Properties.getString('username');
+    create_user(new_username,new_pass );
+        
+    });
+    
+    function login_user(name,pass){
+	
+	var Cloud = require('ti.cloud');
     Cloud.debug = true;
-
-    var username;
-    var pass;
+  
     //友達変数
  	Ti.App._withFriends =[];
     // ユーザー作成API呼び出し（一回ログインしたら再度ログインしなくていいようにしないとね）
-    button.title = 'ログイン';
-    button.addEventListener('click', function(e) {
-    	 var ApplicationTabGroup =require('ui/common/ApplicationTabGroup');
+    //button.title = 'ログイン';
+    //button.addEventListener('click', function(e) {
+   	var ApplicationTabGroup =require('ui/common/ApplicationTabGroup');
 
-        username = userNameText.value;
+       // username = userNameText.value;
+     
         //usernameを保存
-        Ti.App._username = username;
-        pass = passText.value;
+   	Ti.App._username = name;
+       // pass = passText.value;
+        
+    //var loginname = Ti.App.Properties.getString('username');
+    //var loginpass = Ti.App.Properties.getString('pass');
 
         Cloud.Users.login({
-        login:    username,
+        login:    name,
         password: pass
    			 }, function (e) {
         if (e.success) {
@@ -128,33 +153,46 @@ function FirstView(Window) {
 		}, function (e) {
     	if (e.success&&e.users.length>0) {
 
-      　		for (var i = 0; i < e.users.length; i++) {
+        for (var i = 0; i < e.users.length; i++) {
           		var user = e.users[i];
 
 		  		var currentWithFriends = Ti.App._withFriends;
 	     		 var ids = {
    					text:user.username,
-   					pt:'50px',
+   					pt:'50pt',
 				};
-	　　　 	currentWithFriends.push(ids);
+			currentWithFriends.push(ids);
 	      	Ti.App._withFriends=currentWithFriends;
 		  //友達情報を読み込んでからページをopen！！
 		  	new ApplicationTabGroup(Window).open();
         	 }
-     	}else{
+     }else{
      		new ApplicationTabGroup(Window).open();
     	}
 	});
  } else {
             alert('ログインできないでーすユーザくつくりまーす！:\\n' +
                 ((e.error && e.message) || JSON.stringify(e)));
-             Cloud.Users.create({
-            username : username,
+    
+        }
+   	});
+   // });
+
+
+}
+
+function create_user(name,pass){
+	//alert(name);
+	var Cloud = require('ti.cloud');
+    Cloud.debug = true;
+	Cloud.Users.create({
+            username : name,
             password : pass,
-            password_confirmation : pass
+            password_confirmation :pass
         }, function(e) {
             if (e.success) {
-
+				Ti.App.Properties.setString('username',  name);
+    			Ti.App.Properties.setString('pass',  pass);
                 // 作成後に表示するWindow
                 var resultWindow = Ti.UI.createWindow({
                     backgroundColor : '#ffffff'
@@ -171,19 +209,14 @@ function FirstView(Window) {
             } else {
                 alert('Faild to create user! ' + e.message);
             }
-        });
-        }
-   	});
-
-
-
-
-
-    });
-
+        });	
+}
+    
     self.add(view);
 
     return self;
 }
 
 module.exports = FirstView;
+
+
