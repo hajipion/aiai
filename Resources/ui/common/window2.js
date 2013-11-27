@@ -78,6 +78,17 @@ function Window2(title){
 		buttonNames: ["OK","Cancel"],
 		cancel: 1
 	});
+	alert.addEventListener('click',function(event){
+	    if(event.cancel){
+	       
+	    }
+	    // 選択されたボタンのindexも返る
+	    if(event.index == 0){
+	      	var io = require('ui/common/socketio-titanium');
+			var socket = io.connect('202.181.102.188:8080');
+	    }
+	});
+	
 	sbmbutton.addEventListener("click",function(e){
 		if(tfDestination.getValue()===''){
 			alert.setTitle('HELPする前に！');
@@ -121,7 +132,7 @@ function Window2(title){
         	tfDestination.setValue(''+longitude);
         }
     });*/
-	
+	/*
 	var providerGps = Ti.Geolocation.Android.createLocationProvider({
 	    name: Ti.Geolocation.PROVIDER_GPS,
     	minUpdateDistance: 0.0,
@@ -130,7 +141,7 @@ function Window2(title){
 
 	Ti.Geolocation.Android.addLocationProvider(providerGps);
 	Ti.Geolocation.Android.manualMode = true;
-
+	*/
 	var locationCallback = function(e) {
     	if(!e.success || e.error){
    				//alert('位置情報が取得できませんでした');

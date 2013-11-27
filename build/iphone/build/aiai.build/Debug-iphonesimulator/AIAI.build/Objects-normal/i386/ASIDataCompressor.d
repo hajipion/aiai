@@ -1,8 +1,8 @@
 dependencies: \
-  /Users/hajime/Documents/Titanium_Studio_Workspace/aiai/build/iphone/Classes/ASI/ASIDataCompressor.m \
-  /Users/hajime/Documents/Titanium_Studio_Workspace/aiai/build/iphone/Classes/ASI/ASIDataCompressor.h \
-  /Users/hajime/Documents/Titanium_Studio_Workspace/aiai/build/iphone/Classes/ASI/ASIHTTPRequest.h \
-  /Users/hajime/Documents/Titanium_Studio_Workspace/aiai/build/iphone/Classes/ASI/ASIHTTPRequestConfig.h \
-  /Users/hajime/Documents/Titanium_Studio_Workspace/aiai/build/iphone/Classes/ASI/ASIHTTPRequestDelegate.h \
-  /Users/hajime/Documents/Titanium_Studio_Workspace/aiai/build/iphone/Classes/ASI/ASIProgressDelegate.h \
-  /Users/hajime/Documents/Titanium_Studio_Workspace/aiai/build/iphone/Classes/ASI/ASICacheDelegate.h
+  /Users/kurinoakiho/htdocs/aiai/build/iphone/Classes/ASI/ASIDataCompressor.m \
+  /Users/kurinoakiho/htdocs/aiai/build/iphone/Classes/ASI/ASIDataCompressor.h \
+  /Users/kurinoakiho/htdocs/aiai/build/iphone/Classes/ASI/ASIHTTPRequest.h \
+  /Users/kurinoakiho/htdocs/aiai/build/iphone/Classes/ASI/ASIHTTPRequestConfig.h \
+  /Users/kurinoakiho/htdocs/aiai/build/iphone/Classes/ASI/ASIHTTPRequestDelegate.h \
+  /Users/kurinoakiho/htdocs/aiai/build/iphone/Classes/ASI/ASIProgressDelegate.h \
+  /Users/kurinoakiho/htdocs/aiai/build/iphone/Classes/ASI/ASICacheDelegate.h

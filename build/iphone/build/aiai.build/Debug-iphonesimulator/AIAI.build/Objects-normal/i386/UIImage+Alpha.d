@@ -1,3 +1,3 @@
 dependencies: \
-  /Users/hajime/Documents/Titanium_Studio_Workspace/aiai/build/iphone/Classes/UIImage+Alpha.m \
-  /Users/hajime/Documents/Titanium_Studio_Workspace/aiai/build/iphone/Classes/UIImage+Alpha.h
+  /Users/kurinoakiho/htdocs/aiai/build/iphone/Classes/UIImage+Alpha.m \
+  /Users/kurinoakiho/htdocs/aiai/build/iphone/Classes/UIImage+Alpha.h

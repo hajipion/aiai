@@ -1,2 +1,1 @@
-dependencies: \
-  /Users/hajime/Documents/Titanium_Studio_Workspace/aiai/build/iphone/main.m
+dependencies: /Users/kurinoakiho/htdocs/aiai/build/iphone/main.m

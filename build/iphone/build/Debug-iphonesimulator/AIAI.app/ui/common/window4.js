@@ -1,1 +1,1 @@
-/Users/hajime/Documents/Titanium_Studio_Workspace/aiai/Resources/ui/common/window4.js
+/Users/kurinoakiho/htdocs/aiai/Resources/ui/common/window4.js
