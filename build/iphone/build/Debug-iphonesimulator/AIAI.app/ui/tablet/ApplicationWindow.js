@@ -1,1 +1,1 @@
-/Users/kurinoakiho/htdocs/aiai/Resources/ui/tablet/ApplicationWindow.js
+/Users/hajime/Documents/Titanium_Studio_Workspace/aiai/Resources/ui/tablet/ApplicationWindow.js
