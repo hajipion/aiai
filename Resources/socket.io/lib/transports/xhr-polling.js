@@ -1,69 +1,161 @@
 
-/*!
- * socket.io-node
+/**
+ * socket.io
  * Copyright(c) 2011 LearnBoost <dev@learnboost.com>
  * MIT Licensed
  */
 
-/**
- * Module requirements.
- */
+(function (exports, io, global) {
 
-var HTTPPolling = require('./http-polling');
+  /**
+   * Expose constructor.
+   */
 
-/**
- * Export the constructor.
- */
+  exports['xhr-polling'] = XHRPolling;
 
-exports = module.exports = XHRPolling;
+  /**
+   * The XHR-polling transport uses long polling XHR requests to create a
+   * "persistent" connection with the server.
+   *
+   * @constructor
+   * @api public
+   */
 
-/**
- * Ajax polling transport.
- *
- * @api public
- */
+  function XHRPolling () {
+    io.Transport.XHR.apply(this, arguments);
+  };
 
-function XHRPolling (mng, data, req) {
-  HTTPPolling.call(this, mng, data, req);
-};
+  /**
+   * Inherits from XHR transport.
+   */
 
-/**
- * Inherits from Transport.
- */
+  io.util.inherit(XHRPolling, io.Transport.XHR);
 
-XHRPolling.prototype.__proto__ = HTTPPolling.prototype;
+  /**
+   * Merge the properties from XHR transport
+   */
 
-/**
- * Transport name
- *
- * @api public
- */
+  io.util.merge(XHRPolling, io.Transport.XHR);
 
-XHRPolling.prototype.name = 'xhr-polling';
+  /**
+   * Transport name
+   *
+   * @api public
+   */
 
-/**
- * Frames data prior to write.
- *
- * @api private
- */
+  XHRPolling.prototype.name = 'xhr-polling';
 
-XHRPolling.prototype.doWrite = function (data) {
-  HTTPPolling.prototype.doWrite.call(this);
+  /** 
+   * Establish a connection, for iPhone and Android this will be done once the page
+   * is loaded.
+   *
+   * @returns {Transport} Chaining.
+   * @api public
+   */
 
-  var origin = this.req.headers.origin
-    , headers = {
-          'Content-Type': 'text/plain; charset=UTF-8'
-        , 'Content-Length': data === undefined ? 0 : Buffer.byteLength(data)
-        , 'Connection': 'Keep-Alive'
-      };
+  XHRPolling.prototype.open = function () {
+    var self = this;
 
-  if (origin) {
-    // https://developer.mozilla.org/En/HTTP_Access_Control
-    headers['Access-Control-Allow-Origin'] = origin;
-    headers['Access-Control-Allow-Credentials'] = 'true';
-  }
+    io.Transport.XHR.prototype.open.call(self);
+    return false;
+  };
 
-  this.response.writeHead(200, headers);
-  this.response.write(data);
-  this.log.debug(this.name + ' writing', data);
-};
+  /**
+   * Starts a XHR request to wait for incoming messages.
+   *
+   * @api private
+   */
+
+  function empty () {};
+
+  XHRPolling.prototype.get = function () {
+    if (!this.open) return;
+
+    var self = this;
+
+    function stateChange () {
+      if (this.readyState == 4) {
+        this.onreadystatechange = empty;
+
+        if (this.status == 200) {
+          self.onData(this.responseText);
+          self.get();
+        } else {
+          self.onClose();
+        }
+      }
+    };
+
+    function onload () {
+      this.onload = empty;
+      this.onerror = empty;
+      self.onData(this.responseText);
+      self.get();
+    };
+
+    function onerror () {
+      self.onClose();
+    };
+
+    this.xhr = this.request();
+
+    if (global.XDomainRequest && this.xhr instanceof XDomainRequest) {
+      this.xhr.onload = onload;
+      this.xhr.onerror = onerror;
+    } else {
+      this.xhr.onreadystatechange = stateChange;
+    }
+
+    this.xhr.send(null);
+  };
+
+  /**
+   * Handle the unclean close behavior.
+   *
+   * @api private
+   */
+
+  XHRPolling.prototype.onClose = function () {
+    io.Transport.XHR.prototype.onClose.call(this);
+
+    if (this.xhr) {
+      this.xhr.onreadystatechange = this.xhr.onload = this.xhr.onerror = empty;
+      try {
+        this.xhr.abort();
+      } catch(e){}
+      this.xhr = null;
+    }
+  };
+
+  /**
+   * Webkit based browsers show a infinit spinner when you start a XHR request
+   * before the browsers onload event is called so we need to defer opening of
+   * the transport until the onload event is called. Wrapping the cb in our
+   * defer method solve this.
+   *
+   * @param {Socket} socket The socket instance that needs a transport
+   * @param {Function} fn The callback
+   * @api private
+   */
+
+  XHRPolling.prototype.ready = function (socket, fn) {
+    var self = this;
+
+    io.util.defer(function () {
+      fn.call(self);
+    });
+  };
+
+  /**
+   * Add the transport to your public io.transports array.
+   *
+   * @api private
+   */
+
+  io.transports.push('xhr-polling');
+
+})(
+    'undefined' != typeof io ? io.Transport : module.exports
+  , 'undefined' != typeof io ? io : module.parent.exports
+  , this
+);

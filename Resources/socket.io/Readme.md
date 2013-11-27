@@ -1,348 +1,230 @@
-# Socket.IO
+socket.io
+=========
 
-Socket.IO is a Node.JS project that makes WebSockets and realtime possible in
-all browsers. It also enhances WebSockets by providing built-in multiplexing,
-horizontal scalability, automatic JSON encoding/decoding, and more.
+#### Sockets for the rest of us
 
-## How to Install
-
-```bash
-npm install socket.io
-```
-
-## How to use
-
-First, require `socket.io`:
+The `socket.io` client is basically a simple HTTP Socket interface implementation.
+It looks similar to WebSocket while providing additional features and
+leveraging other transports when WebSocket is not supported by the user's
+browser.
 
 ```js
-var io = require('socket.io');
+var socket = io.connect('http://domain.com');
+socket.on('connect', function () {
+  // socket connected
+});
+socket.on('custom event', function () {
+  // server emitted a custom event
+});
+socket.on('disconnect', function () {
+  // socket disconnected
+});
+socket.send('hi there');
 ```
 
-Next, attach it to a HTTP/HTTPS server. If you're using the fantastic `express`
-web framework:
+### Recipes
 
-#### Express 3.x
+#### Utilizing namespaces (ie: multiple sockets)
+
+If you want to namespace all the messages and events emitted to a particular
+endpoint, simply specify it as part of the `connect` uri:
 
 ```js
-var app = express()
-  , server = require('http').createServer(app)
-  , io = io.listen(server);
+var chat = io.connect('http://localhost/chat');
+chat.on('connect', function () {
+  // chat socket connected
+});
 
-server.listen(80);
-
-io.sockets.on('connection', function (socket) {
-  socket.emit('news', { hello: 'world' });
-  socket.on('my other event', function (data) {
-    console.log(data);
-  });
+var news = io.connect('/news'); // io.connect auto-detects host
+news.on('connect', function () {
+  // news socket connected
 });
 ```
 
-#### Express 2.x
+#### Emitting custom events
+
+To ease with the creation of applications, you can emit custom events outside
+of the global `message` event.
 
 ```js
-var app = express.createServer()
-  , io = io.listen(app);
+var socket = io.connect();
+socket.emit('server custom event', { my: 'data' });
+```
 
-app.listen(80);
+#### Forcing disconnection
 
-io.sockets.on('connection', function (socket) {
-  socket.emit('news', { hello: 'world' });
-  socket.on('my other event', function (data) {
-    console.log(data);
-  });
+```js
+var socket = io.connect();
+socket.on('connect', function () {
+  socket.disconnect();
 });
 ```
 
-Finally, load it from the client side code:
+### Documentation 
 
-```html
-<script src="/socket.io/socket.io.js"></script>
-<script>
-  var socket = io.connect('http://localhost');
-  socket.on('news', function (data) {
-    console.log(data);
-    socket.emit('my other event', { my: 'data' });
-  });
-</script>
-```
-
-For more thorough examples, look at the `examples/` directory.
-
-## Short recipes
-
-### Sending and receiving events.
-
-Socket.IO allows you to emit and receive custom events.
-Besides `connect`, `message` and `disconnect`, you can emit custom events:
+#### io#connect
 
 ```js
-// note, io.listen(<port>) will create a http server for you
-var io = require('socket.io').listen(80);
-
-io.sockets.on('connection', function (socket) {
-  io.sockets.emit('this', { will: 'be received by everyone' });
-
-  socket.on('private message', function (from, msg) {
-    console.log('I received a private message by ', from, ' saying ', msg);
-  });
-
-  socket.on('disconnect', function () {
-    io.sockets.emit('user disconnected');
-  });
-});
+io.connect(uri, [options]);
 ```
 
-### Storing data associated to a client
+##### Options:
 
-Sometimes it's necessary to store data associated with a client that's
-necessary for the duration of the session.
+- *resource*
 
-#### Server side
+    socket.io
+
+  The resource is what allows the `socket.io` server to identify incoming connections by `socket.io` clients. In other words, any HTTP server can implement socket.io and still serve other normal, non-realtime HTTP requests.
+
+- *transports*
 
 ```js
-var io = require('socket.io').listen(80);
-
-io.sockets.on('connection', function (socket) {
-  socket.on('set nickname', function (name) {
-    socket.set('nickname', name, function () { socket.emit('ready'); });
-  });
-
-  socket.on('msg', function () {
-    socket.get('nickname', function (err, name) {
-      console.log('Chat message by ', name);
-    });
-  });
-});
+['websocket', 'flashsocket', 'htmlfile', 'xhr-multipart', 'xhr-polling', 'jsonp-polling']
 ```
 
-#### Client side
+  A list of the transports to attempt to utilize (in order of preference).
 
-```html
-<script>
-  var socket = io.connect('http://localhost');
-
-  socket.on('connect', function () {
-    socket.emit('set nickname', prompt('What is your nickname?'));
-    socket.on('ready', function () {
-      console.log('Connected !');
-      socket.emit('msg', prompt('What is your message?'));
-    });
-  });
-</script>
-```
-
-### Restricting yourself to a namespace
-
-If you have control over all the messages and events emitted for a particular
-application, using the default `/` namespace works.
-
-If you want to leverage 3rd-party code, or produce code to share with others,
-socket.io provides a way of namespacing a `socket`.
-
-This has the benefit of `multiplexing` a single connection. Instead of
-socket.io using two `WebSocket` connections, it'll use one.
-
-The following example defines a socket that listens on '/chat' and one for
-'/news':
-
-#### Server side
+- *'connect timeout'*
 
 ```js
-var io = require('socket.io').listen(80);
-
-var chat = io
-  .of('/chat')
-  .on('connection', function (socket) {
-    socket.emit('a message', { that: 'only', '/chat': 'will get' });
-    chat.emit('a message', { everyone: 'in', '/chat': 'will get' });
-  });
-
-var news = io
-  .of('/news');
-  .on('connection', function (socket) {
-    socket.emit('item', { news: 'item' });
-  });
+5000
 ```
 
-#### Client side:
-
-```html
-<script>
-  var chat = io.connect('http://localhost/chat')
-    , news = io.connect('http://localhost/news');
-
-  chat.on('connect', function () {
-    chat.emit('hi!');
-  });
-
-  news.on('news', function () {
-    news.emit('woot');
-  });
-</script>
-```
-
-### Sending volatile messages.
-
-Sometimes certain messages can be dropped. Let's say you have an app that
-shows realtime tweets for the keyword `bieber`. 
-
-If a certain client is not ready to receive messages (because of network slowness
-or other issues, or because he's connected through long polling and is in the
-middle of a request-response cycle), if he doesn't receive ALL the tweets related
-to bieber your application won't suffer.
-
-In that case, you might want to send those messages as volatile messages.
-
-#### Server side
+  The amount of milliseconds a transport has to create a connection before we consider it timed out.
+  
+- *'try multiple transports'*
 
 ```js
-var io = require('socket.io').listen(80);
-
-io.sockets.on('connection', function (socket) {
-  var tweets = setInterval(function () {
-    getBieberTweet(function (tweet) {
-      socket.volatile.emit('bieber tweet', tweet);
-    });
-  }, 100);
-
-  socket.on('disconnect', function () {
-    clearInterval(tweets);
-  });
-});
+true
 ```
 
-#### Client side
-
-In the client side, messages are received the same way whether they're volatile
-or not.
-
-### Getting acknowledgements
-
-Sometimes, you might want to get a callback when the client confirmed the message
-reception.
-
-To do this, simply pass a function as the last parameter of `.send` or `.emit`.
-What's more, when you use `.emit`, the acknowledgement is done by you, which
-means you can also pass data along:
-
-#### Server side
+  A boolean indicating if we should try other transports when the  connectTimeout occurs.
+  
+- *reconnect*
 
 ```js
-var io = require('socket.io').listen(80);
-
-io.sockets.on('connection', function (socket) {
-  socket.on('ferret', function (name, fn) {
-    fn('woot');
-  });
-});
+true
 ```
 
-#### Client side
-
-```html
-<script>
-  var socket = io.connect(); // TIP: .connect with no args does auto-discovery
-  socket.on('connect', function () { // TIP: you can avoid listening on `connect` and listen on events directly too!
-    socket.emit('ferret', 'tobi', function (data) {
-      console.log(data); // data will be 'woot'
-    });
-  });
-</script>
-```
-
-### Broadcasting messages
-
-To broadcast, simply add a `broadcast` flag to `emit` and `send` method calls.
-Broadcasting means sending a message to everyone else except for the socket
-that starts it.
-
-#### Server side
+  A boolean indicating if we should automatically reconnect if a connection is disconnected. 
+  
+- *'reconnection delay'*
 
 ```js
-var io = require('socket.io').listen(80);
-
-io.sockets.on('connection', function (socket) {
-  socket.broadcast.emit('user connected');
-  socket.broadcast.json.send({ a: 'message' });
-});
+500
 ```
 
-### Rooms
+  The amount of milliseconds before we try to connect to the server again. We are using a exponential back off algorithm for the following reconnections, on each reconnect attempt this value will get multiplied (500 > 1000 > 2000 > 4000 > 8000).
+  
 
-Sometimes you want to put certain sockets in the same room, so that it's easy
-to broadcast to all of them together.
-
-Think of this as built-in channels for sockets. Sockets `join` and `leave`
-rooms in each socket.
-
-#### Server side
+- *'max reconnection attempts'*
 
 ```js
-var io = require('socket.io').listen(80);
-
-io.sockets.on('connection', function (socket) {
-  socket.join('justin bieber fans');
-  socket.broadcast.to('justin bieber fans').emit('new fan');
-  io.sockets.in('rammstein fans').emit('new non-fan');
-});
+10
 ```
 
-### Using it just as a cross-browser WebSocket
+  The amount of attempts should we make using the current transport to connect to the server? After this we will do one final attempt, and re-try with all enabled transport methods before we give up.
 
-If you just want the WebSocket semantics, you can do that too.
-Simply leverage `send` and listen on the `message` event:
+##### Properties:
 
-#### Server side
+- *options*
 
-```js
-var io = require('socket.io').listen(80);
+  The passed in options combined with the defaults.
 
-io.sockets.on('connection', function (socket) {
-  socket.on('message', function () { });
-  socket.on('disconnect', function () { });
-});
-```
+- *connected*
 
-#### Client side
+  Whether the socket is connected or not.
+  
+- *connecting*
 
-```html
-<script>
-  var socket = io.connect('http://localhost/');
-  socket.on('connect', function () {
-    socket.send('hi');
+  Whether the socket is connecting or not.
 
-    socket.on('message', function (msg) {
-      // my msg
-    });
-  });
-</script>
-```
+- *reconnecting*
 
-### Changing configuration
+  Whether we are reconnecting or not.
+  
+- *transport*  
 
-Configuration in socket.io is TJ-style:
+  The transport instance.
 
-#### Server side
+##### Methods:
+  
+- *connect(λ)*
 
-```js
-var io = require('socket.io').listen(80);
+  Establishes a connection. If λ is supplied as argument, it will be called once the connection is established.
+  
+- *send(message)*
+  
+  A string of data to send.
+  
+- *disconnect*
 
-io.configure(function () {
-  io.set('transports', ['websocket', 'flashsocket', 'xhr-polling']);
-});
+  Closes the connection.
+  
+- *on(event, λ)*
 
-io.configure('development', function () {
-  io.set('transports', ['websocket', 'xhr-polling']);
-  io.enable('log');
-});
-```
+  Adds a listener for the event *event*.
 
-## License 
+- *once(event, λ)*
+
+  Adds a one time listener for the event *event*. The listener is removed after the first time the event is fired.
+  
+- *removeListener(event, λ)*
+
+  Removes the listener λ for the event *event*.
+  
+##### Events:
+
+- *connect*
+
+  Fired when the connection is established and the handshake successful.
+  
+- *connecting(transport_type)*
+
+    Fired when a connection is attempted, passing the transport name.
+  
+- *connect_failed*
+
+    Fired when the connection timeout occurs after the last connection attempt.
+  This only fires if the `connectTimeout` option is set.
+  If the `tryTransportsOnConnectTimeout` option is set, this only fires once all
+  possible transports have been tried.
+  
+- *message(message)*
+  
+  Fired when a message arrives from the server
+
+- *close*
+
+  Fired when the connection is closed. Be careful with using this event, as some transports will fire it even under temporary, expected disconnections (such as XHR-Polling).
+  
+- *disconnect*
+
+  Fired when the connection is considered disconnected.
+  
+- *reconnect(transport_type,reconnectionAttempts)*
+
+  Fired when the connection has been re-established. This only fires if the `reconnect` option is set.
+
+- *reconnecting(reconnectionDelay,reconnectionAttempts)*
+
+  Fired when a reconnection is attempted, passing the next delay for the next reconnection.
+
+- *reconnect_failed*
+
+  Fired when all reconnection attempts have failed and we where unsuccessful in reconnecting to the server.  
+
+### Contributors
+
+Guillermo Rauch &lt;guillermo@learnboost.com&gt;
+
+Arnout Kazemier &lt;info@3rd-eden.com&gt;
+
+### License 
 
 (The MIT License)
 
-Copyright (c) 2011 Guillermo Rauch &lt;guillermo@learnboost.com&gt;
+Copyright (c) 2010 LearnBoost &lt;dev@learnboost.com&gt;
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the

@@ -1,83 +1,171 @@
-
-/*!
- * socket.io-node
+/**
+ * socket.io
  * Copyright(c) 2011 LearnBoost <dev@learnboost.com>
  * MIT Licensed
  */
 
-/**
- * Module requirements.
- */
+(function (exports, io) {
 
-var HTTPTransport = require('./http');
+  /**
+   * Expose constructor.
+   */
 
-/**
- * Export the constructor.
- */
+  exports.htmlfile = HTMLFile;
 
-exports = module.exports = HTMLFile;
+  /**
+   * The HTMLFile transport creates a `forever iframe` based transport
+   * for Internet Explorer. Regular forever iframe implementations will 
+   * continuously trigger the browsers buzy indicators. If the forever iframe
+   * is created inside a `htmlfile` these indicators will not be trigged.
+   *
+   * @constructor
+   * @extends {io.Transport.XHR}
+   * @api public
+   */
 
-/**
- * HTMLFile transport constructor.
- *
- * @api public
- */
+  function HTMLFile (socket) {
+    io.Transport.XHR.apply(this, arguments);
+  };
 
-function HTMLFile (mng, data, req) {
-  HTTPTransport.call(this, mng, data, req);
-};
+  /**
+   * Inherits from XHR transport.
+   */
 
-/**
- * Inherits from Transport.
- */
+  io.util.inherit(HTMLFile, io.Transport.XHR);
 
-HTMLFile.prototype.__proto__ = HTTPTransport.prototype;
+  /**
+   * Transport name
+   *
+   * @api public
+   */
 
-/**
- * Transport name
- *
- * @api public
- */
+  HTMLFile.prototype.name = 'htmlfile';
 
-HTMLFile.prototype.name = 'htmlfile';
+  /**
+   * Creates a new ActiveX `htmlfile` with a forever loading iframe
+   * that can be used to listen to messages. Inside the generated
+   * `htmlfile` a reference will be made to the HTMLFile transport.
+   *
+   * @api private
+   */
 
-/**
- * Handles the request.
- *
- * @api private
- */
+  HTMLFile.prototype.get = function () {
+    this.doc = new ActiveXObject('htmlfile');
+    this.doc.open();
+    this.doc.write('<html></html>');
+    this.doc.close();
+    this.doc.parentWindow.s = this;
 
-HTMLFile.prototype.handleRequest = function (req) {
-  HTTPTransport.prototype.handleRequest.call(this, req);
+    var iframeC = this.doc.createElement('div');
+    iframeC.className = 'socketio';
 
-  if (req.method == 'GET') {
-    req.res.writeHead(200, {
-        'Content-Type': 'text/html; charset=UTF-8'
-      , 'Connection': 'keep-alive'
-      , 'Transfer-Encoding': 'chunked'
+    this.doc.body.appendChild(iframeC);
+    this.iframe = this.doc.createElement('iframe');
+
+    iframeC.appendChild(this.iframe);
+
+    var self = this
+      , query = io.util.query(this.socket.options.query, 't='+ +new Date);
+
+    this.iframe.src = this.prepareUrl() + query;
+
+    io.util.on(window, 'unload', function () {
+      self.destroy();
     });
+  };
 
-    req.res.write(
-        '<html><body>'
-      + '<script>var _ = function (msg) { parent.s._(msg, document); };</script>'
-      + new Array(174).join(' ')
-    );
-  }
-};
+  /**
+   * The Socket.IO server will write script tags inside the forever
+   * iframe, this function will be used as callback for the incoming
+   * information.
+   *
+   * @param {String} data The message
+   * @param {document} doc Reference to the context
+   * @api private
+   */
 
-/**
- * Performs the write.
- *
- * @api private
- */
+  HTMLFile.prototype._ = function (data, doc) {
+    this.onData(data);
+    try {
+      var script = doc.getElementsByTagName('script')[0];
+      script.parentNode.removeChild(script);
+    } catch (e) { }
+  };
 
-HTMLFile.prototype.write = function (data) {
-  // escape all forward slashes. see GH-1251
-  data = '<script>_(' + JSON.stringify(data).replace(/\//g, '\\/') + ');</script>';
+  /**
+   * Destroy the established connection, iframe and `htmlfile`.
+   * And calls the `CollectGarbage` function of Internet Explorer
+   * to release the memory.
+   *
+   * @api private
+   */
 
-  if (this.response.write(data)) {
-    this.drained = true;
-  }
+  HTMLFile.prototype.destroy = function () {
+    if (this.iframe){
+      try {
+        this.iframe.src = 'about:blank';
+      } catch(e){}
 
-  this.log.debug(this.name + ' writing', data);
-};
+      this.doc = null;
+      this.iframe.parentNode.removeChild(this.iframe);
+      this.iframe = null;
+
+      CollectGarbage();
+    }
+  };
+
+  /**
+   * Disconnects the established connection.
+   *
+   * @returns {Transport} Chaining.
+   * @api public
+   */
+
+  HTMLFile.prototype.close = function () {
+    this.destroy();
+    return io.Transport.XHR.prototype.close.call(this);
+  };
+
+  /**
+   * Checks if the browser supports this transport. The browser
+   * must have an `ActiveXObject` implementation.
+   *
+   * @return {Boolean}
+   * @api public
+   */
+
+  HTMLFile.check = function () {
+    if (typeof window != "undefined" && 'ActiveXObject' in window){
+      try {
+        var a = new ActiveXObject('htmlfile');
+        return a && io.Transport.XHR.check();
+      } catch(e){}
+    }
+    return false;
+  };
+
+  /**
+   * Check if cross domain requests are supported.
+   *
+   * @returns {Boolean}
+   * @api public
+   */
+
+  HTMLFile.xdomainCheck = function () {
+    // we can probably do handling for sub-domains, we should
+    // test that it's cross domain but a subdomain here
+    return false;
+  };
+
+  /**
+   * Add the transport to your public io.transports array.
+   *
+   * @api private
+   */
+
+  io.transports.push('htmlfile');
+
+})(
+    'undefined' != typeof io ? io.Transport : module.exports
+  , 'undefined' != typeof io ? io : module.parent.exports
+);

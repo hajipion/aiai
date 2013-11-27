@@ -1,355 +1,242 @@
 /**
- * Module dependencies.
+ * socket.io
+ * Copyright(c) 2011 LearnBoost <dev@learnboost.com>
+ * MIT Licensed
  */
 
-var Socket = require('./socket')
-  , EventEmitter = process.EventEmitter
-  , parser = require('./parser')
-  , util = require('./util');
+(function (exports, io) {
 
-/**
- * Exports the constructor.
- */
+  /**
+   * Expose constructor.
+   */
 
-exports = module.exports = SocketNamespace;
+  exports.SocketNamespace = SocketNamespace;
 
-/**
- * Constructor.
- *
- * @api public.
- */
+  /**
+   * Socket namespace constructor.
+   *
+   * @constructor
+   * @api public
+   */
 
-function SocketNamespace (mgr, name) {
-  this.manager = mgr;
-  this.name = name || '';
-  this.sockets = {};
-  this.auth = false;
-  this.setFlags();
-};
-
-/**
- * Inherits from EventEmitter.
- */
-
-SocketNamespace.prototype.__proto__ = EventEmitter.prototype;
-
-/**
- * Copies emit since we override it.
- *
- * @api private
- */
-
-SocketNamespace.prototype.$emit = EventEmitter.prototype.emit;
-
-/**
- * Retrieves all clients as Socket instances as an array.
- *
- * @api public
- */
-
-SocketNamespace.prototype.clients = function (room) {
-  var room = this.name + (room !== undefined ?
-     '/' + room : '');
-
-  if (!this.manager.rooms[room]) {
-    return [];
-  }
-
-  return this.manager.rooms[room].map(function (id) {
-    return this.socket(id);
-  }, this);
-};
-
-/**
- * Access logger interface.
- *
- * @api public
- */
-
-SocketNamespace.prototype.__defineGetter__('log', function () {
-  return this.manager.log;
-});
-
-/**
- * Access store.
- *
- * @api public
- */
-
-SocketNamespace.prototype.__defineGetter__('store', function () {
-  return this.manager.store;
-});
-
-/**
- * JSON message flag.
- *
- * @api public
- */
-
-SocketNamespace.prototype.__defineGetter__('json', function () {
-  this.flags.json = true;
-  return this;
-});
-
-/**
- * Volatile message flag.
- *
- * @api public
- */
-
-SocketNamespace.prototype.__defineGetter__('volatile', function () {
-  this.flags.volatile = true;
-  return this;
-});
-
-/**
- * Overrides the room to relay messages to (flag).
- *
- * @api public
- */
-
-SocketNamespace.prototype.in = SocketNamespace.prototype.to = function (room) {
-  this.flags.endpoint = this.name + (room ? '/' + room : '');
-  return this;
-};
-
-/**
- * Adds a session id we should prevent relaying messages to (flag).
- *
- * @api public
- */
-
-SocketNamespace.prototype.except = function (id) {
-  this.flags.exceptions.push(id);
-  return this;
-};
-
-/**
- * Sets the default flags.
- *
- * @api private
- */
-
-SocketNamespace.prototype.setFlags = function () {
-  this.flags = {
-      endpoint: this.name
-    , exceptions: []
+  function SocketNamespace (socket, name) {
+    this.socket = socket;
+    this.name = name || '';
+    this.flags = {};
+    this.json = new Flag(this, 'json');
+    this.ackPackets = 0;
+    this.acks = {};
   };
-  return this;
-};
 
-/**
- * Sends out a packet.
- *
- * @api private
- */
+  /**
+   * Apply EventEmitter mixin.
+   */
 
-SocketNamespace.prototype.packet = function (packet) {
-  packet.endpoint = this.name;
+  io.util.mixin(SocketNamespace, io.EventEmitter);
 
-  var store = this.store
-    , log = this.log
-    , volatile = this.flags.volatile
-    , exceptions = this.flags.exceptions
-    , packet = parser.encodePacket(packet);
+  /**
+   * Copies emit since we override it
+   *
+   * @api private
+   */
 
-  this.manager.onDispatch(this.flags.endpoint, packet, volatile, exceptions);
-  this.store.publish('dispatch', this.flags.endpoint, packet, volatile, exceptions);
+  SocketNamespace.prototype.$emit = io.EventEmitter.prototype.emit;
 
-  this.setFlags();
+  /**
+   * Creates a new namespace, by proxying the request to the socket. This
+   * allows us to use the synax as we do on the server.
+   *
+   * @api public
+   */
 
-  return this;
-};
+  SocketNamespace.prototype.of = function () {
+    return this.socket.of.apply(this.socket, arguments);
+  };
 
-/**
- * Sends to everyone.
- *
- * @api public
- */
+  /**
+   * Sends a packet.
+   *
+   * @api private
+   */
 
-SocketNamespace.prototype.send = function (data) {
-  return this.packet({
-      type: this.flags.json ? 'json' : 'message'
-    , data: data
-  });
-};
+  SocketNamespace.prototype.packet = function (packet) {
+    packet.endpoint = this.name;
+    this.socket.packet(packet);
+    this.flags = {};
+    return this;
+  };
 
-/**
- * Emits to everyone (override).
- *
- * @api public
- */
+  /**
+   * Sends a message
+   *
+   * @api public
+   */
 
-SocketNamespace.prototype.emit = function (name) {
-  if (name == 'newListener') {
-    return this.$emit.apply(this, arguments);
-  }
+  SocketNamespace.prototype.send = function (data, fn) {
+    var packet = {
+        type: this.flags.json ? 'json' : 'message'
+      , data: data
+    };
 
-  return this.packet({
-      type: 'event'
-    , name: name
-    , args: util.toArray(arguments).slice(1)
-  });
-};
+    if ('function' == typeof fn) {
+      packet.id = ++this.ackPackets;
+      packet.ack = true;
+      this.acks[packet.id] = fn;
+    }
 
-/**
- * Retrieves or creates a write-only socket for a client, unless specified.
- *
- * @param {Boolean} whether the socket will be readable when initialized
- * @api public
- */
+    return this.packet(packet);
+  };
 
-SocketNamespace.prototype.socket = function (sid, readable) {
-  if (!this.sockets[sid]) {
-    this.sockets[sid] = new Socket(this.manager, sid, this, readable);
-  }
+  /**
+   * Emits an event
+   *
+   * @api public
+   */
+  
+  SocketNamespace.prototype.emit = function (name) {
+    var args = Array.prototype.slice.call(arguments, 1)
+      , lastArg = args[args.length - 1]
+      , packet = {
+            type: 'event'
+          , name: name
+        };
 
-  return this.sockets[sid];
-};
+    if ('function' == typeof lastArg) {
+      packet.id = ++this.ackPackets;
+      packet.ack = 'data';
+      this.acks[packet.id] = lastArg;
+      args = args.slice(0, args.length - 1);
+    }
 
-/**
- * Sets authorization for this namespace.
- *
- * @api public
- */
+    packet.args = args;
 
-SocketNamespace.prototype.authorization = function (fn) {
-  this.auth = fn;
-  return this;
-};
+    return this.packet(packet);
+  };
 
-/**
- * Called when a socket disconnects entirely.
- *
- * @api private
- */
+  /**
+   * Disconnects the namespace
+   *
+   * @api private
+   */
 
-SocketNamespace.prototype.handleDisconnect = function (sid, reason, raiseOnDisconnect) {
-  if (this.sockets[sid] && this.sockets[sid].readable) {
-    if (raiseOnDisconnect) this.sockets[sid].onDisconnect(reason);
-    delete this.sockets[sid];
-  }
-};
+  SocketNamespace.prototype.disconnect = function () {
+    if (this.name === '') {
+      this.socket.disconnect();
+    } else {
+      this.packet({ type: 'disconnect' });
+      this.$emit('disconnect');
+    }
 
-/**
- * Performs authentication.
- *
- * @param Object client request data
- * @api private
- */
+    return this;
+  };
 
-SocketNamespace.prototype.authorize = function (data, fn) {
-  if (this.auth) {
+  /**
+   * Handles a packet
+   *
+   * @api private
+   */
+
+  SocketNamespace.prototype.onPacket = function (packet) {
     var self = this;
 
-    this.auth.call(this, data, function (err, authorized) {
-      self.log.debug('client ' +
-        (authorized ? '' : 'un') + 'authorized for ' + self.name);
-      fn(err, authorized);
-    });
-  } else {
-    this.log.debug('client authorized for ' + this.name);
-    fn(null, true);
-  }
+    function ack () {
+      self.packet({
+          type: 'ack'
+        , args: io.util.toArray(arguments)
+        , ackId: packet.id
+      });
+    };
 
-  return this;
-};
+    switch (packet.type) {
+      case 'connect':
+        this.$emit('connect');
+        break;
 
-/**
- * Handles a packet.
- *
- * @api private
- */
+      case 'disconnect':
+        if (this.name === '') {
+          this.socket.onDisconnect(packet.reason || 'booted');
+        } else {
+          this.$emit('disconnect', packet.reason);
+        }
+        break;
 
-SocketNamespace.prototype.handlePacket = function (sessid, packet) {
-  var socket = this.socket(sessid)
-    , dataAck = packet.ack == 'data'
-    , manager = this.manager
-    , self = this;
+      case 'message':
+      case 'json':
+        var params = ['message', packet.data];
 
-  function ack () {
-    self.log.debug('sending data ack packet');
-    socket.packet({
-        type: 'ack'
-      , args: util.toArray(arguments)
-      , ackId: packet.id
-    });
-  };
-
-  function error (err) {
-    self.log.warn('handshake error ' + err + ' for ' + self.name);
-    socket.packet({ type: 'error', reason: err });
-  };
-
-  function connect () {
-    self.manager.onJoin(sessid, self.name);
-    self.store.publish('join', sessid, self.name);
-
-    // packet echo
-    socket.packet({ type: 'connect' });
-
-    // emit connection event
-    self.$emit('connection', socket);
-  };
-
-  switch (packet.type) {
-    case 'connect':
-      if (packet.endpoint == '') {
-        connect();
-      } else {
-        var handshakeData = manager.handshaken[sessid];
-
-        this.authorize(handshakeData, function (err, authorized, newData) {
-          if (err) return error(err);
-
-          if (authorized) {
-            manager.onHandshake(sessid, newData || handshakeData);
-            self.store.publish('handshake', sessid, newData || handshakeData);
-            connect();
-          } else {
-            error('unauthorized');
-          }
-        });
-      }
-      break;
-
-    case 'ack':
-      if (socket.acks[packet.ackId]) {
-        socket.acks[packet.ackId].apply(socket, packet.args);
-      } else {
-        this.log.info('unknown ack packet');
-      }
-      break;
-
-    case 'event':
-      // check if the emitted event is not blacklisted
-      if (-~manager.get('blacklist').indexOf(packet.name)) {
-        this.log.debug('ignoring blacklisted event `' + packet.name + '`');
-      } else {
-        var params = [packet.name].concat(packet.args);
-
-        if (dataAck) {
+        if (packet.ack == 'data') {
           params.push(ack);
+        } else if (packet.ack) {
+          this.packet({ type: 'ack', ackId: packet.id });
         }
 
-        socket.$emit.apply(socket, params);
-      }
-      break;
+        this.$emit.apply(this, params);
+        break;
 
-    case 'disconnect':
-      this.manager.onLeave(sessid, this.name);
-      this.store.publish('leave', sessid, this.name);
+      case 'event':
+        var params = [packet.name].concat(packet.args);
 
-      socket.$emit('disconnect', packet.reason || 'packet');
-      break;
+        if (packet.ack == 'data')
+          params.push(ack);
 
-    case 'json':
-    case 'message':
-      var params = ['message', packet.data];
+        this.$emit.apply(this, params);
+        break;
 
-      if (dataAck)
-        params.push(ack);
+      case 'ack':
+        if (this.acks[packet.ackId]) {
+          this.acks[packet.ackId].apply(this, packet.args);
+          delete this.acks[packet.ackId];
+        }
+        break;
 
-      socket.$emit.apply(socket, params);
+      case 'error':
+        if (packet.advice){
+          this.socket.onError(packet);
+        } else {
+          if (packet.reason == 'unauthorized') {
+            this.$emit('connect_failed', packet.reason);
+          } else {
+            this.$emit('error', packet.reason);
+          }
+        }
+        break;
+    }
   };
-};
+
+  /**
+   * Flag interface.
+   *
+   * @api private
+   */
+
+  function Flag (nsp, name) {
+    this.namespace = nsp;
+    this.name = name;
+  };
+
+  /**
+   * Send a message
+   *
+   * @api public
+   */
+
+  Flag.prototype.send = function () {
+    this.namespace.flags[this.name] = true;
+    this.namespace.send.apply(this.namespace, arguments);
+  };
+
+  /**
+   * Emit an event
+   *
+   * @api public
+   */
+
+  Flag.prototype.emit = function () {
+    this.namespace.flags[this.name] = true;
+    this.namespace.emit.apply(this.namespace, arguments);
+  };
+
+})(
+    'undefined' != typeof io ? io : module.exports
+  , 'undefined' != typeof io ? io : module.parent.exports
+);
