@@ -7,12 +7,13 @@ function Window1(title){
 
 	// base view 
 	var view = Ti.UI.createView({
+		layout: 'vertical',
 		backgroundImage: '/images/bg_sample.png'
 	});
 
 	// top view
 	var view_top = Ti.UI.createView({
-		height: '35%',
+		height: '25%',
 		width: 'auto',
 		fill: false,
 		top: 0
@@ -21,30 +22,29 @@ function Window1(title){
 	var icon_image = Ti.UI.createImageView({
 		image: '/images/icon_umbrella.png',
 		width: 130,
-		top:10
+		//top:10
 	});
 
 	// bottom view
 	var view_bottom = Ti.UI.createView({
-		height: '83%',
+		height: '60%',
 		width: 'auto',
 	  	fill: false,
-	  	top: '22%',
-		bottom: 0
+	  	top: 0,
 	});
 	
 	var view_bottom_back = Ti.UI.createView({
 	 	backgroundColor: '#dcdcdc',
 	 	opacity: 0.7,
-	 	top:60,
 	 	width: '80%',
-		height: '70%'
+		height: '90%'
 	});
 
 	var view_prof = Ti.UI.createView({
-		width: '100%',
+		layout: 'vertical',
+		width: '80%',
 		fill: false,
-		top: 0
+		height: '90%'
 	});
 
 	var prof_kind = [ 
@@ -55,37 +55,35 @@ function Window1(title){
 					];
 
 	var nameLabel = Ti.UI.createLabel({
+		height: '20%',
 		text:  Ti.App._username,
-		top: 20,
     	font: { fontSize:23 },
 	    color: '#000',
 	    fontWeight: 'bold'
 	});
 	view_prof.add(nameLabel);
 	var view_profLabel = Ti.UI.createView({
-		height: '75%',
-		top: 65,
-		bottom: 0,
+		height: '80%',
 		layout: 'vertical'
 	});
 
 	for(var i=0;i<prof_kind.length;i++){
 		var profLabel = Ti.UI.createLabel({
-			left: 20,
+			left: 0,
 			width: '65%',
 			color: '#666'
 		});
 		var numLabel = Ti.UI.createLabel({
-			left: 15,
+			right: 0,
 			width: '20%',
 			color: '#38695A',
-			font: {fontSize: 20}
+			//font: {fontSize: 20}
 		});
 		var view_profList = Ti.UI.createView({
 			width: '100%',
-			height: '21%',
+			height: '25%',
 			bottom: 0,
-			layout: 'horizontal'
+			//layout: 'horizontal'
 		});
 		profLabel.text = prof_kind[i].text;
 		numLabel.text = prof_kind[i].num;
@@ -97,9 +95,18 @@ function Window1(title){
 	view_top.add(icon_image);
 	view_bottom_back.add(view_prof);
 	view_bottom.add(view_bottom_back);
+	
+	var buyBtn = Ti.UI.createButton({
+		height: '10%',
+		width: '80%',
+		title: '傘を買う',
+		color: '#fff',
+		backgroundImage: '/images/back-login-button.png'
+	});
 
 	view.add(view_top);
 	view.add(view_bottom);
+	view.add(buyBtn);
 
 	win.add(view);
 

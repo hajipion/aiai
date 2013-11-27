@@ -1,41 +1,13 @@
 function Window2(title){
-	
+
 	var win = Ti.UI.createWindow({
 		title: title
-	});	
-	
+	});
+
 	// base view
 	var view = Ti.UI.createView({
 		// layout: 'vertical'
 	});
-	
-	if(!Titanium.Geolocation.locationServicesEnabled){
-        var alt = Titanium.UI.createAlertDialog({
-            title:'位置情報取得',
-            message:'位置測定が出来ません。電波状況、設定を確認してください。'
-        });
-        alt.show();
-        return;
-    }
-    
-    /*
-	// 現在位置
-	var my_place = Ti.Map.createAnnotation({
-		title: "現在地",
-		pinImage: "/images/map-pin.png",
-		animate: true
-	});
-
-	// マップエリア
-	var map = Ti.Map.createView({
-		mapType: Ti.Map.STANDARD_TYPE,
-		animate: true,
-		regionFit: true,
-		top: 0,
-		width: 'auto',
-		annotations: [my_place],
-		height: 'auto'
-	});*/
 	
 	// サーチエリア
 	var view_search = Ti.UI.createView({
@@ -46,37 +18,34 @@ function Window2(title){
 		backgroundColor: '#000',
 		opacity: 0.7
 	});
+	
 	// 現在地のテキストフィールド
 	var tfPresent = Ti.UI.createTextField({
 		color: "#333",
 		hintText: "現在地",
 		width: '60%',
+		height: '30%',
 		top: 10,
 		editable: false,
 		borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED
 	});
+	
 	// 目的地のテキストフィールド
 	var tfDestination = Ti.UI.createTextField({
 		color: "#333",
 		hintText: "目的地を入力",
 		width: '60%',
+		height: '30%',
 		top: 10,
 		borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED
 	});
+	
 	// ヘルプボタン
 	var sbmbutton = Ti.UI.createButton({
-		top: 10,
 		width: 55,
 		height: 55,
 		backgroundImage: '/images/help.png',
 		opacity:1
-	});
-	// アラート
-	var alert = Ti.UI.createAlertDialog({
-		//title: "HELP?",
-		//message: "近くの人に助けを求めますか？",
-		buttonNames: ["OK","Cancel"],
-		cancel: 1
 	});
 	sbmbutton.addEventListener("click",function(e){
 		if(tfDestination.getValue()===''){
@@ -90,6 +59,75 @@ function Window2(title){
 		}
 	});
 	
+	// 閉じるボタン
+	var closeBtn = Ti.UI.createButton({
+		width: 55,
+		height: 55,
+		right: 10,
+		backgroundImage: '/images/close.png',
+		opacity:1
+	});
+	closeBtn.addEventListener("click",function(e){
+		// view_searchを非表示に
+		view_search.visible = false;
+		// pullBtnを表示
+		pullBtn.visible = true;
+	});
+	
+	var view_buttons = Ti.UI.createView({
+		top: 10,
+		height: '30%',
+		width: '100%'
+	});
+	view_buttons.add(sbmbutton);
+	view_buttons.add(closeBtn);
+
+	view_search.add(tfPresent);
+	view_search.add(tfDestination);
+	view_search.add(view_buttons);
+	// view_search.add(closeBtn);
+	
+	// プルボタン
+	var pullBtn = Ti.UI.createButton({
+		visible: false,
+		top: 0,
+		width: '15%',
+		right: 10,
+		backgroundImage: '/images/arrow-under.png',
+		opacity:1
+	});
+	pullBtn.addEventListener("click",function(e){
+		// pullBtnを非表示に
+		pullBtn.visible = false;
+		// view_searchを表示に
+		view_search.visible = true;
+	});
+	
+	// アラート
+	var alert = Ti.UI.createAlertDialog({
+		//title: "HELP?",
+		//message: "近くの人に助けを求めますか？",
+		buttonNames: ["OK","Cancel"],
+		cancel: 1
+	});
+	alert.addEventListener('click',function(event){
+	    if(event.cancel){
+
+	    }
+	    // 選択されたボタンのindexも返る
+	    if(event.index == 0){
+	      	var io = require('ui/common/socketio-titanium');
+			var socket = io.connect('202.181.102.188:8080');
+			
+			socket.emit("message", "hello world");
+			socket.on("message", function (data){
+				//Ti.API.info('got message: ' + data);
+				socket.emit("message", data + "again");
+			});
+	    }
+	});
+
+
 	// 最初に中心となる位置をセットしておく
 	var mapview = Ti.Map.createView({
  		mapType: Ti.Map.STANDARD_TYPE,
@@ -101,127 +139,99 @@ function Window2(title){
 	});
 
 	view.add(mapview);
+	view.add(view_search);
+	view.add(pullBtn);
 	win.add(view);
-	
+
+	if(!Titanium.Geolocation.locationServicesEnabled){
+        var alt = Titanium.UI.createAlertDialog({
+            title:'位置情報取得',
+            message:'位置測定が出来ません。電波状況、設定を確認してください。'
+        });
+        //alt.show();
+        return;
+    }
+
+    /*
+	// 現在位置
+	var my_place = Ti.Map.createAnnotation({
+		title: "現在地",
+		pinImage: "/images/map-pin.png",
+		animate: true
+	});
+	*/
+
 	Ti.Geolocation.purpose = 'Get Current Location';
     Ti.Geolocation.accuracy = Ti.Geolocation.ACCURACY_BEST;
-    //Ti.Geolocation.distanceFilter = 10;
+    Ti.Geolocation.distanceFilter = 5;
     Ti.Geolocation.preferredProvider = Ti.Geolocation.PROVIDER_GPS;
-	// location継続的に取得
-    Ti.Geolocation.addEventListener('location', function(e) {
-        if (e.error) {
-            alert('Error: ' + e.error);
-        } else {
-            // 現在地をセット
-  			latitude = e.coords.latitude;
-        	longitude = e.coords.longitude;
-        	
-        	// テキストフィールドに現在地を書く
-        	tfPresent.setValue(''+latitude);
-        	tfDestination.setValue(''+longitude);
-        }
-    });
+    
+    if(Titanium.Platform.name == 'android'){
+		var providerGps = Ti.Geolocation.Android.createLocationProvider({
+		    name: Ti.Geolocation.PROVIDER_GPS,
+	    	minUpdateDistance: 5.0,
+	    	minUpdateTime: 10
+		});
+		Ti.Geolocation.Android.addLocationProvider(providerGps);
+		Ti.Geolocation.Android.manualMode = true;
+	}
 	
-	/* 
-	if(Titanium.Platform.name == 'android'){
-	// demonstrates manual mode:
-	var providerGps = Ti.Geolocation.Android.createLocationProvider({
-    	name: Ti.Geolocation.PROVIDER_GPS,
-    	minUpdateDistance: 0.0,
-    	minUpdateTime: 0
-	});
-	Ti.Geolocation.Android.addLocationProvider(providerGps);
-	Ti.Geolocation.Android.manualMode = true;
+	// 現在地を動的に表示する
+  	var currentPos = Titanium.Map.createAnnotation({
+   		pincolor: Titanium.Map.ANNOTATION_RED,
+   		pinImage: "/images/red-circle.png",
+   		animate: true
+  	});
+		
 	var locationCallback = function(e) {
-    	if (!e.success || e.error) {
-    		tfPresent.setValue('error:' + JSON.stringify(e.error));
-    	} else {
-    		tfPresent.setValue('coords: ' + JSON.stringify(e.coords));
-		}
-	};
-	Titanium.Geolocation.addEventListener('location', locationCallback);
-	} else {
-	Titanium.Geolocation.getCurrentPosition(
- 		function(e) {
-  			if(!e.success || e.error){
+    	if(!e.success || e.error){
    				//alert('位置情報が取得できませんでした');
-   				alert.show();
+   				//alert.show();
    				return;
   			}
-  			// 現在地をセット
-  			latitude = e.coords.latitude;
-        	longitude = e.coords.longitude;
-        	
-        	// 小数点第二位に省略
-        	var shortLatitude = Math.round(latitude * 100) / 100;
-        	var shortLongitude = Math.round(longitude * 100) / 100;
-        	
-        	// テキストフィールドに現在地を書く
-        	tfPresent.setValue('現在地：'+shortLatitude+','+shortLongitude);
-  
-	  		// 現在地を動的に表示する
-  			var currentPos = Titanium.Map.createAnnotation({
-   				latitude: latitude, 
-   				longitude: longitude, 
-   				pincolor: Titanium.Map.ANNOTATION_RED,
-   				pinImage: "/images/map-pin.png",
-   				animate: true
-  			});
-     		mapview.addAnnotation(currentPos);
-        	mapview.show(); // 隠していた地図を表示する
-        	mapview.setLocation({   // 現在地まで地図をスクロールする
-            	latitude:latitude,
-            	longitude:longitude,
-            	animate:true,
-            	latitudeDelta:0.01,
-            	longitudeDelta:0.01
-        	});
- 		}
-	);
-	}*/
-	// view.add(map);
-	
+    	var latitude = e.coords.latitude;
+    	var longitude = e.coords.longitude;
+
+    	// 小数点第二位に省略
+        var shortLatitude = Math.round(latitude * 100) / 100;
+        var shortLongitude = Math.round(longitude * 100) / 100;
+
+        // テキストフィールドに現在地を書く
+        // tfPresent.setValue('現在地：'+shortLatitude+','+shortLongitude);
+		tfPresent.setValue(''+latitude);
+		tfDestination.setValue(''+longitude);
+		currentPos.latitude=latitude;
+		currentPos.longitude=longitude;
+	  		
+     	mapview.addAnnotation(currentPos);
+        mapview.show(); // 隠していた地図を表示する
+        mapview.setLocation({   // 現在地まで地図をスクロールする
+            latitude:latitude,
+            longitude:longitude,
+            animate:true,
+            latitudeDelta:0.01,
+            longitudeDelta:0.01
+        });
+	};
+
+	Titanium.Geolocation.addEventListener('location', locationCallback);
+
 	/*　住所から緯度経度
 	Ti.Geolocation.forwardGeocoder('440 Bernardo Ave Mountain View CA', function(e) {
    			latitude = e.latitude;
         	longitude = e.longitude;
-        	
-        	var shortLatitude = Math.round(latitude * 100) / 100;
-        	var shortLongitude = Math.round(longitude * 100) / 100;
-        	
-        	// テキストフィールドに現在地を書く
-        	tfPresent.setValue('現在地：'+shortLatitude+','+shortLongitude);
-        	
-	  		// 現在地を動的に表示する
-  			var currentPos = Titanium.Map.createAnnotation({
-   				latitude: latitude, 
-   				longitude: longitude, 
-   				pincolor: Titanium.Map.ANNOTATION_RED,
-   				pinImage: "/images/map-pin.png",
-   				animate: true
-  			});
-     		mapview.addAnnotation(currentPos);
-        	mapview.show(); // 隠していた地図を表示する
-        	mapview.setLocation({   // 現在地まで地図をスクロールする
-            	latitude:latitude,
-            	longitude:longitude,
-            	animate:true,
-            	latitudeDelta:0.01,
-            	longitudeDelta:0.01
-        	});
-	});*/
-	
+	});
+	*/
 	/* 緯度経度から住所（undefinedになるから間違ってるのかも）
 	Ti.Geolocation.reverseGeocoder(mapview.region.latitude, mapview.region.longitude, function(e) {
    		tfPresent.setValue('' + e.places.address);
 	});
 	*/
-	view.add(view_search);
-	view_search.add(tfPresent);
-	view_search.add(tfDestination);
-	view_search.add(sbmbutton);
 	
-	win.add(view);
+	/* 終了処理書かないと
+	win.addEventLisner("close", function() {
+		Titanium.UI.removeEventLisner("location", getCurrentLocation);
+	});*/
 
 	return win;
 }
