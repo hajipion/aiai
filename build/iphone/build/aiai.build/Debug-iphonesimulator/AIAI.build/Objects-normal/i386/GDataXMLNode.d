@@ -1,6 +1,6 @@
 dependencies: \
-  /Users/kurinoakiho/htdocs/aiai/build/iphone/Classes/GDataXMLNode.m \
-  /Users/kurinoakiho/htdocs/aiai/build/iphone/Classes/GDataXMLNode.h \
+  /Users/hajime/Documents/Titanium_Studio_Workspace/aiai/build/iphone/Classes/GDataXMLNode.m \
+  /Users/hajime/Documents/Titanium_Studio_Workspace/aiai/build/iphone/Classes/GDataXMLNode.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator7.0.sdk/usr/include/libxml2/libxml/tree.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator7.0.sdk/usr/include/libxml2/libxml/xmlversion.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator7.0.sdk/usr/include/libxml2/libxml/xmlexports.h \
