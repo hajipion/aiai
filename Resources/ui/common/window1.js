@@ -103,7 +103,12 @@ function Window1(title){
 		color: '#fff',
 		backgroundImage: '/images/back-login-button.png'
 	});
-
+	buyBtn.addEventListener("click",function(e){
+		var webview = Titanium.UI.createWebView({url:'http://shopping.yahoo.co.jp/'});
+    	var window = Titanium.UI.createWindow();
+    	window.add(webview);
+    	win.containingTab.open(window,{modal:true});
+	});
 	view.add(view_top);
 	view.add(view_bottom);
 	view.add(buyBtn);
