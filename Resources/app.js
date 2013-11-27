@@ -35,16 +35,35 @@ if (Ti.version < 1.8 ) {
 	else {
 		Window = require('ui/handheld/ApplicationWindow');
 	}
-	
+
+ 
+var deviceToken;
+var Cloud = require('ti.cloud');
+Cloud.debug = true;
+var CloudPush = require('ti.cloudpush'); 
+ 
+ 
+ 
+CloudPush.retrieveDeviceToken({
+          success: function deviceTokenSuccess(e) {
+              alert('Device Token: ' + e.deviceToken);
+              deviceToken = e.deviceToken
+              login_user();
+          },
+          error: function deviceTokenError(e) {
+              alert('Failed to register for push! ' + e.error);
+       }
+  });
+
+ 
 　　 var name = Ti.App.Properties.getString('username');
     var pass = Ti.App.Properties.getString('pass');
 
-	 if (name) {
-            alert(name);
-            login_user()
-            var ApplicationTabGroup =require('ui/common/ApplicationTabGroup');
-           
-           
+	if (name) {
+            //alert(name);
+			//login_user();
+			var ApplicationTabGroup =require('ui/common/ApplicationTabGroup');
+                 
         }else{
         	var ApplicationTabGroup = require('ui/common/login');
         	new ApplicationTabGroup(Window).open();
@@ -61,8 +80,7 @@ if (Ti.version < 1.8 ) {
     //button.title = 'ログイン';
     //button.addEventListener('click', function(e) {
    	var ApplicationTabGroup =require('ui/common/ApplicationTabGroup');
-
-       // username = userNameText.value;
+	//username = userNameText.value;
      
         //usernameを保存
    	Ti.App._username = "yoko";
@@ -76,6 +94,17 @@ if (Ti.version < 1.8 ) {
         password: "yokoyoko"
    			 }, function (e) {
         if (e.success) {
+ 			    Cloud.PushNotifications.subscribe({
+    channel: 'friend_request', // "alert" is channel name
+    device_token: deviceToken,
+    type: 'android'
+}, function (e){
+    if (e.success) {
+       alert('Subscribed for Push Notification!');
+    }else{
+        alert('Error:' +((e.error && e.message) || JSON.stringify(e)));
+    }
+});
             var user = e.users[0];
             //user_idを保存
             Ti.App._userid =user.id;
@@ -84,7 +113,6 @@ if (Ti.version < 1.8 ) {
                 'first name: ' + user.first_name + '\\n' +
                 'last name: ' + user.last_name);
    		//ともだち取得(ちょっと保留)
-
    		Cloud.debug = true;
 		Cloud.Friends.search({
 		user_id: Ti.App._userid
@@ -118,5 +146,7 @@ if (Ti.version < 1.8 ) {
 
 
 }	
+
+
 	
 })();
