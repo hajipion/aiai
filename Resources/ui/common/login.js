@@ -51,7 +51,7 @@ function FirstView(Window) {
 	});
 	// パスワードアイコン
 	if(Titanium.Platform.name == 'android'){
-		var userNameImage = Ti.UI.createImageView({
+		var passImage = Ti.UI.createImageView({
 			image: '/images/login-name.png',
 			height: '100%',
 			left: 0
