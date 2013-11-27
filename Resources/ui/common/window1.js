@@ -69,21 +69,21 @@ function Window1(title){
 
 	for(var i=0;i<prof_kind.length;i++){
 		var profLabel = Ti.UI.createLabel({
-			left: 20,
+			left: 0,
 			width: '65%',
 			color: '#666'
 		});
 		var numLabel = Ti.UI.createLabel({
-			left: 15,
+			right: 0,
 			width: '20%',
 			color: '#38695A',
-			font: {fontSize: 20}
+			//font: {fontSize: 20}
 		});
 		var view_profList = Ti.UI.createView({
 			width: '100%',
 			height: '25%',
 			bottom: 0,
-			layout: 'horizontal'
+			//layout: 'horizontal'
 		});
 		profLabel.text = prof_kind[i].text;
 		numLabel.text = prof_kind[i].num;
