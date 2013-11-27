@@ -14,7 +14,7 @@ function Window2(title){
             title:'位置情報取得',
             message:'位置測定が出来ません。電波状況、設定を確認してください。'
         });
-        alt.show();
+        //alt.show();
         return;
     }
     
@@ -102,7 +102,7 @@ function Window2(title){
 
 	view.add(mapview);
 	win.add(view);
-	
+	/*
 	Ti.Geolocation.purpose = 'Get Current Location';
     Ti.Geolocation.accuracy = Ti.Geolocation.ACCURACY_BEST;
     //Ti.Geolocation.distanceFilter = 10;
@@ -120,7 +120,88 @@ function Window2(title){
         	tfPresent.setValue(''+latitude);
         	tfDestination.setValue(''+longitude);
         }
-    });
+    });*/
+	
+	var providerGps = Ti.Geolocation.Android.createLocationProvider({
+	    name: Ti.Geolocation.PROVIDER_GPS,
+    	minUpdateDistance: 0.0,
+    	minUpdateTime: 0
+	});
+
+	Ti.Geolocation.Android.addLocationProvider(providerGps);
+	Ti.Geolocation.Android.manualMode = true;
+
+	var locationCallback = function(e) {
+    	if(!e.success || e.error){
+   				//alert('位置情報が取得できませんでした');
+   				//alert.show();
+   				return;
+  			}
+    	var latitude = e.coords.latitude;
+    	var longitude = e.coords.longitude;
+    	
+    	// 小数点第二位に省略
+        	var shortLatitude = Math.round(latitude * 100) / 100;
+        	var shortLongitude = Math.round(longitude * 100) / 100;
+        	
+        	// テキストフィールドに現在地を書く
+        	tfPresent.setValue('現在地：'+shortLatitude+','+shortLongitude);
+  
+	  		// 現在地を動的に表示する
+  			var currentPos = Titanium.Map.createAnnotation({
+   				latitude: latitude, 
+   				longitude: longitude, 
+   				pincolor: Titanium.Map.ANNOTATION_RED,
+   				pinImage: "/images/map-pin.png",
+   				animate: true
+  			});
+     		mapview.addAnnotation(currentPos);
+        	mapview.show(); // 隠していた地図を表示する
+        	mapview.setLocation({   // 現在地まで地図をスクロールする
+            	latitude:latitude,
+            	longitude:longitude,
+            	animate:true,
+            	latitudeDelta:0.01,
+            	longitudeDelta:0.01
+        	});
+	};
+
+	Titanium.Geolocation.addEventListener('location', locationCallback);
+	/*
+   	Titanium.Geolocation.getCurrentPosition(function(e) {
+   		if(!e.success || e.error){
+   				//alert('位置情報が取得できませんでした');
+   				alert.show();
+   				return;
+  			}
+    	var latitude = e.coords.latitude;
+    	var longitude = e.coords.longitude;
+    	
+    	// 小数点第二位に省略
+        	var shortLatitude = Math.round(latitude * 100) / 100;
+        	var shortLongitude = Math.round(longitude * 100) / 100;
+        	
+        	// テキストフィールドに現在地を書く
+        	tfPresent.setValue('現在地：'+shortLatitude+','+shortLongitude);
+  
+	  		// 現在地を動的に表示する
+  			var currentPos = Titanium.Map.createAnnotation({
+   				latitude: latitude, 
+   				longitude: longitude, 
+   				pincolor: Titanium.Map.ANNOTATION_RED,
+   				pinImage: "/images/map-pin.png",
+   				animate: true
+  			});
+     		mapview.addAnnotation(currentPos);
+        	mapview.show(); // 隠していた地図を表示する
+        	mapview.setLocation({   // 現在地まで地図をスクロールする
+            	latitude:latitude,
+            	longitude:longitude,
+            	animate:true,
+            	latitudeDelta:0.01,
+            	longitudeDelta:0.01
+        	});
+	});
 	
 	/* 
 	if(Titanium.Platform.name == 'android'){
@@ -221,7 +302,10 @@ function Window2(title){
 	view_search.add(tfDestination);
 	view_search.add(sbmbutton);
 	
-	win.add(view);
+	win.add(view);/*
+	win.addEventLisner("blur", function() {
+　		Titanium.UI.removeEventLisner("location", getCurrentLocation);
+	});*/
 
 	return win;
 }
