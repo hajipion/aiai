@@ -82,13 +82,17 @@ function FirstView(Window) {
     var nametext = Ti.App.Properties.getString('username');
     var pass = Ti.App.Properties.getString('pass');
 
+
+
+	var username="hoge";
+    var pass="hogehoge";
     //self.add(view);
-	 if ( nametext ) {
+	 //if ( nametext ) {
         	login_user(username, pass );
             alert(nametext);
-        }else{
+       // }else{
         	//create_user( username,pass );
-        }
+        //}
    
     var button = Ti.UI.createButton({
     	color: '#fff',
@@ -108,9 +112,10 @@ function FirstView(Window) {
     new_username = userNameText.value;
     new_pass = passText.value;
     //var nametext = Ti.App.Properties.getString('username');
-    create_user(new_username,new_pass );
+    //create_user(new_username,new_pass );
         
     });
+    
     
     function login_user(name,pass){
 	
@@ -134,8 +139,8 @@ function FirstView(Window) {
     //var loginpass = Ti.App.Properties.getString('pass');
 
         Cloud.Users.login({
-        login:    name,
-        password: pass
+        login:    "yoko",
+        password: "yokoyoko"
    			 }, function (e) {
         if (e.success) {
             var user = e.users[0];
@@ -208,6 +213,7 @@ function create_user(name,pass){
 
             } else {
                 alert('Faild to create user! ' + e.message);
+               // new ApplicationTabGroup(Window).open();
             }
         });	
 }
