@@ -63,14 +63,14 @@ function Window1(title){
 	});
 	view_prof.add(nameLabel);
 	var view_profLabel = Ti.UI.createView({
-		height: '80%',
+		height: '95%',
 		layout: 'vertical'
 	});
 
 	for(var i=0;i<prof_kind.length;i++){
 		var profLabel = Ti.UI.createLabel({
 			left: 0,
-			width: '65%',
+			width: '75%',
 			color: '#666'
 		});
 		var numLabel = Ti.UI.createLabel({
