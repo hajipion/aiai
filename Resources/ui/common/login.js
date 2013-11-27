@@ -18,11 +18,19 @@ function FirstView(Window) {
     	height: '25%'
     });
     // ユーザー名アイコン
-	var userNameImage = Ti.UI.createImageView({
-		image: '/images/login-name.png',
-		height: '100%',
-		left: -25
-	});
+	if(Titanium.Platform.name == 'android'){
+		var userNameImage = Ti.UI.createImageView({
+			image: '/images/login-name.png',
+			height: '100%',
+			left: 0
+		});
+	} else {
+		var userNameImage = Ti.UI.createImageView({
+			image: '/images/login-name.png',
+			height: '100%',
+			left: -25
+		});
+	}
     // ユーザー名テキストフィールド
     var userNameText = Ti.UI.createTextField({
         right: 0,
@@ -41,12 +49,20 @@ function FirstView(Window) {
     	height: '25%',
     	top: 10
 	});
-    // パスワードアイコン
-	var passImage = Ti.UI.createImageView({
-		image: '/images/login-pass.png',
-		height: '100%',
-		left: -25
-	});
+	// パスワードアイコン
+	if(Titanium.Platform.name == 'android'){
+		var userNameImage = Ti.UI.createImageView({
+			image: '/images/login-name.png',
+			height: '100%',
+			left: 0
+		});
+	} else {
+		var passImage = Ti.UI.createImageView({
+			image: '/images/login-pass.png',
+			height: '100%',
+			left: -25
+		});
+	}
     // パスワードテキストフィールド
     var passText = Ti.UI.createTextField({
         right: 0,
