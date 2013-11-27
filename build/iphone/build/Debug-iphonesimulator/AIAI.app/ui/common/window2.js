@@ -1,0 +1,1 @@
+/Users/kurinoakiho/htdocs/aiai/Resources/ui/common/window2.js

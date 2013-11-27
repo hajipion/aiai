@@ -1,3 +1,3 @@
 dependencies: \
-  /Users/hajime/Documents/Titanium_Studio_Workspace/aiai/build/iphone/Classes/TiPublicAPI.m \
-  /Users/hajime/Documents/Titanium_Studio_Workspace/aiai/build/iphone/Classes/TiPublicAPI.h
+  /Users/kurinoakiho/htdocs/aiai/build/iphone/Classes/TiPublicAPI.m \
+  /Users/kurinoakiho/htdocs/aiai/build/iphone/Classes/TiPublicAPI.h
