@@ -121,15 +121,15 @@ function Window2(title){
         	tfDestination.setValue(''+longitude);
         }
     });*/
-	
-	var providerGps = Ti.Geolocation.Android.createLocationProvider({
-	    name: Ti.Geolocation.PROVIDER_GPS,
-    	minUpdateDistance: 0.0,
-    	minUpdateTime: 0
-	});
-
-	Ti.Geolocation.Android.addLocationProvider(providerGps);
-	Ti.Geolocation.Android.manualMode = true;
+	if(Titanium.Platform.name == 'android'){
+		var providerGps = Ti.Geolocation.Android.createLocationProvider({
+		    name: Ti.Geolocation.PROVIDER_GPS,
+	    	minUpdateDistance: 0.0,
+	    	minUpdateTime: 0
+		});
+		Ti.Geolocation.Android.addLocationProvider(providerGps);
+		Ti.Geolocation.Android.manualMode = true;
+	}
 
 	var locationCallback = function(e) {
     	if(!e.success || e.error){
