@@ -118,6 +118,11 @@ function Window2(title){
 	    if(event.index == 0){
 	      	var io = require('ui/common/socketio-titanium');
 			var socket = io.connect('202.181.102.188:8080');
+			
+			socket.emit('post_position', { msg: 'hello world from server'});
+			socket.on('post_position', function (message){
+				Titanium.API.debug('got message: ' + message);
+			});
 	    }
 	});
 
