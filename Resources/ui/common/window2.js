@@ -119,7 +119,26 @@ function Window2(title){
 	      	var io = require('ui/common/socketio-titanium');
 			var socket = io.connect('202.181.102.188:8080');
 			
-			socket.emit("message", "hello world");
+			Titanium.Geolocation.addEventListener('location', function(e){
+				var latitude = e.coords.latitude;
+    			var longitude = e.coords.longitude;
+    			
+    			var jsonData = {
+    				"currentPos": {
+    					"latitude": latitude,
+    					"longitude": longitude
+    				},
+    				"user_id": "ここにユーザーID",
+    				"helped": false, //helpされた側かどうかのflag
+    				"targetPost": {
+    					"latitude": "ここに目的地の緯度",
+    					"longitude": "ここに目的地の経度" 
+    				}
+    			}
+    			socket.emit("message", "hello world");
+			});
+			
+			
 			socket.on("message", function (data){
 				//Ti.API.info('got message: ' + data);
 				socket.emit("message", data + "again");
