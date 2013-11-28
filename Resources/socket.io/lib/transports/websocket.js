@@ -53,7 +53,7 @@
   WS.prototype.open = function () {
     var query = io.util.query(this.socket.options.query)
       , self = this
-      , Socket
+      , Socket;
 
     // if node
     Socket = require('ws');

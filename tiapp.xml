@@ -9,6 +9,7 @@
     <property name="acs-push-type-development" type="string">mqtt</property> 
   	<property name="acs-push-type-production" type="string">mqtt</property> 
   	<property name="acs-push-type" type="string">mqtt</property>
+  	<property name="ti.android.threadstacksize" type="int">32768</property>
     <id>com.apluplu.aiai</id>
     <name>AIAI</name>
     <version>1.0</version>
@@ -54,7 +55,7 @@
     </mobileweb>
     <modules>
         <module platform="commonjs">ti.cloud</module>
-        <module platform="commonjs">ti.cloud</module> 
+        <module platform="android">ti.cloudpush</module> 
     </modules>
     <deployment-targets>
         <target device="android">true</target>

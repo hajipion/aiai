@@ -42,16 +42,16 @@ platform.os({
   android: function (){
     // "require" wrongly global scope handling
     Titanium.include(
-      'socket.io/lib/util.js',
-      'socket.io/lib/json.js',
-      'socket.io/lib/parser.js',
-      'socket.io/lib/events.js',
-      'socket.io/lib/namespace.js',
-      'socket.io/lib/transport.js',
-      'socket.io/lib/transports/xhr.js',
-      'socket.io/lib/transports/websocket.js',
-      'socket.io/lib/transports/xhr-polling.js',
-      'socket.io/lib/socket.js'
+      '/socket.io/lib/util.js',
+      '/socket.io/lib/json.js',
+      '/socket.io/lib/parser.js',
+      '/socket.io/lib/events.js',
+      '/socket.io/lib/namespace.js',
+      '/socket.io/lib/transport.js',
+      '/socket.io/lib/transports/xhr.js',
+      '/socket.io/lib/transports/websocket.js',
+      '/socket.io/lib/transports/xhr-polling.js',
+      '/socket.io/lib/socket.js'
     );
   }
 });
