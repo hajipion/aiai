@@ -13,7 +13,7 @@ function Window2(title){
 	var view_search = Ti.UI.createView({
 		layout: 'vertical',
 		top: 0,
-		height: '40%',
+		height: 160,
 		width: 'auto',
 		backgroundColor: '#000',
 		opacity: 0.7
@@ -24,7 +24,7 @@ function Window2(title){
 		color: "#333",
 		hintText: "現在地",
 		width: '60%',
-		height: '25%',
+		height: '20%',
 		top: 10,
 		editable: false,
 		borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED
@@ -35,15 +35,15 @@ function Window2(title){
 		color: "#333",
 		hintText: "目的地を入力",
 		width: '60%',
-		height: '25%',
+		height: '20%',
 		top: 10,
 		borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED
 	});
 	
 	// ヘルプボタン
 	var sbmbutton = Ti.UI.createButton({
-		width: 55,
-		height: 55,
+		width: 45,
+		height: 45,
 		backgroundImage: '/images/help.png',
 		opacity:1
 	});
