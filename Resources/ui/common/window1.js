@@ -62,7 +62,7 @@ function Window1(title){
 	});
 	view_prof.add(nameLabel);
 	var view_profLabel = Ti.UI.createView({
-		height: '95%',
+		height: '100%',
 		layout: 'vertical'
 	});
 
