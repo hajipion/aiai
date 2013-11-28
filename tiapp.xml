@@ -6,6 +6,9 @@
     <property name="acs-oauth-secret-production" type="string">aRtUHbTDJGB9tvWQ4J93SWlaN3sCl9GQ</property>
     <property name="acs-oauth-key-production" type="string">PdcPFgAzNy05x0PzYa0CqzUiy1tSFSXw</property>
     <property name="acs-api-key-production" type="string">ocNKDnUWv33asdUnybmZhCkyEbl01hzK</property>
+    <property name="acs-push-type-development" type="string">mqtt</property> 
+  	<property name="acs-push-type-production" type="string">mqtt</property> 
+  	<property name="acs-push-type" type="string">mqtt</property>
     <id>com.apluplu.aiai</id>
     <name>AIAI</name>
     <version>1.0</version>
@@ -51,6 +54,7 @@
     </mobileweb>
     <modules>
         <module platform="commonjs">ti.cloud</module>
+        <module platform="commonjs">ti.cloud</module> 
     </modules>
     <deployment-targets>
         <target device="android">true</target>
