@@ -129,13 +129,14 @@ function Window2(title){
     					"longitude": longitude
     				},
     				"user_id": "ここにユーザーID",
-    				"helped": false, //helpされた側かどうかのflag
+    				"helped": false, //helpした側かどうかのflag（必要かどうかはわからん）
     				"targetPost": {
     					"latitude": "ここに目的地の緯度",
     					"longitude": "ここに目的地の経度" 
     				}
-    			}
-    			socket.emit("message", "hello world");
+    			};
+    			
+    			socket.emit("message", jsonData); 
 			});
 			
 			
