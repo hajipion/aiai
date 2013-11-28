@@ -190,8 +190,8 @@ function Window2(title){
     if(Titanium.Platform.name == 'android'){
 		var providerGps = Ti.Geolocation.Android.createLocationProvider({
 		    name: Ti.Geolocation.PROVIDER_GPS,
-	    	minUpdateDistance: 5.0,
-	    	minUpdateTime: 10
+	    	minUpdateDistance: 1.0,
+	    	minUpdateTime: 0
 		});
 		Ti.Geolocation.Android.addLocationProvider(providerGps);
 		Ti.Geolocation.Android.manualMode = true;
@@ -199,7 +199,7 @@ function Window2(title){
 	
 	// 現在地を動的に表示する
   	var currentPos = Titanium.Map.createAnnotation({
-   		pincolor: Titanium.Map.ANNOTATION_RED,
+   		//pincolor: Titanium.Map.ANNOTATION_RED,
    		pinImage: "/images/red-circle.png",
    		animate: true
   	});
