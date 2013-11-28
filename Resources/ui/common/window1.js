@@ -42,7 +42,7 @@ function Window1(title){
 	var view_prof = Ti.UI.createView({
 		layout: 'vertical',
 		width: '80%',
-		height: 90,
+		height: '90%',
 		fill: false,
 	});
 
@@ -98,7 +98,7 @@ function Window1(title){
 		width: '80%',
 		title: 'ポイントを使う',
 		color: '#fff',
-		backgroundImage: ''
+		backgroundImage: '/images/back-login-button.png'
 	});
 	view.add(view_top);
 	view.add(view_bottom);
