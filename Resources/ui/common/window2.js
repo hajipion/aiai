@@ -142,8 +142,8 @@ function Window2(title){
 			
 			socket.on("message", function (data){
 				//Ti.API.info('got message: ' + data);
-				socket.emit("message", data + "again");
-				Ti.API.error(''+data);
+				//socket.emit("message", data + "again");
+				Ti.API.error('' + data);
 			});
 	    }
 	});

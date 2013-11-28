@@ -176,7 +176,7 @@ function create_user(name,pass){
         });	
 }
 
-　　
+
   function login_user(){
 	var Cloud = require('ti.cloud');
     Cloud.debug = true;
@@ -251,3 +251,4 @@ function create_user(name,pass){
 }
 
 module.exports = FirstView;
+
