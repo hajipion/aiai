@@ -11,7 +11,7 @@ var password= Ti.App.Properties.getString('pass');
    	var ApplicationTabGroup =require('ui/common/ApplicationTabGroup'); 
    	Ti.App._username =loginUser;
 //create database
-exports.cloudPush4Android = function() {
+exports.Push_and = function() {
         var deviceToken;
 
         var CloudPush = require('ti.cloudpush');
