@@ -24,7 +24,7 @@ function Window2(title){
 		color: "#333",
 		hintText: "現在地",
 		width: '60%',
-		height: '30%',
+		height: '25%',
 		top: 10,
 		editable: false,
 		borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED
@@ -35,7 +35,7 @@ function Window2(title){
 		color: "#333",
 		hintText: "目的地を入力",
 		width: '60%',
-		height: '30%',
+		height: '25%',
 		top: 10,
 		borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED
 	});
@@ -61,8 +61,8 @@ function Window2(title){
 	
 	// 閉じるボタン
 	var closeBtn = Ti.UI.createButton({
-		width: 55,
-		height: 55,
+		width: 30,
+		height: 30,
 		right: 10,
 		backgroundImage: '/images/close.png',
 		opacity:1
@@ -143,6 +143,7 @@ function Window2(title){
 			socket.on("message", function (data){
 				//Ti.API.info('got message: ' + data);
 				socket.emit("message", data + "again");
+				Ti.API.error(''+data);
 			});
 	    }
 	});
