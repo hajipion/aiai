@@ -57,8 +57,8 @@ Cloud.debug = true;
  
  //エミュレータで新規作成したいときはvar nameをnuullに
 var name = Ti.App.Properties.getString('username');
- var name = null;
-  var pass = Ti.App.Properties.getString('pass');
+// var name = null;
+var pass = Ti.App.Properties.getString('pass');
 
 	if (name) {
             //alert(name);
@@ -85,16 +85,17 @@ var name = Ti.App.Properties.getString('username');
    	var ApplicationTabGroup =require('ui/common/ApplicationTabGroup');
 	//username = userNameText.value;
      
-        //usernameを保存
-   	Ti.App._username = "yoko";
+       
        // pass = passText.value;
         
-    //var loginname = Ti.App.Properties.getString('username');
-    //var loginpass = Ti.App.Properties.getString('pass');
+    var loginname = Ti.App.Properties.getString('username');
+     //usernameを保存
+   	Ti.App._username = loginname;
+    var loginpass = Ti.App.Properties.getString('pass');
 	Ti.App.Properties.setString('username',  name);
         Cloud.Users.login({
-        login:    "yoko",
-        password: "yokoyoko"
+        login:    loginname,
+        password: loginpass
    			 }, function (e) {
         if (e.success) {
  			    Cloud.PushNotifications.subscribe({
