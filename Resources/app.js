@@ -40,11 +40,11 @@ if (Ti.version < 1.8 ) {
 var deviceToken;
 var Cloud = require('ti.cloud');
 Cloud.debug = true;
-var CloudPush = require('ti.cloudpush'); 
+//var CloudPush = require('ti.cloudpush'); 
  
  
- 
-CloudPush.retrieveDeviceToken({
+ //Androidようにデバイストークン取得れ，iphoneだとエラーなので，一応コメントあうと
+/*CloudPush.retrieveDeviceToken({
           success: function deviceTokenSuccess(e) {
               alert('Device Token: ' + e.deviceToken);
               deviceToken = e.deviceToken
@@ -53,24 +53,27 @@ CloudPush.retrieveDeviceToken({
           error: function deviceTokenError(e) {
               alert('Failed to register for push! ' + e.error);
        }
-  });
-
+  });*/
  
-　　 var name = Ti.App.Properties.getString('username');
-    var pass = Ti.App.Properties.getString('pass');
+ //エミュレータで新規作成したいときはvar nameをnuullに
+var name = Ti.App.Properties.getString('username');
+ var name = null;
+  var pass = Ti.App.Properties.getString('pass');
 
 	if (name) {
             //alert(name);
-			//login_user();
-			var ApplicationTabGroup =require('ui/common/ApplicationTabGroup');
+			login_user();
+			var ApplicationTabGroup =require('ui/common/ApplicationTabGroup');		
                  
         }else{
         	var ApplicationTabGroup = require('ui/common/login');
         	new ApplicationTabGroup(Window).open();
         }
 
+
+ 
+　　
   function login_user(){
-	
 	var Cloud = require('ti.cloud');
     Cloud.debug = true;
   
@@ -142,7 +145,7 @@ CloudPush.retrieveDeviceToken({
     
         }
    	});
-   // });
+   //});
 
 
 }	

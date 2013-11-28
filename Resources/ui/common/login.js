@@ -79,17 +79,17 @@ function FirstView(Window) {
     view.add(nameView);
     view.add(passView);
    
-    var nametext = Ti.App.Properties.getString('username');
-    var pass = Ti.App.Properties.getString('pass');
+    //var nametext = Ti.App.Properties.getString('username');
+    //var pass = Ti.App.Properties.getString('pass');
 
 
 
-	var username="hoge";
-    var pass="hogehoge";
+	//var username="yoko";
+    //var pass_test="hogehoge";
     //self.add(view);
 	 //if ( nametext ) {
-        	login_user(username, pass );
-            alert(nametext);
+        	//login_user(username, pass_test );
+            //alert(nametext);
        // }else{
         	//create_user( username,pass );
         //}
@@ -102,6 +102,8 @@ function FirstView(Window) {
         title : 'ユーザー作成',
 		backgroundImage: '/images/back-login-button.png'
     });
+    
+   
 
     view.add(button);
     button.title = '新規登録';
@@ -111,14 +113,48 @@ function FirstView(Window) {
     var new_pass;
     new_username = userNameText.value;
     new_pass = passText.value;
+    if(new_username && new_pass){
+    	 create_user(new_username,new_pass );
+    }else{
+    	alert("入力してよ！");
+    }
+    
     //var nametext = Ti.App.Properties.getString('username');
     //create_user(new_username,new_pass );
         
     });
     
     
-    function login_user(name,pass){
+function create_user(name,pass){
+	 
+	//alert(name);
 	
+	var Cloud = require('ti.cloud');
+    Cloud.debug = true;
+	Cloud.Users.create({
+            username : name,
+            password : pass,
+            password_confirmation :pass
+        }, function(e) {
+            if (e.success) {
+				Ti.App.Properties.setString('username',  name);
+    			Ti.App.Properties.setString('pass',  pass);
+              
+				alert("user つくった");
+				login_user();
+				var ApplicationTabGroup =require('ui/common/ApplicationTabGroup');
+				//new ApplicationTabGroup(Window).open();
+			 
+            } else {
+            	new ApplicationTabGroup(Window).open();
+                alert('Faild to create user! ' + e.message);
+               //new ApplicationTabGroup(Window).open();
+            }
+        });	
+}
+
+　　
+  function login_user(){
 	var Cloud = require('ti.cloud');
     Cloud.debug = true;
   
@@ -128,21 +164,22 @@ function FirstView(Window) {
     //button.title = 'ログイン';
     //button.addEventListener('click', function(e) {
    	var ApplicationTabGroup =require('ui/common/ApplicationTabGroup');
-
-       // username = userNameText.value;
+	//username = userNameText.value;
      
         //usernameを保存
-   	Ti.App._username = name;
+   	//Ti.App._username = "yoko";
        // pass = passText.value;
         
-    //var loginname = Ti.App.Properties.getString('username');
-    //var loginpass = Ti.App.Properties.getString('pass');
-
+    var loginname = Ti.App.Properties.getString('username');
+    Ti.App._username = Ti.App.Properties.getString('username');
+    var loginpass = Ti.App.Properties.getString('pass');
+	Ti.App.Properties.setString('username',   loginname);
         Cloud.Users.login({
-        login:    "yoko",
-        password: "yokoyoko"
+        login:    loginname,
+        password: loginpass
    			 }, function (e) {
         if (e.success) {
+ 			 
             var user = e.users[0];
             //user_idを保存
             Ti.App._userid =user.id;
@@ -151,7 +188,6 @@ function FirstView(Window) {
                 'first name: ' + user.first_name + '\\n' +
                 'last name: ' + user.last_name);
    		//ともだち取得(ちょっと保留)
-
    		Cloud.debug = true;
 		Cloud.Friends.search({
 		user_id: Ti.App._userid
@@ -181,42 +217,11 @@ function FirstView(Window) {
     
         }
    	});
-   // });
+   //});
 
 
-}
+}	
 
-function create_user(name,pass){
-	//alert(name);
-	var Cloud = require('ti.cloud');
-    Cloud.debug = true;
-	Cloud.Users.create({
-            username : name,
-            password : pass,
-            password_confirmation :pass
-        }, function(e) {
-            if (e.success) {
-				Ti.App.Properties.setString('username',  name);
-    			Ti.App.Properties.setString('pass',  pass);
-                // 作成後に表示するWindow
-                var resultWindow = Ti.UI.createWindow({
-                    backgroundColor : '#ffffff'
-                });
-                var messageLabel = Ti.UI.createLabel({
-                    top : 10,
-                    width : 'auto',
-                    height : 'auto',
-                    text : 'ユーザーを作成しました。'
-                });
-
-				new ApplicationTabGroup(Window).open();
-
-            } else {
-                alert('Faild to create user! ' + e.message);
-               // new ApplicationTabGroup(Window).open();
-            }
-        });	
-}
     
     self.add(view);
 
