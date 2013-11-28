@@ -16,7 +16,7 @@ function Window1(title){
 		height: '25%',
 		width: 'auto',
 		fill: false,
-		top: 0
+		top: 10
 	});
 
 	var icon_image = Ti.UI.createImageView({
@@ -79,7 +79,7 @@ function Window1(title){
 		});
 		var view_profList = Ti.UI.createView({
 			width: '100%',
-			height: '25%',
+			height: '20%',
 			bottom: 0,
 		});
 		profLabel.text = prof_kind[i].text;
