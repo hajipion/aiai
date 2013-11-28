@@ -77,9 +77,24 @@ function FirstView(Window) {
 
     view.add(nameView);
     view.add(passView);
-    //self.add(view);
 
-    // API呼び出し
+   
+    //var nametext = Ti.App.Properties.getString('username');
+    //var pass = Ti.App.Properties.getString('pass');
+
+
+
+	//var username="yoko";
+    //var pass_test="hogehoge";
+    //self.add(view);
+	 //if ( nametext ) {
+        	//login_user(username, pass_test );
+            //alert(nametext);
+       // }else{
+        	//create_user( username,pass );
+        //}
+   
+
     var button = Ti.UI.createButton({
     	color: '#fff',
         top : 20,
@@ -88,8 +103,11 @@ function FirstView(Window) {
         title : 'ユーザー作成',
 		backgroundImage: '/images/back-login-button.png'
     });
+    
+   
 
     view.add(button);
+<<<<<<< HEAD
 
     var Cloud = require('ti.cloud');
     Cloud.debug = true;
@@ -111,8 +129,82 @@ function FirstView(Window) {
         Cloud.Users.login({
         login:    username,
         password: pass
+=======
+    button.title = '新規登録';
+    button.addEventListener('click', function(e) {
+    
+    var new_username;
+    var new_pass;
+    new_username = userNameText.value;
+    new_pass = passText.value;
+    if(new_username && new_pass){
+    	 create_user(new_username,new_pass );
+    }else{
+    	alert("入力してよ！");
+    }
+    
+    //var nametext = Ti.App.Properties.getString('username');
+    //create_user(new_username,new_pass );
+        
+    });
+    
+    
+function create_user(name,pass){
+	 
+	//alert(name);
+	
+	var Cloud = require('ti.cloud');
+    Cloud.debug = true;
+	Cloud.Users.create({
+            username : name,
+            password : pass,
+            password_confirmation :pass
+        }, function(e) {
+            if (e.success) {
+				Ti.App.Properties.setString('username',  name);
+    			Ti.App.Properties.setString('pass',  pass);
+              
+				alert("user つくった");
+				login_user();
+				var ApplicationTabGroup =require('ui/common/ApplicationTabGroup');
+				//new ApplicationTabGroup(Window).open();
+			 
+            } else {
+            	new ApplicationTabGroup(Window).open();
+                alert('Faild to create user! ' + e.message);
+               //new ApplicationTabGroup(Window).open();
+            }
+        });	
+}
+
+　　
+  function login_user(){
+	var Cloud = require('ti.cloud');
+    Cloud.debug = true;
+  
+    //友達変数
+ 	Ti.App._withFriends =[];
+    // ユーザー作成API呼び出し（一回ログインしたら再度ログインしなくていいようにしないとね）
+    //button.title = 'ログイン';
+    //button.addEventListener('click', function(e) {
+   	var ApplicationTabGroup =require('ui/common/ApplicationTabGroup');
+	//username = userNameText.value;
+     
+        //usernameを保存
+   	//Ti.App._username = "yoko";
+       // pass = passText.value;
+        
+    var loginname = Ti.App.Properties.getString('username');
+    Ti.App._username = Ti.App.Properties.getString('username');
+    var loginpass = Ti.App.Properties.getString('pass');
+	Ti.App.Properties.setString('username',   loginname);
+        Cloud.Users.login({
+        login:    loginname,
+        password: loginpass
+>>>>>>> 59a468b9e9e88db9532a3ef08b43ce96223f96b1
    			 }, function (e) {
         if (e.success) {
+ 			 
             var user = e.users[0];
             //user_idを保存
             Ti.App._userid =user.id;
@@ -121,7 +213,6 @@ function FirstView(Window) {
                 'first name: ' + user.first_name + '\\n' +
                 'last name: ' + user.last_name);
    		//ともだち取得(ちょっと保留)
-
    		Cloud.debug = true;
 		Cloud.Friends.search({
 		user_id: Ti.App._userid
@@ -148,6 +239,7 @@ function FirstView(Window) {
  } else {
             alert('ログインできないでーすユーザくつくりまーす！:\\n' +
                 ((e.error && e.message) || JSON.stringify(e)));
+<<<<<<< HEAD
              Cloud.Users.create({
             username : username,
             password : pass,
@@ -181,6 +273,17 @@ function FirstView(Window) {
 
     });
 
+=======
+    
+        }
+   	});
+   //});
+
+
+}	
+
+    
+>>>>>>> 59a468b9e9e88db9532a3ef08b43ce96223f96b1
     self.add(view);
 
     return self;

@@ -36,6 +36,120 @@ if (Ti.version < 1.8 ) {
 		Window = require('ui/handheld/ApplicationWindow');
 	}
 
-	var ApplicationTabGroup = require('ui/common/login');
-	new ApplicationTabGroup(Window).open();
+ 
+var deviceToken;
+var Cloud = require('ti.cloud');
+Cloud.debug = true;
+//var CloudPush = require('ti.cloudpush'); 
+ 
+ 
+ //Androidようにデバイストークン取得れ，iphoneだとエラーなので，一応コメントあうと
+/*CloudPush.retrieveDeviceToken({
+          success: function deviceTokenSuccess(e) {
+              alert('Device Token: ' + e.deviceToken);
+              deviceToken = e.deviceToken
+              login_user();
+          },
+          error: function deviceTokenError(e) {
+              alert('Failed to register for push! ' + e.error);
+       }
+  });*/
+ 
+ //エミュレータで新規作成したいときはvar nameをnuullに
+var name = Ti.App.Properties.getString('username');
+// var name = null;
+var pass = Ti.App.Properties.getString('pass');
+
+	if (name) {
+            //alert(name);
+			login_user();
+			var ApplicationTabGroup =require('ui/common/ApplicationTabGroup');		
+                 
+        }else{
+        	var ApplicationTabGroup = require('ui/common/login');
+        	new ApplicationTabGroup(Window).open();
+        }
+
+
+ 
+　　
+  function login_user(){
+	var Cloud = require('ti.cloud');
+    Cloud.debug = true;
+  
+    //友達変数
+ 	Ti.App._withFriends =[];
+    // ユーザー作成API呼び出し（一回ログインしたら再度ログインしなくていいようにしないとね）
+    //button.title = 'ログイン';
+    //button.addEventListener('click', function(e) {
+   	var ApplicationTabGroup =require('ui/common/ApplicationTabGroup');
+	//username = userNameText.value;
+     
+       
+       // pass = passText.value;
+        
+    var loginname = Ti.App.Properties.getString('username');
+     //usernameを保存
+   	Ti.App._username = loginname;
+    var loginpass = Ti.App.Properties.getString('pass');
+	Ti.App.Properties.setString('username',  name);
+        Cloud.Users.login({
+        login:    loginname,
+        password: loginpass
+   			 }, function (e) {
+        if (e.success) {
+ 			    Cloud.PushNotifications.subscribe({
+    channel: 'friend_request', // "alert" is channel name
+    device_token: deviceToken,
+    type: 'android'
+}, function (e){
+    if (e.success) {
+       alert('Subscribed for Push Notification!');
+    }else{
+        alert('Error:' +((e.error && e.message) || JSON.stringify(e)));
+    }
+});
+            var user = e.users[0];
+            //user_idを保存
+            Ti.App._userid =user.id;
+            alert('Success:\\n' +
+                'id: ' + user.id + '\\n' +
+                'first name: ' + user.first_name + '\\n' +
+                'last name: ' + user.last_name);
+   		//ともだち取得(ちょっと保留)
+   		Cloud.debug = true;
+		Cloud.Friends.search({
+		user_id: Ti.App._userid
+		}, function (e) {
+    	if (e.success&&e.users.length>0) {
+
+        for (var i = 0; i < e.users.length; i++) {
+          		var user = e.users[i];
+
+		  		var currentWithFriends = Ti.App._withFriends;
+	     		 var ids = {
+   					text:user.username,
+   					pt:'50pt',
+				};
+			currentWithFriends.push(ids);
+	      	Ti.App._withFriends=currentWithFriends;
+		  //友達情報を読み込んでからページをopen！！
+		  	new ApplicationTabGroup(Window).open();
+        	 }
+     }else{
+     		new ApplicationTabGroup(Window).open();
+    	}
+	});
+ } else {
+            alert('ログインできないでーすユーザくつくりまーす！:\\n' +
+                ((e.error && e.message) || JSON.stringify(e)));
+    
+        }
+   	});
+   //});
+
+
+}	
+
+
 })();
