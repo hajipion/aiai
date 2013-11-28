@@ -1,1 +1,1 @@
-/Users/hajime/Documents/Titanium_Studio_Workspace/aiai/Resources/ui/common/socketio-titanium.js
+/Users/kurinoakiho/htdocs/aiai/Resources/ui/common/socketio-titanium.js
