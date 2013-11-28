@@ -107,8 +107,7 @@ function FirstView(Window) {
    
 
     view.add(button);
-<<<<<<< HEAD
-
+    /*
     var Cloud = require('ti.cloud');
     Cloud.debug = true;
 
@@ -129,7 +128,7 @@ function FirstView(Window) {
         Cloud.Users.login({
         login:    username,
         password: pass
-=======
+    */    
     button.title = '新規登録';
     button.addEventListener('click', function(e) {
     
@@ -201,7 +200,6 @@ function create_user(name,pass){
         Cloud.Users.login({
         login:    loginname,
         password: loginpass
->>>>>>> 59a468b9e9e88db9532a3ef08b43ce96223f96b1
    			 }, function (e) {
         if (e.success) {
  			 
@@ -239,42 +237,7 @@ function create_user(name,pass){
  } else {
             alert('ログインできないでーすユーザくつくりまーす！:\\n' +
                 ((e.error && e.message) || JSON.stringify(e)));
-<<<<<<< HEAD
-             Cloud.Users.create({
-            username : username,
-            password : pass,
-            password_confirmation : pass
-        }, function(e) {
-            if (e.success) {
-
-                // 作成後に表示するWindow
-                var resultWindow = Ti.UI.createWindow({
-                    backgroundColor : '#ffffff'
-                });
-                var messageLabel = Ti.UI.createLabel({
-                    top : 10,
-                    width : 'auto',
-                    height : 'auto',
-                    text : 'ユーザーを作成しました。'
-                });
-
-				new ApplicationTabGroup(Window).open();
-
-            } else {
-                alert('Faild to create user! ' + e.message);
-            }
-        });
-        }
-   	});
-
-
-
-
-
-    });
-
-=======
-    
+   
         }
    	});
    //});
@@ -282,8 +245,6 @@ function create_user(name,pass){
 
 }	
 
-    
->>>>>>> 59a468b9e9e88db9532a3ef08b43ce96223f96b1
     self.add(view);
 
     return self;
