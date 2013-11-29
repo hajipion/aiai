@@ -54,7 +54,7 @@ function Window2(title){
         Cloud.debug = true;
  	Cloud.PushNotifications.notify({
     channel : 'alert',
- 	payload: 'HELP!!'
+ 	payload: 'HELP!!'+Ti.App._username
 	}, function (e) {
    
 });
