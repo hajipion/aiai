@@ -164,8 +164,12 @@ function create_user(name,pass){
     			Ti.App.Properties.setString('pass',  pass);
               
 				alert("user つくった");
-				login_user();
-				var ApplicationTabGroup =require('ui/common/ApplicationTabGroup');
+				//login_user();
+				var CloudPush4Android = require('ui/common/Push_and');
+			CloudPush4Android.Push_and();
+			var ApplicationTabGroup =require('ui/common/ApplicationTabGroup');		
+            new ApplicationTabGroup(Window).open();    
+				//var ApplicationTabGroup =require('ui/common/ApplicationTabGroup');
 				//new ApplicationTabGroup(Window).open();
 			 
             } else {
@@ -182,16 +186,11 @@ function create_user(name,pass){
     Cloud.debug = true;
   
     //友達変数
- 	Ti.App._withFriends =[];
+	Ti.App._withFriends =[];
     // ユーザー作成API呼び出し（一回ログインしたら再度ログインしなくていいようにしないとね）
-    //button.title = 'ログイン';
-    //button.addEventListener('click', function(e) {
+   
    	var ApplicationTabGroup =require('ui/common/ApplicationTabGroup');
-	//username = userNameText.value;
-     
-        //usernameを保存
-   	//Ti.App._username = "yoko";
-       // pass = passText.value;
+	
         
     var loginname = Ti.App.Properties.getString('username');
     Ti.App._username = Ti.App.Properties.getString('username');
@@ -240,7 +239,7 @@ function create_user(name,pass){
    
         }
    	});
-   //});
+   
 
 
 }	

@@ -7,11 +7,12 @@ var loginUser= Ti.App.Properties.getString('username');
 
 var password= Ti.App.Properties.getString('pass');
  //友達変数
- 	Ti.App._withFriends =[];
+ Ti.App._withFriends =[];  	
+ Ti.App._username =loginUser;
    	var ApplicationTabGroup =require('ui/common/ApplicationTabGroup'); 
-   	Ti.App._username =loginUser;
 //create database
 exports.Push_and = function() {
+	
         var deviceToken;
 
         var CloudPush = require('ti.cloudpush');
@@ -39,13 +40,55 @@ exports.Push_and = function() {
 
         //Login
         var login = function() {
+        	  //友達変数
+ 		Ti.App._withFriends =[];
+ 		var ApplicationTabGroup =require('ui/common/ApplicationTabGroup');
+	
+        
+   		 var loginname = Ti.App.Properties.getString('username');
+     //usernameを保存
+   		Ti.App._username = loginname;
+   		 var loginpass = Ti.App.Properties.getString('pass');
                 Cloud.Users.login({
                         login : loginUser,
                         password : password
                 }, function(e) {
                         if (e.success) {
                                 Ti.API.info("login success");
-                                defaultSubscribe();
+                                 var user = e.users[0];
+            //user_idを保存
+            Ti.App._userid =user.id;
+            alert('Success:\\n' +
+                'id: ' + user.id + '\\n' +
+                'first name: ' + user.first_name + '\\n' +
+                'last name: ' + user.last_name);
+   		//ともだち取得(ちょっと保留)
+   		Cloud.debug = true;
+		Cloud.Friends.search({
+		user_id: Ti.App._userid
+		}, function (e) {
+    	if (e.success&&e.users.length>0) {
+
+        for (var i = 0; i < e.users.length; i++) {
+          		var user = e.users[i];
+				alert("friend!");
+		  		var currentWithFriends = Ti.App._withFriends;
+	     		 var ids = {
+   					text:user.username,
+   					pt:'50pt',
+				};
+			currentWithFriends.push(ids);
+	      	Ti.App._withFriends=currentWithFriends;
+		  //友達情報を読み込んでからページをopen！！
+		  	//new ApplicationTabGroup(Window).open();
+		  	 defaultSubscribe();
+        	 }
+     }else{
+     		//new ApplicationTabGroup(Window).open();
+     		 defaultSubscribe();
+    	}
+	});
+                               
                         } else {
                                 Ti.API.info('Error: ' + ((e.error && e.message) || JSON.stringify(e)));
                         }
@@ -61,11 +104,29 @@ exports.Push_and = function() {
                 }, function(e) {
                         if (e.success) {
                                 Ti.API.info('Subscribed for Push Notification!');
+                               
+
                         } else {
                                 Ti.API.info('Error:' + ((e.error && e.message) || JSON.stringify(e)));
                         }
                 });
         };
+        
+         /*Cloud.PushNotifications.notify({
+    channel : 'alert',
+    to_ids : '529778554fbf230b6a01562b',
+    payload: 'Welcome to push notifications'
+}, function (e) {
+    if (e.success) {
+        alert('Success');
+    } else {
+        alert('push!!!!Error:\n' +
+            ((e.error && e.message) || JSON.stringify(e)));
+    }
+});*/
+
+
+        
 
         //Callback when catch a Notification
         CloudPush.addEventListener('callback', function(evt) {
@@ -88,6 +149,9 @@ exports.Push_and = function() {
 
         CloudPush.addEventListener('trayClickFocusedApp', function(evt) {
                 Ti.API.info('Tray Click Focused App (app was already running)');
-        });
+		});
+        
+       
+       	
 };
  

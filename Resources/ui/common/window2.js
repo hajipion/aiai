@@ -1,5 +1,6 @@
 function Window2(title){
 
+
 	var win = Ti.UI.createWindow({
 		title: title
 	});
@@ -48,7 +49,17 @@ function Window2(title){
 		opacity:1
 	});
 	sbmbutton.addEventListener("click",function(e){
+		//これでpushできます　メッセージの内容はpayloadを変更
+		var Cloud = require('ti.cloud');
+        Cloud.debug = true;
+ 	Cloud.PushNotifications.notify({
+    channel : 'alert',
+ 	payload: 'HELP!!'
+	}, function (e) {
+   
+});
 		if(tfDestination.getValue()===''){
+			
 			alert.setTitle('HELPする前に！');
 			alert.setMessage('目的地を入力してください。');
 			alert.show();
