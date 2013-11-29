@@ -8,7 +8,7 @@ function Window2(title){
 	var view = Ti.UI.createView({
 		// layout: 'vertical'
 	});
-	
+
 	// サーチエリア
 	var view_search = Ti.UI.createView({
 		layout: 'vertical',
@@ -18,28 +18,28 @@ function Window2(title){
 		backgroundColor: '#000',
 		opacity: 0.7
 	});
-	
+
 	// 現在地のテキストフィールド
 	var tfPresent = Ti.UI.createTextField({
 		color: "#333",
 		hintText: "現在地",
 		width: '60%',
-		height: '20%',
+		height: '25%',
 		top: 10,
 		editable: false,
 		borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED
 	});
-	
+
 	// 目的地のテキストフィールド
 	var tfDestination = Ti.UI.createTextField({
 		color: "#333",
 		hintText: "目的地を入力",
 		width: '60%',
-		height: '20%',
+		height: '25%',
 		top: 10,
 		borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED
 	});
-	
+
 	// ヘルプボタン
 	var sbmbutton = Ti.UI.createButton({
 		width: 45,
@@ -58,7 +58,7 @@ function Window2(title){
 			alert.show();
 		}
 	});
-	
+
 	// 閉じるボタン
 	var closeBtn = Ti.UI.createButton({
 		width: 30,
@@ -73,7 +73,7 @@ function Window2(title){
 		// pullBtnを表示
 		pullBtn.visible = true;
 	});
-	
+
 	var view_buttons = Ti.UI.createView({
 		top: 10,
 		height: '30%',
@@ -86,7 +86,7 @@ function Window2(title){
 	view_search.add(tfDestination);
 	view_search.add(view_buttons);
 	// view_search.add(closeBtn);
-	
+
 	// プルボタン
 	var pullBtn = Ti.UI.createButton({
 		visible: false,
@@ -102,7 +102,7 @@ function Window2(title){
 		// view_searchを表示に
 		view_search.visible = true;
 	});
-	
+
 	// アラート
 	var alert = Ti.UI.createAlertDialog({
 		//title: "HELP?",
@@ -118,11 +118,11 @@ function Window2(title){
 	    if(event.index == 0){
 	      	var io = require('ui/common/socketio-titanium');
 			var socket = io.connect('202.181.102.188:8080');
-			
+
 			Titanium.Geolocation.addEventListener('location', function(e){
 				var latitude = e.coords.latitude;
     			var longitude = e.coords.longitude;
-    			
+
     			var jsonData = {
     				"currentPos": {
     					"latitude": latitude,
@@ -132,14 +132,14 @@ function Window2(title){
     				"helped": false, //helpした側かどうかのflag（必要かどうかはわからん）
     				"targetPost": {
     					"latitude": "ここに目的地の緯度",
-    					"longitude": "ここに目的地の経度" 
+    					"longitude": "ここに目的地の経度"
     				}
     			};
-    			
-    			socket.emit("message", jsonData); 
+
+    			socket.emit("message", jsonData);
 			});
-			
-			
+
+
 			socket.on("message", function (data){
 				//Ti.API.info('got message: ' + data);
 				socket.emit("message", data + "again");
@@ -186,7 +186,7 @@ function Window2(title){
     Ti.Geolocation.accuracy = Ti.Geolocation.ACCURACY_BEST;
     Ti.Geolocation.distanceFilter = 5;
     Ti.Geolocation.preferredProvider = Ti.Geolocation.PROVIDER_GPS;
-    
+
     if(Titanium.Platform.name == 'android'){
 		var providerGps = Ti.Geolocation.Android.createLocationProvider({
 		    name: Ti.Geolocation.PROVIDER_GPS,
@@ -196,14 +196,14 @@ function Window2(title){
 		Ti.Geolocation.Android.addLocationProvider(providerGps);
 		Ti.Geolocation.Android.manualMode = true;
 	}
-	
+
 	// 現在地を動的に表示する
   	var currentPos = Titanium.Map.createAnnotation({
    		//pincolor: Titanium.Map.ANNOTATION_RED,
    		pinImage: "/images/red-circle.png",
    		animate: true
   	});
-		
+
 	var locationCallback = function(e) {
     	if(!e.success || e.error){
    				//alert('位置情報が取得できませんでした');
@@ -223,7 +223,7 @@ function Window2(title){
 		tfDestination.setValue(''+longitude);
 		currentPos.latitude=latitude;
 		currentPos.longitude=longitude;
-	  		
+
      	mapview.addAnnotation(currentPos);
         mapview.show(); // 隠していた地図を表示する
         mapview.setLocation({   // 現在地まで地図をスクロールする
@@ -248,7 +248,7 @@ function Window2(title){
    		tfPresent.setValue('' + e.places.address);
 	});
 	*/
-	
+
 	/* 終了処理書かないと
 	win.addEventLisner("close", function() {
 		Titanium.UI.removeEventLisner("location", getCurrentLocation);
