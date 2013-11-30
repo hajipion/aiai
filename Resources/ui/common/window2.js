@@ -246,19 +246,8 @@ function Window2(title){
     	jsonData.currentPos.longitude = longitude;
     	if(isConnect === true){
     	socket.emit("message", JSON.stringify(jsonData));
-		//ここでデータを受け取ります（ぶろーどきゃすとなので、自分には返ってきません）
-		socket.on("message", function (data){
-			alert(data);
-			var obj = JSON.parse(data);
-			var pos = Titanium.Map.createAnnotation({
-				pinImage: "/images/blue-circle.png",
-		   		latitude: obj.currentPos.latitude,
-		   		longitude: obj.currentPos.longitude,
-   				animate: true
-  			});
-			mapview.addAnnotation(pos);
-		});
-		}
+		
+		} 
     	// 小数点第二位に省略
         var shortLatitude = Math.round(latitude * 100) / 100;
         var shortLongitude = Math.round(longitude * 100) / 100;
@@ -280,6 +269,18 @@ function Window2(title){
             longitudeDelta:0.01
         });
 	};
+	//ここでデータを受け取ります（ぶろーどきゃすとなので、自分には返ってきません）
+		socket.on("message", function (data){
+			alert(data);
+			var obj = JSON.parse(data);
+			var pos = Titanium.Map.createAnnotation({
+				pinImage: "/images/blue-circle.png",
+		   		latitude: obj.currentPos.latitude,
+		   		longitude: obj.currentPos.longitude,
+   				animate: true
+  			});
+			mapview.addAnnotation(pos);
+		});
 
 	Titanium.Geolocation.addEventListener('location', locationCallback);
 
