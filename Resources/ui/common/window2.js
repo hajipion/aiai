@@ -133,7 +133,9 @@ function Window2(title){
 			//Titanium.Geolocation.addEventListener('location', function(e){
 				//var latitude = e.coords.latitude;
     			//var longitude = e.coords.longitude;
-
+				
+				
+				//これがデータのモデルです〜
     			var jsonData = {
     				currentPos: {
     					latitude: "ここに現在地の緯度",
@@ -146,11 +148,13 @@ function Window2(title){
     					longitude: "ここに目的地の経度"
     				}
     			};
-
+				
+				//ここでデータを送信してます〜
     			socket.emit("message", JSON.stringify(jsonData));
 			//});
 
-
+			
+			//ここでデータを受け取ります（ぶろーどきゃすとなので、自分には返ってきません）
 			socket.on("message", function (data){
 				Ti.API.error('' + JSON.parse(data));
 			});
