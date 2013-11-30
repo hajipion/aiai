@@ -157,6 +157,7 @@ function Window2(title){
 	});
 	var io;
 	var socket;
+	var isConnect = false;
 	alt.addEventListener('click',function(event){
 	    if(event.cancel){
 
@@ -165,7 +166,7 @@ function Window2(title){
 	    if(event.index == 0){
 	      	io = require('ui/common/socketio-titanium');
 			socket = io.connect('202.181.102.188:8080');
-
+			isConnect = true;
 			//Titanium.Geolocation.addEventListener('location', function(e){
 				//var latitude = e.coords.latitude;
     			//var longitude = e.coords.longitude;
@@ -243,6 +244,7 @@ function Window2(title){
     	longitude = e.coords.longitude;
     	jsonData.currentPos.latitude = latitude;
     	jsonData.currentPos.longitude = longitude;
+    	if(isConnect === true){
     	socket.emit("message", JSON.stringify(jsonData));
 		//ここでデータを受け取ります（ぶろーどきゃすとなので、自分には返ってきません）
 		socket.on("message", function (data){
@@ -256,7 +258,7 @@ function Window2(title){
   			});
 			mapview.addAnnotation(pos);
 		});
-
+		}
     	// 小数点第二位に省略
         var shortLatitude = Math.round(latitude * 100) / 100;
         var shortLongitude = Math.round(longitude * 100) / 100;
