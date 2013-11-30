@@ -73,24 +73,9 @@ function Window2(title){
 			alt.setMessage('目的地を入力してください。');
 			alt.show();
 		} else {
-			var appid =  '&appid=dj0zaiZpPWNNNDZuandRTDB0QiZzPWNvbnN1bWVyc2VjcmV0Jng9MjU-';
-			var lon = 'lon='+longitude;//経度
-    		var lat = '&lat='+latitude;//緯度
-    		var xhr = Ti.Network.createHTTPClient();
-    		xhr.timeout = 100000;
-    		xhr.open("GET","http://reverse.search.olp.yahooapis.jp/OpenLocalPlatform/V1/reverseGeoCoder?"+lon+lat+appid);
-    		xhr.onload = function(){
-    			//alert('success:' + this.responseText);
-        		var doc = this.responseXML.documentElement;
-        		var items = doc.getElementsByTagName("Address");
-        		alt.setTitle('HELPする前に！');
-				alt.setMessage("address: "+items.item(0).textContent);
-				alt.show();
-    		};
-    		xhr.send();	
-			//alt.setTitle('HELP?');
-			//alt.setMessage('近くの人に助けを求めますか？');
-			//alt.show();
+			alt.setTitle('HELP?');
+			alt.setMessage('近くの人に助けを求めますか？');
+			alt.show();
 		}
 	});
 
@@ -259,6 +244,22 @@ function Window2(title){
    		animate: true
   	});
 
+	var tfCurrentPos = false;
+	var setCurrentLocation = function(){
+		var appid =  '&appid=dj0zaiZpPWNNNDZuandRTDB0QiZzPWNvbnN1bWVyc2VjcmV0Jng9MjU-';
+		var lon = 'lon='+longitude;//経度
+    	var lat = '&lat='+latitude;//緯度
+   		var xhr = Ti.Network.createHTTPClient();
+   		xhr.timeout = 100000;
+   		xhr.open("GET","http://reverse.search.olp.yahooapis.jp/OpenLocalPlatform/V1/reverseGeoCoder?"+lon+lat+appid);
+   		xhr.onload = function(){
+       		var doc = this.responseXML.documentElement;
+       		var items = doc.getElementsByTagName("Address");
+			tfPresent.setValue(''+items.item(0).textContent);
+   		};
+   		xhr.send();	
+   		tfCurrentPos = true;
+	};
 	var locationCallback = function(e) {
     	if(!e.success || e.error){
    				//alert('位置情報が取得できませんでした');
@@ -280,9 +281,7 @@ function Window2(title){
         var shortLongitude = Math.round(longitude * 100) / 100;
 
         // テキストフィールドに現在地を書く
-        // tfPresent.setValue('現在地：'+shortLatitude+','+shortLongitude);
-		tfPresent.setValue(''+latitude);
-		tfDestination.setValue(''+longitude);
+        if(tfCurrentPos===false) setCurrentLocation();
 		currentPos.latitude=latitude;
 		currentPos.longitude=longitude;
 
