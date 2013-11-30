@@ -69,9 +69,9 @@ function Window2(title){
 		}, function (e) {});
 		
 		if(tfDestination.getValue()===''){
-			alert.setTitle('HELPする前に！');
-			alert.setMessage('目的地を入力してください。');
-			alert.show();
+			alt.setTitle('HELPする前に！');
+			alt.setMessage('目的地を入力してください。');
+			alt.show();
 		} else {
 			var appid =  '&appid=dj0zaiZpPWNNNDZuandRTDB0QiZzPWNvbnN1bWVyc2VjcmV0Jng9MjU-';
 			var lon = 'lon='+longitude;//経度
@@ -83,14 +83,14 @@ function Window2(title){
     			//alert('success:' + this.responseText);
         		var doc = this.responseXML.documentElement;
         		var items = doc.getElementsByTagName("Address");
-        		alert.setTitle('HELPする前に！');
-				alert.setMessage("address: "+items.item(0).textContent);
-				alert.show();
+        		alt.setTitle('HELPする前に！');
+				alt.setMessage("address: "+items.item(0).textContent);
+				alt.show();
     		};
     		xhr.send();	
-			//alert.setTitle('HELP?');
-			//alert.setMessage('近くの人に助けを求めますか？');
-			//alert.show();
+			//alt.setTitle('HELP?');
+			//alt.setMessage('近くの人に助けを求めますか？');
+			//alt.show();
 		}
 	});
 
@@ -139,13 +139,13 @@ function Window2(title){
 	});
 
 	// アラート
-	var alert = Ti.UI.createAlertDialog({
+	var alt = Ti.UI.createAlertDialog({
 		//title: "HELP?",
 		//message: "近くの人に助けを求めますか？",
 		buttonNames: ["OK","Cancel"],
 		cancel: 1
 	});
-	alert.addEventListener('click',function(event){
+	alt.addEventListener('click',function(event){
 	    if(event.cancel){
 
 	    }
@@ -180,7 +180,7 @@ function Window2(title){
 			
 			//ここでデータを受け取ります（ぶろーどきゃすとなので、自分には返ってきません）
 			socket.on("message", function (data){
-				Ti.API.error('' + JSON.parse(data));
+				alert(data);
 			});
 	    }
 	});
@@ -202,7 +202,7 @@ function Window2(title){
 	win.add(view);
 
 	if(!Titanium.Geolocation.locationServicesEnabled){
-        var alt = Titanium.UI.createAlertDialog({
+        var alt1 = Titanium.UI.createAlertDialog({
             title:'位置情報取得',
             message:'位置測定が出来ません。電波状況、設定を確認してください。'
         });
