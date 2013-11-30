@@ -36,35 +36,33 @@ if (Ti.version < 1.8 ) {
 		Window = require('ui/handheld/ApplicationWindow');
 	}
 
- 
-var deviceToken;
-var Cloud = require('ti.cloud');
-Cloud.debug = true;
-//var CloudPush = require('ti.cloudpush'); 
+
+
+
  
  
- //Androidようにデバイストークン取得れ，iphoneだとエラーなので，一応コメントあうと
-/*CloudPush.retrieveDeviceToken({
-          success: function deviceTokenSuccess(e) {
-              alert('Device Token: ' + e.deviceToken);
-              deviceToken = e.deviceToken
-              login_user();
-          },
-          error: function deviceTokenError(e) {
-              alert('Failed to register for push! ' + e.error);
-       }
-  });*/
+
  
  //エミュレータで新規作成したいときはvar nameをnuullに
-var name = Ti.App.Properties.getString('username');
-// var name = null;
+ var name = Ti.App.Properties.getString('username');
+//var name = null;
 var pass = Ti.App.Properties.getString('pass');
 
 	if (name) {
             //alert(name);
-			login_user();
-			var ApplicationTabGroup =require('ui/common/ApplicationTabGroup');		
-                 
+			//login_user();
+			
+            if (Ti.Platform.name == 'iPhone OS') {
+            	var ApplicationTabGroup =require('ui/common/ApplicationTabGroup');	
+            	login_user();
+            }else{
+            	var CloudPush4Android = require('ui/common/Push_and');
+				CloudPush4Android.Push_and();
+				var ApplicationTabGroup =require('ui/common/ApplicationTabGroup');		
+            	new ApplicationTabGroup(Window).open();  
+            }
+            
+              
         }else{
         	var ApplicationTabGroup = require('ui/common/login');
         	new ApplicationTabGroup(Window).open();
@@ -72,7 +70,6 @@ var pass = Ti.App.Properties.getString('pass');
 
 
  
-　　
   function login_user(){
 	var Cloud = require('ti.cloud');
     Cloud.debug = true;
@@ -83,10 +80,7 @@ var pass = Ti.App.Properties.getString('pass');
     //button.title = 'ログイン';
     //button.addEventListener('click', function(e) {
    	var ApplicationTabGroup =require('ui/common/ApplicationTabGroup');
-	//username = userNameText.value;
-     
-       
-       // pass = passText.value;
+	
         
     var loginname = Ti.App.Properties.getString('username');
      //usernameを保存
@@ -98,17 +92,7 @@ var pass = Ti.App.Properties.getString('pass');
         password: loginpass
    			 }, function (e) {
         if (e.success) {
- 			    Cloud.PushNotifications.subscribe({
-    channel: 'friend_request', // "alert" is channel name
-    device_token: deviceToken,
-    type: 'android'
-}, function (e){
-    if (e.success) {
-       alert('Subscribed for Push Notification!');
-    }else{
-        alert('Error:' +((e.error && e.message) || JSON.stringify(e)));
-    }
-});
+ 	
             var user = e.users[0];
             //user_idを保存
             Ti.App._userid =user.id;
@@ -152,4 +136,5 @@ var pass = Ti.App.Properties.getString('pass');
 }	
 
 
+	
 })();
