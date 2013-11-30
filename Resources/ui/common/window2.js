@@ -158,6 +158,8 @@ function Window2(title){
 	var io;
 	var socket;
 	var isConnect = false;
+	var user_list= new Array();
+	var user_id_log= new Array();
 	alt.addEventListener('click',function(event){
 	    if(event.cancel){
 
@@ -167,13 +169,36 @@ function Window2(title){
 	      	io = require('ui/common/socketio-titanium');
 			socket = io.connect('202.181.102.188:8080');
 			isConnect = true;
-			//Titanium.Geolocation.addEventListener('location', function(e){
-				//var latitude = e.coords.latitude;
-    			//var longitude = e.coords.longitude;
-				
-				
-				
-				//ここでデータを送信してます〜
+			
+    			//ここでデータを送信してます〜
+				socket.on("message", function (data){
+			alert(data);
+			var obj = JSON.parse(data);	
+					
+			var point = user_id_log.indexOf(obj.user_id);
+			
+			if(point==-1){
+			//if (obj.user_id in user_list === undefined){
+				var pos = Titanium.Map.createAnnotation({
+					//image: "/images/blue-circle.png",
+		   			latitude: obj.currentPos.latitude,
+		   			longitude: obj.currentPos.longitude,
+   					animate: true
+  			});
+  				user_id_log.push(obj.user_id);
+  				user_list[obj.user_id]=pos;
+  				//alert(user_list[obj.user_id].longitude);
+				mapview.addAnnotation(pos);								
+			}else{
+				//alert("aru!!!!");
+				user_list[obj.user_id].latitude=obj.currentPos.latitude;
+				user_list[obj.user_id].longitude=obj.currentPos.longitude;
+				//mapview.addAnnotation(user_list[obj.user_id]);
+			}
+			
+
+		});
+								
     			
 	    }
 	});
@@ -214,7 +239,7 @@ function Window2(title){
 
 	Ti.Geolocation.purpose = 'Get Current Location';
     Ti.Geolocation.accuracy = Ti.Geolocation.ACCURACY_BEST;
-    Ti.Geolocation.distanceFilter = 5;
+    Ti.Geolocation.distanceFilter = 1;
     Ti.Geolocation.preferredProvider = Ti.Geolocation.PROVIDER_GPS;
 
     if(Titanium.Platform.name == 'android'){
@@ -245,19 +270,10 @@ function Window2(title){
     	jsonData.currentPos.latitude = latitude;
     	jsonData.currentPos.longitude = longitude;
     	if(isConnect === true){
+  
     	socket.emit("message", JSON.stringify(jsonData));
 		//ここでデータを受け取ります（ぶろーどきゃすとなので、自分には返ってきません）
-		socket.on("message", function (data){
-			alert(data);
-			var obj = JSON.parse(data);
-			var pos = Titanium.Map.createAnnotation({
-				pinImage: "/images/blue-circle.png",
-		   		latitude: obj.currentPos.latitude,
-		   		longitude: obj.currentPos.longitude,
-   				animate: true
-  			});
-			mapview.addAnnotation(pos);
-		});
+		
 		} 
     	// 小数点第二位に省略
         var shortLatitude = Math.round(latitude * 100) / 100;
