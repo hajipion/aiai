@@ -138,6 +138,20 @@ function Window2(title){
 		view_search.visible = true;
 	});
 
+	//これがデータのモデルです〜
+    			var jsonData = {
+    				currentPos: {
+    					latitude: "ここに現在地の緯度",
+    					longitude: "ここに現在地の経度"
+    				},
+    				user_id: "ここにユーザーID",
+    				helped: false, //helpした側かどうかのflag（必要かどうかはわからん）
+    				targetPost: {
+    					latitude: "ここに目的地の緯度",
+    					longitude: "ここに目的地の経度"
+    				}
+    			};
+				
 	// アラート
 	var alt = Ti.UI.createAlertDialog({
 		//title: "HELP?",
@@ -159,19 +173,6 @@ function Window2(title){
     			//var longitude = e.coords.longitude;
 				
 				
-				//これがデータのモデルです〜
-    			var jsonData = {
-    				currentPos: {
-    					latitude: "ここに現在地の緯度",
-    					longitude: "ここに現在地の経度"
-    				},
-    				user_id: "ここにユーザーID",
-    				helped: false, //helpした側かどうかのflag（必要かどうかはわからん）
-    				targetPost: {
-    					latitude: "ここに目的地の緯度",
-    					longitude: "ここに目的地の経度"
-    				}
-    			};
 				
 				//ここでデータを送信してます〜
     			socket.emit("message", JSON.stringify(jsonData));
@@ -181,6 +182,14 @@ function Window2(title){
 			//ここでデータを受け取ります（ぶろーどきゃすとなので、自分には返ってきません）
 			socket.on("message", function (data){
 				alert(data);
+				var obj = JSON.parse(data);
+				var pos = Titanium.Map.createAnnotation({
+		   			pinImage: "/images/blue-circle.png",
+		   			latitude: obj.currentPos.latitude,
+		   			longitude: obj.currentPos.longitude,
+   					animate: true
+  				});
+				mapview.addAnnotation(pos);
 			});
 	    }
 	});
@@ -249,6 +258,8 @@ function Window2(title){
   			}
     	latitude = e.coords.latitude;
     	longitude = e.coords.longitude;
+    	jsonData.currentPos.latitude = latitude;
+    	jsonData.currentPos.longitude = longitude;
 
     	// 小数点第二位に省略
         var shortLatitude = Math.round(latitude * 100) / 100;
