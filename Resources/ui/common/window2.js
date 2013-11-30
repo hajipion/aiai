@@ -172,7 +172,7 @@ function Window2(title){
 			
     			//ここでデータを送信してます〜
 				socket.on("message", function (data){
-			alert(data);
+			//alert(data);
 			var obj = JSON.parse(data);	
 					
 			var point = user_id_log.indexOf(obj.user_id);
