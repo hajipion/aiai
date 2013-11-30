@@ -14,7 +14,7 @@ function Window2(title){
 	var view_search = Ti.UI.createView({
 		layout: 'vertical',
 		top: 0,
-		height: 160,
+		height: '40%',
 		width: 'auto',
 		backgroundColor: '#000',
 		opacity: 0.7
@@ -48,25 +48,41 @@ function Window2(title){
 		backgroundImage: '/images/help.png',
 		opacity:1
 	});
+	
+	var latitude;
+    var longitude;
 	sbmbutton.addEventListener("click",function(e){
 		//これでpushできます　メッセージの内容はpayloadを変更
 		var Cloud = require('ti.cloud');
         Cloud.debug = true;
- 	Cloud.PushNotifications.notify({
-    channel : 'alert',
- 	payload: 'HELP!!'+Ti.App._username
-	}, function (e) {
-   
-});
+ 		Cloud.PushNotifications.notify({
+    		channel : 'alert',
+ 			payload: 'HELP!!'+Ti.App._username
+		}, function (e) {});
+		
 		if(tfDestination.getValue()===''){
-			
 			alert.setTitle('HELPする前に！');
 			alert.setMessage('目的地を入力してください。');
 			alert.show();
 		} else {
-			alert.setTitle('HELP?');
-			alert.setMessage('近くの人に助けを求めますか？');
-			alert.show();
+			var appid =  '&appid=dj0zaiZpPWNNNDZuandRTDB0QiZzPWNvbnN1bWVyc2VjcmV0Jng9MjU-';
+			var lon = 'lon='+longitude;//経度
+    		var lat = '&lat='+latitude;//緯度
+    		var xhr = Ti.Network.createHTTPClient();
+    		xhr.timeout = 100000;
+    		xhr.open("GET","http://reverse.search.olp.yahooapis.jp/OpenLocalPlatform/V1/reverseGeoCoder?"+lon+lat+appid);
+    		xhr.onload = function(){
+    			//alert('success:' + this.responseText);
+        		var doc = this.responseXML.documentElement;
+        		var items = doc.getElementsByTagName("Address");
+        		alert.setTitle('HELPする前に！');
+				alert.setMessage("address: "+items.item(0).textContent);
+				alert.show();
+    		};
+    		xhr.send();	
+			//alert.setTitle('HELP?');
+			//alert.setMessage('近くの人に助けを求めますか？');
+			//alert.show();
 		}
 	});
 
@@ -221,8 +237,8 @@ function Window2(title){
    				//alert.show();
    				return;
   			}
-    	var latitude = e.coords.latitude;
-    	var longitude = e.coords.longitude;
+    	latitude = e.coords.latitude;
+    	longitude = e.coords.longitude;
 
     	// 小数点第二位に省略
         var shortLatitude = Math.round(latitude * 100) / 100;
