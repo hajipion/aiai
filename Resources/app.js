@@ -19,7 +19,7 @@ if (Ti.version < 1.8 ) {
 (function() {
 	
 	//determine platform and form factor and render approproate components
-	var osname = Ti.Platform.osname,
+		var osname = Ti.Platform.osname,
 		version = Ti.Platform.version,
 		height = Ti.Platform.displayCaps.platformHeight,
 		width = Ti.Platform.displayCaps.platformWidth;
@@ -44,29 +44,36 @@ if (Ti.version < 1.8 ) {
 
  
  //エミュレータで新規作成したいときはvar nameをnuullに
- var name = Ti.App.Properties.getString('username');
+var name = Ti.App.Properties.getString('username');
 //var name = null;
 var pass = Ti.App.Properties.getString('pass');
 
-	if (name) {
+
             //alert(name);
 			//login_user();
 			
             if (Ti.Platform.name == 'iPhone OS') {
-            	var ApplicationTabGroup =require('ui/common/ApplicationTabGroup');	
-            	login_user();
+            		if (name) {
+            			var ApplicationTabGroup =require('ui/common/ApplicationTabGroup');	
+            			login_user();
+            		}else{
+            			var ApplicationTabGroup = require('ui/common/ios_login');
+        				new ApplicationTabGroup(Window).open();
+            		}
             }else{
+            	if (name) {
             	var CloudPush4Android = require('ui/common/Push_and');
 				CloudPush4Android.Push_and();
 				var ApplicationTabGroup =require('ui/common/ApplicationTabGroup');		
             	new ApplicationTabGroup(Window).open();  
+            	}else{
+            	var ApplicationTabGroup = require('ui/common/login');
+        		new ApplicationTabGroup(Window).open();
+            	}
             }
-            
+
               
-        }else{
-        	var ApplicationTabGroup = require('ui/common/login');
-        	new ApplicationTabGroup(Window).open();
-        }
+       
 
 
  
@@ -85,7 +92,7 @@ var pass = Ti.App.Properties.getString('pass');
     var loginname = Ti.App.Properties.getString('username');
      //usernameを保存
    	Ti.App._username = loginname;
-    var loginpass = Ti.App.Properties.getString('pass');
+	var loginpass = Ti.App.Properties.getString('pass');
 	Ti.App.Properties.setString('username',  name);
         Cloud.Users.login({
         login:    loginname,
