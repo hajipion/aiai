@@ -23,6 +23,10 @@
 	[_property setObject:[TiUtils stringValue:@"aRtUHbTDJGB9tvWQ4J93SWlaN3sCl9GQ"] forKey:@"acs-oauth-secret-production"];
 	[_property setObject:[TiUtils stringValue:@"PdcPFgAzNy05x0PzYa0CqzUiy1tSFSXw"] forKey:@"acs-oauth-key-production"];
 	[_property setObject:[TiUtils stringValue:@"ocNKDnUWv33asdUnybmZhCkyEbl01hzK"] forKey:@"acs-api-key-production"];
+	[_property setObject:[TiUtils stringValue:@"mqtt"] forKey:@"acs-push-type-development"];
+	[_property setObject:[TiUtils stringValue:@"mqtt"] forKey:@"acs-push-type-production"];
+	[_property setObject:[TiUtils stringValue:@"mqtt"] forKey:@"acs-push-type"];
+	[_property setObject:[NSNumber numberWithInt:[TiUtils intValue:@"32768"]] forKey:@"ti.android.threadstacksize"];
 	[_property setObject:[TiUtils stringValue:@"system"] forKey:@"ti.ui.defaultunit"];
 	return _property;
 }

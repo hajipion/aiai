@@ -25,7 +25,7 @@ function Window2(title){
 		color: "#333",
 		hintText: "現在地",
 		width: '60%',
-		height: '25%',
+		height: '20%',
 		top: 10,
 		editable: false,
 		borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED
@@ -36,7 +36,7 @@ function Window2(title){
 		color: "#333",
 		hintText: "目的地を入力",
 		width: '60%',
-		height: '25%',
+		height: '20%',
 		top: 10,
 		borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED
 	});
@@ -48,6 +48,14 @@ function Window2(title){
 		backgroundImage: '/images/help.png',
 		opacity:1
 	});
+	
+	// Android用のレイアウト
+	if(Titanium.Platform.name == 'android'){
+		tfPresent.height = '25%',
+		tfDestination.height = '25%',
+		sbmbutton.width = 65,
+		sbmbutton.height = 65;
+	}
 	
 	var latitude;
     var longitude;
@@ -146,31 +154,33 @@ function Window2(title){
 	      	var io = require('ui/common/socketio-titanium');
 			var socket = io.connect('202.181.102.188:8080');
 
-			Titanium.Geolocation.addEventListener('location', function(e){
-				var latitude = e.coords.latitude;
-    			var longitude = e.coords.longitude;
-
+			//Titanium.Geolocation.addEventListener('location', function(e){
+				//var latitude = e.coords.latitude;
+    			//var longitude = e.coords.longitude;
+				
+				
+				//これがデータのモデルです〜
     			var jsonData = {
-    				"currentPos": {
-    					"latitude": latitude,
-    					"longitude": longitude
+    				currentPos: {
+    					latitude: "ここに現在地の緯度",
+    					longitude: "ここに現在地の経度"
     				},
-    				"user_id": "ここにユーザーID",
-    				"helped": false, //helpした側かどうかのflag（必要かどうかはわからん）
-    				"targetPost": {
-    					"latitude": "ここに目的地の緯度",
-    					"longitude": "ここに目的地の経度"
+    				user_id: "ここにユーザーID",
+    				helped: false, //helpした側かどうかのflag（必要かどうかはわからん）
+    				targetPost: {
+    					latitude: "ここに目的地の緯度",
+    					longitude: "ここに目的地の経度"
     				}
     			};
+				
+				//ここでデータを送信してます〜
+    			socket.emit("message", JSON.stringify(jsonData));
+			//});
 
-    			socket.emit("message", jsonData);
-			});
-
-
+			
+			//ここでデータを受け取ります（ぶろーどきゃすとなので、自分には返ってきません）
 			socket.on("message", function (data){
-				//Ti.API.info('got message: ' + data);
-				socket.emit("message", data + "again");
-				Ti.API.error(''+data);
+				Ti.API.error('' + JSON.parse(data));
 			});
 	    }
 	});
