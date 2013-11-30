@@ -139,18 +139,14 @@ function Window2(title){
 	});
 
 	//これがデータのモデルです〜
-    			var jsonData = {
-    				currentPos: {
-    					latitude: "ここに現在地の緯度",
-    					longitude: "ここに現在地の経度"
-    				},
-    				user_id: "ここにユーザーID",
-    				helped: false, //helpした側かどうかのflag（必要かどうかはわからん）
-    				targetPost: {
-    					latitude: "ここに目的地の緯度",
-    					longitude: "ここに目的地の経度"
-    				}
-    			};
+    var jsonData = {
+    	currentPos: {
+    		latitude: "ここに現在地の緯度",
+    		longitude: "ここに現在地の経度"
+    	},
+    	user_id: Ti.App._userid,
+    	helped: false, //helpした側かどうかのflag（必要かどうかはわからん）
+    };
 				
 	// アラート
 	var alt = Ti.UI.createAlertDialog({
@@ -159,14 +155,16 @@ function Window2(title){
 		buttonNames: ["OK","Cancel"],
 		cancel: 1
 	});
+	var io;
+	var socket;
 	alt.addEventListener('click',function(event){
 	    if(event.cancel){
 
 	    }
 	    // 選択されたボタンのindexも返る
 	    if(event.index == 0){
-	      	var io = require('ui/common/socketio-titanium');
-			var socket = io.connect('202.181.102.188:8080');
+	      	io = require('ui/common/socketio-titanium');
+			socket = io.connect('202.181.102.188:8080');
 
 			//Titanium.Geolocation.addEventListener('location', function(e){
 				//var latitude = e.coords.latitude;
