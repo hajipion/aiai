@@ -25,7 +25,7 @@ function Window2(title){
 		color: "#333",
 		hintText: "現在地",
 		width: '60%',
-		height: '25%',
+		height: '20%',
 		top: 10,
 		editable: false,
 		borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED
@@ -36,7 +36,7 @@ function Window2(title){
 		color: "#333",
 		hintText: "目的地を入力",
 		width: '60%',
-		height: '25%',
+		height: '20%',
 		top: 10,
 		borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED
 	});
@@ -48,6 +48,14 @@ function Window2(title){
 		backgroundImage: '/images/help.png',
 		opacity:1
 	});
+	
+	// Android用のレイアウト
+	if(Titanium.Platform.name == 'android'){
+		tfPresent.height = '25%',
+		tfDestination.height = '25%',
+		sbmbutton.width = 65,
+		sbmbutton.height = 65;
+	}
 	
 	var latitude;
     var longitude;
