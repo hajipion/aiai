@@ -103,7 +103,7 @@ function Window1(title){
 	
 	buyBtn.addEventListener("click", function(e){
 		var buyView = require('ui/common/buy_umbllera');
-		var buywin = buyView('傘を買う');
+		var buywin = buyView('傘を買う', win);
 		win.containingTab.open(buywin,{modal:true});
 	});
 	view.add(view_top);
