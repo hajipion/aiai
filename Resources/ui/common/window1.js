@@ -100,6 +100,12 @@ function Window1(title){
 		color: '#fff',
 		backgroundImage: '/images/back-login-button.png'
 	});
+	
+	buyBtn.addEventListener("click", function(e){
+		var buyView = require('ui/common/buy_umbllera');
+		var buywin = buyView('傘を買う');
+		win.containingTab.open(buywin,{modal:true});
+	});
 	view.add(view_top);
 	view.add(view_bottom);
 	view.add(buyBtn);
