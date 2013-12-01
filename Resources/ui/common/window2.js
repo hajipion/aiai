@@ -157,7 +157,6 @@ function Window2(title){
 	      	//io = require('ui/common/socketio-titanium');
 			//socket = io.connect('202.181.102.188:8080');
 			//isConnect = true;
-			
 			socket.emit("message", JSON.stringify(jsonData));
     			//ここでデータを送信してます〜
 				socket.on("message", function (data){
@@ -216,6 +215,15 @@ function Window2(title){
         //alt.show();
         return;
     }
+
+    /*
+	// 現在位置
+	var my_place = Ti.Map.createAnnotation({
+		title: "現在地",
+		pinImage: "/images/map-pin.png",
+		animate: true
+	});
+	*/
 
 	Ti.Geolocation.purpose = 'Get Current Location';
     Ti.Geolocation.accuracy = Ti.Geolocation.ACCURACY_BEST;
