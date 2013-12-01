@@ -130,6 +130,7 @@ function Window2(title){
     		longitude: "ここに現在地の経度"
     	},
     	user_id: Ti.App._userid,
+    	user_name: Ti.App.Properties.getString('username'),
     	helped: false, //helpした側かどうかのflag（必要かどうかはわからん）
     };
 				
@@ -140,54 +141,70 @@ function Window2(title){
 		buttonNames: ["OK","Cancel"],
 		cancel: 1
 	});
-	var io;
-	var socket;
-	var isConnect = false;
+	var io = require('ui/common/socketio-titanium');
+	var socket = io.connect('202.181.102.188:8080');
+	var isStarted = false;
 	var user_list= new Array();
 	var user_id_log= new Array();
+	
+	//ここでデータを受信してます〜
+	socket.on("message", function (data){
+		var obj = JSON.parse(data);	
+		if(obj.user_id === null){
+			alert("たすけてやんないよー");
+			return;
+		}
+		var point = user_id_log.indexOf(obj.user_id);
+		if(point==-1){
+			//if (obj.user_id in user_list === undefined){
+			var pos = Titanium.Map.createAnnotation({
+				pincolor: Titanium.Map.ANNOTATION_BLUE,
+	   			latitude: obj.currentPos.latitude,
+	   			longitude: obj.currentPos.longitude,
+   				animate: true
+  			});
+  			if(isStarted===false){
+  				if(obj.helped===true){
+  					var alt_help = Ti.UI.createAlertDialog({
+						title: "HELP!",
+						message: obj.user_name+"さんを助けますか？",
+						buttonNames: ["OK","NO"],
+						cancel: 1
+					});
+					alt_help.addEventListener('click',function(event){
+	    				if(event.cancel){
+							jsonData.user_id = null;
+	    				}
+	    				if(event.index == 0){
+							isStarted=true;
+	    				}
+	    				socket.emit("message", JSON.stringify(jsonData));
+					});
+  				}
+  			}
+  			user_id_log.push(obj.user_id);
+  			user_list[obj.user_id]=pos;
+  			//alert(user_list[obj.user_id].longitude);
+			mapview.addAnnotation(pos);								
+		}else{
+			user_list[obj.user_id].latitude=obj.currentPos.latitude;
+			user_list[obj.user_id].longitude=obj.currentPos.longitude;
+		}
+	});
+	
 	alt.addEventListener('click',function(event){
 	    if(event.cancel){
 
 	    }
 	    // 選択されたボタンのindexも返る
 	    if(event.index == 0){
-	      	io = require('ui/common/socketio-titanium');
-			socket = io.connect('202.181.102.188:8080');
-			isConnect = true;
-			
-    			//ここでデータを送信してます〜
-				socket.on("message", function (data){
-			//alert(data);
-			var obj = JSON.parse(data);	
-					
-			var point = user_id_log.indexOf(obj.user_id);
-			
-			if(point==-1){
-			//if (obj.user_id in user_list === undefined){
-				var pos = Titanium.Map.createAnnotation({
-					//image: "/images/blue-circle.png",
-		   			latitude: obj.currentPos.latitude,
-		   			longitude: obj.currentPos.longitude,
-   					animate: true
-  			});
-  				user_id_log.push(obj.user_id);
-  				user_list[obj.user_id]=pos;
-  				//alert(user_list[obj.user_id].longitude);
-				mapview.addAnnotation(pos);								
-			}else{
-				//alert("aru!!!!");
-				user_list[obj.user_id].latitude=obj.currentPos.latitude;
-				user_list[obj.user_id].longitude=obj.currentPos.longitude;
-				//mapview.addAnnotation(user_list[obj.user_id]);
-			}
-			
-
-		});
-								
-    			
+	      	//io = require('ui/common/socketio-titanium');
+			//socket = io.connect('202.181.102.188:8080');
+			//isConnect = true;
+			jsonData.helped=true;
+			socket.emit("message", JSON.stringify(jsonData));
 	    }
 	});
-
 
 	// 最初に中心となる位置をセットしておく
 	var mapview = Ti.Map.createView({
@@ -213,15 +230,6 @@ function Window2(title){
         return;
     }
 
-    /*
-	// 現在位置
-	var my_place = Ti.Map.createAnnotation({
-		title: "現在地",
-		pinImage: "/images/map-pin.png",
-		animate: true
-	});
-	*/
-
 	Ti.Geolocation.purpose = 'Get Current Location';
     Ti.Geolocation.accuracy = Ti.Geolocation.ACCURACY_BEST;
     Ti.Geolocation.distanceFilter = 1;
@@ -239,12 +247,15 @@ function Window2(title){
 
 	// 現在地を動的に表示する
   	var currentPos = Titanium.Map.createAnnotation({
-   		//pincolor: Titanium.Map.ANNOTATION_RED,
-   		pinImage: "/images/red-circle.png",
+   		pincolor: Titanium.Map.ANNOTATION_RED,
+   		latitude:35.681382, 
+   		longitude:139.76608,
    		animate: true
   	});
+  	mapview.addAnnotation(currentPos);
 
 	var tfCurrentPos = false;
+	// 現在地フィールドに住所をセット
 	var setCurrentLocation = function(){
 		var appid =  '&appid=dj0zaiZpPWNNNDZuandRTDB0QiZzPWNvbnN1bWVyc2VjcmV0Jng9MjU-';
 		var lon = 'lon='+longitude;//経度
@@ -260,39 +271,34 @@ function Window2(title){
    		xhr.send();	
    		tfCurrentPos = true;
 	};
+	// 'location' イベントのリスナーのコールバック 
 	var locationCallback = function(e) {
     	if(!e.success || e.error){
-   				//alert('位置情報が取得できませんでした');
-   				//alert.show();
-   				return;
-  			}
+   			alert('位置情報が取得できませんでした');
+ 			return;
+  		}
     	latitude = e.coords.latitude;
     	longitude = e.coords.longitude;
     	jsonData.currentPos.latitude = latitude;
     	jsonData.currentPos.longitude = longitude;
-    	if(isConnect === true){
-  
-    	socket.emit("message", JSON.stringify(jsonData));
-		//ここでデータを受け取ります（ぶろーどきゃすとなので、自分には返ってきません）
-		
+    	if(isStarted === true){
+			// データ送信  
+    		socket.emit("message", JSON.stringify(jsonData));
 		} 
-    	// 小数点第二位に省略
-        var shortLatitude = Math.round(latitude * 100) / 100;
-        var shortLongitude = Math.round(longitude * 100) / 100;
 
         // テキストフィールドに現在地を書く
         if(tfCurrentPos===false) setCurrentLocation();
 		currentPos.latitude=latitude;
 		currentPos.longitude=longitude;
 
-     	mapview.addAnnotation(currentPos);
-        mapview.show(); // 隠していた地図を表示する
+     	//mapview.addAnnotation(currentPos);
+        //mapview.show(); // 隠していた地図を表示する
         mapview.setLocation({   // 現在地まで地図をスクロールする
             latitude:latitude,
             longitude:longitude,
             animate:true,
-            latitudeDelta:0.01,
-            longitudeDelta:0.01
+            //latitudeDelta:0.01,
+            //longitudeDelta:0.01
         });
 	};
 
