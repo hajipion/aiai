@@ -1,1 +1,0 @@
-/Users/kurinoakiho/htdocs/aiai/Resources/ti-websocket-client/examples/echo-client.js

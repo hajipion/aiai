@@ -1,1 +1,0 @@
-/Users/kurinoakiho/htdocs/aiai/Resources/ui/tablet/ApplicationWindow.js

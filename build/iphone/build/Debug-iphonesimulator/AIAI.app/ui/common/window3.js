@@ -1,1 +1,0 @@
-/Users/kurinoakiho/htdocs/aiai/Resources/ui/common/window3.js

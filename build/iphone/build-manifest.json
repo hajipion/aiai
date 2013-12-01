@@ -1,8 +1,10 @@
 {
-	"target": "simulator",
-	"deployType": "development",
-	"deviceFamily": "iphone",
-	"iosSdkPath": "/Users/kurinoakiho/Library/Application Support/Titanium/mobilesdk/osx/3.1.3.GA/iphone",
+	"target": "device",
+	"deployType": "test",
+	"deviceFamily": "universal",
+	"developerName": "Hajime Hirono (54P8MMVHLW)",
+	"distributionName": "Hajime Hirono (54P8MMVHLW)",
+	"iosSdkPath": "/Users/hajime/Library/Application Support/Titanium/mobilesdk/osx/3.1.3.GA/iphone",
 	"appGuid": "3f4f1939-c86b-4ae5-8e92-1a06bb9f955d",
 	"tiCoreHash": "77157e1ffaec640cf559356a147b6a4c",
 	"modulesHash": "7fb655db1d51a26b74a2778ab4a02a6b",
@@ -17,7 +19,7 @@
 	"description": "相合傘プロジェクト",
 	"copyright": "2013 by A++",
 	"guid": "3f4f1939-c86b-4ae5-8e92-1a06bb9f955d",
-	"skipJSMinification": true,
+	"skipJSMinification": false,
 	"forceCopy": false,
 	"forceCopyAll": false
 }
