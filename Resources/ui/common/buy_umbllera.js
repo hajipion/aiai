@@ -15,10 +15,11 @@ function buyView(title, parent){
 		var data = [];
     	for(var i=0;i<items.length;i++){
         	var row = Ti.UI.createTableViewRow({
-        		height: 150,
-        		layout: 'horizontal'
+        		height: 50,
+        		layout: 'horizontal',
+        		title: items.item(i).getElementsByTagName("Name").item(0).text
         	});
-
+			/*
     		var image = Ti.UI.createImageView({
     			image: items.item(i).getElementsByTagName("Medium").item(0).text,
     			height: '90%',
@@ -34,8 +35,8 @@ function buyView(title, parent){
 	    		text: items.item(i).getElementsByTagName("Name").item(0).text
     		});
 
-	    	row.add(image);
-    		row.add(titleLabel);
+	    	//row.add(image);
+    		row.add(titleLabel);*/
         	data.push(row); 
     	}
     	table.setData(data);

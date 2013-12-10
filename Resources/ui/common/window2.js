@@ -143,9 +143,6 @@ function Window2(title){
 	var io;
 	var socket;
 	var isConnect = false;
-	io = require('ui/common/socketio-titanium');
-			socket = io.connect('202.181.102.188:8080');
-			isConnect = true;
 	var user_list= new Array();
 	var user_id_log= new Array();
 	alt.addEventListener('click',function(event){
@@ -154,9 +151,9 @@ function Window2(title){
 	    }
 	    // 選択されたボタンのindexも返る
 	    if(event.index == 0){
-	      	//io = require('ui/common/socketio-titanium');
-			//socket = io.connect('202.181.102.188:8080');
-			//isConnect = true;
+	      	io = require('ui/common/socketio-titanium');
+			socket = io.connect('202.181.102.188:8080');
+			isConnect = true;
 			socket.emit("message", JSON.stringify(jsonData));
     			//ここでデータを送信してます〜
 				socket.on("message", function (data){
